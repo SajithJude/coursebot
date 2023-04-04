@@ -56,10 +56,10 @@ if selected_item:
 
     with col2.expander("Learning Objectives"):
         st.write(loprompt)
-        st.write(st.session_state.json_lo)
+        st.write(json_lo)
 
     with col3.expander("topics"):
-        st.write(st.session_state.json_topi)
+        st.write(json_topi)
 
 else:
     st.warning("Click the 'Chapters' button to retrieve the table of contents.")
