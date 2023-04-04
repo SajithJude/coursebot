@@ -91,10 +91,11 @@ if quer:
    
     with st.expander("XML content"):
         col3.write(pretty_xml)
+        data_uri = f"data:text/plain;charset=utf-8,{pretty_xml}"
+        col3.markdown(f'<a href="{data_uri}" download="my_file.xml">Download XML</a>', unsafe_allow_html=True)
+
+
     
-        if download:
-            data_uri = f"data:text/plain;charset=utf-8,{pretty_xml}"
-            col3.markdown(f'<a href="{data_uri}" download="my_file.xml">Download XML</a>', unsafe_allow_html=True)
-
-
+        # if download:
+            
    
