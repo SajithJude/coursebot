@@ -59,6 +59,15 @@ if st.button("Query"):
 
     if chapter_contents:
         st.session_state.selected_chapters = chapter_contents
+        
+        with col2.expander("Edit PDF Content"):
+            for title, content in st.session_state.selected_chapters.items():
+                col2.write(f"Title: {title}")
+                content_key = f"{title}_content"
+                if content_key not in st.session_state:
+                    st.session_state[content_key] = content
+                content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
+        
         root = ET.Element("topics")
         for key, value in st.session_state.selected_chapters.items():
             topic = ET.SubElement(root, "topic_name")
@@ -66,16 +75,9 @@ if st.button("Query"):
             contents = ET.SubElement(root, "topic_contents")
             contents.text = value
 
-        if st.button("Save XML"):
+        # if col2.button("Save XML"):
             xml_string = ET.tostring(root)
             # Use minidom to pretty print the XML string
             pretty_xml = minidom.parseString(xml_string).toprettyxml()
             col3.write(pretty_xml)
-
-        for title, content in st.session_state.selected_chapters.items():
-            col2.write(f"Title: {title}")
-            content_key = f"{title}_content"
-            if content_key not in st.session_state:
-                st.session_state[content_key] = content
-            content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
-           
+            
