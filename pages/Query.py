@@ -53,7 +53,7 @@ if st.button("Query"):
     chapter_contents = {}
     for title in st.session_state.selected_items:
         chapter_content = index.query(f"Extract the contents under the title {title}")
-        chapter_contents[title] = chapter_content
+        chapter_contents[title] = chapter_content.response
 
     if chapter_contents:
         st.session_state.selected_chapters = chapter_contents
