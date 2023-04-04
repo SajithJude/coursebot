@@ -18,7 +18,7 @@ DATA_DIR = "data"
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
 
-cola, colb = st.columns([5,3])
+cola, colb ,colc= st.columns([5,3,3])
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
@@ -51,8 +51,8 @@ try:
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
 
-    quer = col1.button("Extract Selected")
-    download = col3.button("Download XML")
+    quer = colc.button("Extract Selected")
+    # download = col3.button("Download XML")
     # col3.write("")
 
     for item in st.session_state.table_of_contents:
@@ -68,7 +68,7 @@ try:
             chapter_contents[title] = chapter_content.response
 
         if chapter_contents:
-            sav = col2.button("Save Edits")
+            # sav = col2.button("Save Edits")
             st.session_state.selected_chapters = chapter_contents
             
             # with col2.expander("Edit PDF Content"):
