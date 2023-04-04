@@ -79,12 +79,12 @@ try:
             
         root = ET.Element("topics")
         for key, value in st.session_state.selected_chapters.items():
-            if key == "Objectives":
+            if key == "1.1 Objectives":
                 topic_name = "objectives"
                 topic_content = "objectives_content"
             else:
-                topic_name = key.lower()
-                topic_content = f"{key.lower()}_content"
+                topic_name = "topic_name"
+                topic_content = "topic_content"
                 
             topic = ET.SubElement(root, topic_name)
             topic.text = key
