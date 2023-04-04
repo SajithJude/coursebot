@@ -39,27 +39,25 @@ col1, col2, col3 = st.columns(3)
 selected_item = col1.radio("Select an item:", st.session_state.json_output)
 
 if selected_item:
-    loprompt= f"list down the contents under the Objectives of the chapter {selected_item} of this book as a json list"
+    loprompt= f"list down the contents under the Learning Objectives of the chapter {selected_item} of this book as a json list"
     toprompt =f"list down the topics under the chapter {selected_item} of this book as a json list"
     lores = index.query(loprompt)
     str_lo = str(lores)
     json_lo = json.loads(str_lo)
-    if "json_lo" not in st.session_state:
-        st.session_state.json_lo = json_lo
-
+   
 
     topires = index.query(toprompt)
     str_topi = str(topires)
     json_topi = json.loads(str_topi)
-    if "json_topi" not in st.session_state:
-        st.session_state.json_topi = json_topi
+   
 
-    with col2.expander("Learning Objectives"):
-        st.write(loprompt)
-        st.write(json_lo)
+    # with col2.expander("Learning Objectives"):
+    col2.write(loprompt)
+    col2.write(json_lo)
 
-    with col3.expander("topics"):
-        st.write(json_topi)
+# with col3.expander("topics"):
+    col3.write(toprompt)
+    col3.write(json_topi)
 
 else:
     st.warning("Click the 'Chapters' button to retrieve the table of contents.")
