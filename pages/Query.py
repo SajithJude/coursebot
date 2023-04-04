@@ -43,10 +43,10 @@ if toc:
 try:
     selected_items = []
     for item in table_of_contents:
-    for title, content in item.items():
-        if st.checkbox(title):
-            selected_items.append(title)
-            
+        for title, content in item.items():
+            if st.checkbox(title):
+                selected_items.append(title)
+
     if selected_items:
         st.write("Selected items:", selected_items)
 except AttributeError:
