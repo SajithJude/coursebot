@@ -5,6 +5,8 @@ import os
 import openai 
 import json
 import xml.etree.ElementTree as ET
+from xml.dom import minidom
+
 
 from langchain import OpenAI
 
@@ -65,7 +67,8 @@ if st.button("Query"):
             contents = ET.SubElement(root, "topic_contents")
             contents.text = value
         xml_string = ET.tostring(root)
-        col2.code(xml_string)
+        pretty_xml = minidom.parseString(xml_string).toprettyxml()
+        col2.code(pretty_xml)
 
 
 # try:
