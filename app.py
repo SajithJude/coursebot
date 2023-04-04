@@ -6,6 +6,15 @@ import openai
 from pathlib import Path
 from llama_index import download_loader
 
+from llama_index import (
+    GPTKeywordTableIndex,
+    SimpleDirectoryReader,
+    LLMPredictor,
+    ServiceContext
+)
+from langchain import OpenAI
+
+
 # Define the data directory path
 DATA_DIR = "data"
 
@@ -40,9 +49,13 @@ def main():
         
         # Load the documents from the data directory
         documents = SimpleDirectoryReader(DATA_DIR).load_data()
+        # define LLM
+        llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-002", max_tokens=512))
+        service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
+
         
         # Create the index from the documents
-        index = GPTSimpleVectorIndex.from_documents(documents)
+        index = GPTSimpleVectorIndex.from_documents(documents,service_context=service_context)
         
         # Save the index to the data directory with the same name as the PDF
         index.save_to_disk(os.path.join(DATA_DIR, os.path.splitext(pdf_filename)[0] + ".json"))
