@@ -49,7 +49,7 @@ def main():
 
 
     # Create a file uploader widget
-    uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
+    uploaded_file = st.file_uploader("Upload a Chapter as a PDF file", type="pdf")
     
     # Check if a file was uploaded
     if uploaded_file is not None:
@@ -106,4 +106,4 @@ if __name__ == "__main__":
     if password == "flipick":
         main()
     else:
-        st.warning("Admins Please enter Password to manage books, Learners are only allowed to use the bot, please Visit the DocuBOT section in the Menu")
+        st.warning("Admins Please enter Password to manage books")
