@@ -24,7 +24,10 @@ toc = st.button("Table of contents")
 
 if toc:
     toc_res = index.query("what are the table of contents of this book")
-    if "toc_res" not in st.session_state:
-        st.session_state.toc_res = toc_res
-
-st.write(st.session_state.toc_res)
+    if toc_res:
+        toc_list = [item.text for item in toc_res]
+        selected_toc = st.radio("Select a table of contents item:", toc_list)
+    else:
+        st.warning("No table of contents found.")
+else:
+    st.warning("Click the 'Table of contents' button to retrieve the table of contents.")
