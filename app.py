@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
 from langchain import OpenAI
-st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="auto")
 openai.api_key = os.getenv("API_KEY")
 st.subheader("CourseBot")
 st.caption("AI_powered course creation made easy")
@@ -19,11 +19,22 @@ if not os.path.exists(DATA_DIR):
 def save_uploaded_file(uploaded_file):
     with open(os.path.join(DATA_DIR, uploaded_file.name), "wb") as f:
         f.write(uploaded_file.getbuffer())
+        
+def delete_file(DATA_DIR, file_name):
+    pdf_path = os.path.join(DATA_DIR, file_name)
+    json_path = os.path.join(DATA_DIR, os.path.splitext(file_name)[0] + ".json")
+    if os.path.exists(pdf_path):
+        os.remove(pdf_path)
+        st.success(f"File {file_name} deleted successfully!")
+    else:
+        st.error(f"File {file_name} not found!")
+    if os.path.exists(json_path):
+        os.remove(json_path)
 
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
-uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
+uploaded_file = st.sidebar.file_uploader("Upload a PDF file", type="pdf")
 
 # Check if a file was uploaded
 if uploaded_file is not None:
