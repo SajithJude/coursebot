@@ -74,7 +74,7 @@ try:
             # with col2.expander("Edit PDF Content"):
                 
         for title, content in st.session_state.selected_chapters.items():
-            col2.write(f"Title: {title}")
+            col2.markdown(f"**Title: {title}**")
             content_key = f"{title}_content"
             if content_key not in st.session_state:
                 st.session_state[content_key] = content
