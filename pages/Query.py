@@ -20,7 +20,7 @@ if index_filenames:
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=3000))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
 
-    index = GPTSimpleVectorIndex.load_from_disk(index_path,, service_context=service_context)
+    index = GPTSimpleVectorIndex.load_from_disk(index_path,service_context=service_context)
 else:
     # If there are no index files available, prompt the user to upload a PDF file
     st.warning("No index files found. Please upload a PDF file to create an index.")
