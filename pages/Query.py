@@ -39,11 +39,11 @@ col1, col2, col3 = st.columns(3)
 selected_item = col1.radio("Select an item:", st.session_state.json_output)
 
 if selected_item:
-    loprompt= f"list down the contents under the Learning Objectives of the chapter {selected_item} of this book as a json list"
+    # loprompt= f"list down the contents under the Learning Objectives of the chapter {selected_item} of this book as a json list"
     toprompt =f"list down the topics under the chapter {selected_item} of this book as a json list"
-    lores = index.query(loprompt)
-    str_lo = str(lores)
-    json_lo = json.loads(str_lo)
+    # lores = index.query(loprompt)
+    # str_lo = str(lores)
+    # json_lo = json.loads(str_lo)
    
 
     topires = index.query(toprompt)
@@ -52,8 +52,8 @@ if selected_item:
    
 
     # with col2.expander("Learning Objectives"):
-    col2.write(loprompt)
-    col2.write(json_lo)
+    # col2.write(loprompt)
+    # col2.write(json_lo)
 
 # with col3.expander("topics"):
     col3.write(toprompt)
