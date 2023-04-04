@@ -70,7 +70,7 @@ try:
     if toc:
         toc_res = index.query(f"Generate a full table of contents for this book in a json format ")
         str_toc = str(toc_res)
-        # st.write(str_toc)
+        print(str_toc)
         json_output = json.loads(str_toc)
         table_of_contents = json_output["Table of Contents"]
         if "table_of_contents" not in st.session_state:
