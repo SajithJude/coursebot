@@ -65,13 +65,13 @@ if st.button("Query"):
             contents = ET.SubElement(root, "topic_contents")
             contents.text = value
         xml_string = ET.tostring(root)
-        st.write(xml_string)
+        col2.code(xml_string)
 
 
-try:
-    col2.write(st.session_state.selected_chapters)
-except AttributeError:
-    pass
+# try:
+#     col2.write(st.session_state.selected_chapters)
+# except AttributeError:
+#     pass
 
 if not st.session_state.selected_items:
     st.warning("Please select some chapters to extract")
