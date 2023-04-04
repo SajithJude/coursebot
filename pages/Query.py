@@ -21,7 +21,7 @@ else:
     # If there are no index files available, prompt the user to upload a PDF file
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
-
+col1, col2, col3 = st.columns(3)
 
 toc = st.button("Chapters")
 
@@ -36,7 +36,7 @@ if toc:
 
 
 
-selected_item = st.radio("Select an item:", st.session_state.json_output)
+selected_item = col1.radio("Select an item:", st.session_state.json_output)
 
 
 ##########################################
@@ -45,9 +45,9 @@ selected_item = st.radio("Select an item:", st.session_state.json_output)
 
 
 # chapter = st.text_input("chapter number")
-lo = st.button("Learning Objectives")
+# lo = st.button("Learning Objectives")
 
-if lo:
+if selected_item:
     lores = index.query(f"list down the learning objectives of the chapter {selected_item} of this book as a json list")
     str_lo = str(lores)
     # st.write(str_lo)
@@ -59,9 +59,9 @@ if lo:
 
 
 ########################################
-topi = st.button("Topics")
+# topi = st.button("Topics")
 
-if topi:
+# if topi:
     topires = index.query(f"list down the topics under the chapter {selected_item} of this book as a json list")
     str_topi = str(topires)
     # st.write(str_topi)
@@ -72,15 +72,15 @@ if topi:
     # st.write(st.session_state.json_topi)
 
 else:
-    st.warning("Click the 'Table of contents' button to retrieve the table of contents.")
+    st.warning("Click the 'Chapters' button to retrieve the table of contents.")
 
 
-with st.expander("Chapters"):
-    st.write(st.session_state.json_output)
+# with st.expander("Chapters"):
+#     st.write(st.session_state.json_output)
 
-with st.expander("Learning Objectives"):
+with col2.expander("Learning Objectives"):
     st.write(st.session_state.json_lo)
 
-with st.expander("topics"):
+with col3.expander("topics"):
     st.write(st.session_state.json_topi)
 
