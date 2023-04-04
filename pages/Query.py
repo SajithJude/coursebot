@@ -21,7 +21,6 @@ else:
     # If there are no index files available, prompt the user to upload a PDF file
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
-col1, col2, col3 = st.columns(3)
 
 toc = st.button("Chapters")
 
@@ -34,6 +33,7 @@ if toc:
         st.session_state.json_output = json_output
 
 
+col1, col2, col3 = st.columns(3)
 
 
 selected_item = col1.radio("Select an item:", st.session_state.json_output)
