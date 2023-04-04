@@ -86,5 +86,6 @@ if quer:
             xml_string = ET.tostring(root)
             # Use minidom to pretty print the XML string
             pretty_xml = minidom.parseString(xml_string).toprettyxml()
-            col3.write(pretty_xml)
+            with st.expander("XML content")
+                col3.write(pretty_xml)
             
