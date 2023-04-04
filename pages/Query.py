@@ -28,7 +28,7 @@ if toc:
     toc_res = index.query(f"Generate a table of contents for this book in a json format ")
     str_toc = str(toc_res)
     st.write(str_toc)
-    # json_output = json.loads(str_toc)
+    json_output = json.loads(str_toc)
     # if "json_output" not in st.session_state:
     #     st.session_state.json_output = json_output
 
