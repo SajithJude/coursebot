@@ -43,9 +43,10 @@ if toc:
 try:
     selected_items = []
     for item in st.session_state.table_of_contents:
-        for title, content in item.items():
-            if st.checkbox(title):
-                selected_items.append(content)
+        selected_items.append(item)
+        # for title, content in item.items():
+        #     if st.checkbox(title):
+        #         selected_items.append(content)
 
     if selected_items:
         st.write("Selected items:", selected_items)
