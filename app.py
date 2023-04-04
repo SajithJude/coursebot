@@ -18,7 +18,7 @@ DATA_DIR = "data"
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
 
-cola, colb ,colc= st.columns([5,3,5])
+cola, colb ,colc= st.columns([5,5,5])
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
