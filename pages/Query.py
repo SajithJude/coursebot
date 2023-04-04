@@ -25,7 +25,7 @@ else:
 toc = st.button("Table of contents")
 
 if toc:
-    toc_res = index.query("list down the table of contents of this book")
+    toc_res = index.query("list down the table of contents of this book as a json list")
     str_toc = str(toc_res)
     st.write(str_toc)
     json_output = json.loads(str_toc)
