@@ -34,7 +34,7 @@ if toc:
     str_toc = str(toc_res)
     st.write(str_toc)
     json_output = json.loads(str_toc)
-    table_of_contents = json_data["Table of Contents"]
+    table_of_contents = json_output["Table of Contents"]
 
     selected_items = []
     for item in table_of_contents:
