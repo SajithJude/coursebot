@@ -51,7 +51,7 @@ try:
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
 
-    quer = col3.button("Extract Selected")
+    quer = col2.button("Extract Selected")
     # download = col3.button("Download XML")
     # col3.write("")
 
