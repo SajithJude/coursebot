@@ -5,6 +5,7 @@ import os
 import openai 
 import json
 
+from langchain import OpenAI
 
 openai.api_key = os.getenv("API_KEY")
 
