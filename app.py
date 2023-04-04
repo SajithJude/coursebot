@@ -18,7 +18,7 @@ DATA_DIR = "data"
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
 
-cola, colb ,colc= st.columns([6,1,1],gap="small")
+cola, colb = st.columns([6,1],gap="small")
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
@@ -46,7 +46,7 @@ try:
 
     st.write("")
     # st.write()
-    col1, col2, col3 = st.tabs(["Table of Contents", "Edit Extracted Content","Generated XML"])
+    col1, col2, col3 = st.tabs(["  Table of Contents  ", "  Edit Extracted Content  ","  Generated XML  "])
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
