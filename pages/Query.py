@@ -34,6 +34,17 @@ if toc:
     str_toc = str(toc_res)
     st.write(str_toc)
     json_output = json.loads(str_toc)
+    table_of_contents = json_data["Table of Contents"]
+
+selected_items = []
+for item in table_of_contents:
+    for title, content in item.items():
+        if st.checkbox(title):
+            selected_items.append(content)
+
+if selected_items:
+    st.write("Selected items:", selected_items)
+
     # if "json_output" not in st.session_state:
     #     st.session_state.json_output = json_output
 
@@ -41,7 +52,7 @@ if toc:
 # col1, col2, col3 = st.columns(3)
 
 
-# # selected_item = col1.radio("Select an item:", json_output)
+# selected_item = col1.radio("Select an item:", json_output)
 
 # if selected_item:
 #     # loprompt= f"list down the contents under the Learning Objectives of the chapter {selected_item} of this book as a json list"
