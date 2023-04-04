@@ -68,7 +68,7 @@ if st.button("Query"):
             contents.text = value
         xml_string = ET.tostring(root)
         pretty_xml = minidom.parseString(xml_string).toprettyxml()
-        col2.code(pretty_xml)
+        col2.code(pretty_xml, language=None)
 
 
 # try:
