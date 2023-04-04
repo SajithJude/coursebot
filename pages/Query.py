@@ -30,10 +30,10 @@ if toc:
     str_toc = str(toc_res)
     st.write(str_toc)
     json_output = json.loads(str_toc)
-    st.write(json_output)
+    if "json_output" not in st.session_state:
+        st.session_state.json_output = json_output
 
-else:
-    st.warning("Click the 'Table of contents' button to retrieve the table of contents.")
+    st.write(st.session_state.json_output)
 
 
 ##########################################
@@ -46,10 +46,10 @@ if lo:
     str_lo = str(lores)
     st.write(str_lo)
     json_lo = json.loads(str_lo)
-    st.write(json_lo)
+    if "json_lo" not in st.session_state:
+        st.session_state.json_lo = json_lo
 
-else:
-    st.warning("Click the 'Table of contents' button to retrieve the table of contents.")
+    st.write(st.session_state.json_lo)
 
 
 ########################################
@@ -60,7 +60,21 @@ if topi:
     str_topi = str(topires)
     st.write(str_topi)
     json_topi = json.loads(str_topi)
-    st.write(json_topi)
+    if "json_topi" not in st.session_state:
+        st.session_state.json_topi = json_topi
+
+    st.write(st.session_state.json_topi)
 
 else:
     st.warning("Click the 'Table of contents' button to retrieve the table of contents.")
+
+
+with st.expander("Chapters"):
+    st.write(st.session_state.json_output)
+
+with st.expander("Learning Objectives"):
+    st.write(st.session_state.json_lo)
+
+with st.expander("topics"):
+    st.write(st.session_state.json_topi)
+
