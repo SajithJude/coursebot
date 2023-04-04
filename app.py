@@ -13,6 +13,9 @@ openai.api_key = os.getenv("API_KEY")
 PDFReader = download_loader("PDFReader")
 loader = PDFReader()
 
+if not os.path.exists(DATA_DIR):
+    os.mkdir(DATA_DIR)
+
 def save_uploaded_file(uploaded_file):
     with open(os.path.join(DATA_DIR, uploaded_file.name), "wb") as f:
         f.write(uploaded_file.getbuffer())
