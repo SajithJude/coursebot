@@ -38,26 +38,26 @@ if toc:
     if "table_of_contents" not in st.session_state:
         st.session_state.table_of_contents = table_of_contents
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 try:
     selected_items = []
+    chapter_contents = {}
     for item in st.session_state.table_of_contents:
         for title, content in item.items():
             if col1.checkbox(title):
                 selected_items.append(title)
+                chapter_content = index.query(f"Extract the contents under the title {title}")
+                chapter_contents[title] = chapter_content
 
-    
+    if selected_items:
+        st.session_state.selected_chapters = chapter_contents
+    col2.write(st.session_state.selected_chapters)
+    # selected_toc = col2.radio("Select a table of contents item:", selected_items)
 
-    selected_toc = col2.radio("Select a table of contents item:", selected_items)
-
-    if selected_toc:
-        item_content = index.query(f"Extract the contents under the title {selected_toc}")
-        col3.write(item_content)
-
-
-
-
+    # if selected_toc:
+    #     item_content = st.session_state.selected_chapters[selected_toc]
+    #     col3.write(item_content)
 
 except AttributeError:
     st.warning("Generate TOC to view list")  
