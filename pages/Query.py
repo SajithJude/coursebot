@@ -21,11 +21,11 @@ else:
     # If there are no index files available, prompt the user to upload a PDF file
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
-
+chapter = st.text_input("chapter number")
 toc = st.button("Table of contents")
 
 if toc:
-    toc_res = index.query("list down the table of contents of this book as a json list")
+    toc_res = index.query(f"list down the topics in the {chapter} of this book as a json list")
     str_toc = str(toc_res)
     st.write(str_toc)
     json_output = json.loads(str_toc)
