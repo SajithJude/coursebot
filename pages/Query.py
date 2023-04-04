@@ -36,14 +36,14 @@ if toc:
     json_output = json.loads(str_toc)
     table_of_contents = json_data["Table of Contents"]
 
-selected_items = []
-for item in table_of_contents:
-    for title, content in item.items():
-        if st.checkbox(title):
-            selected_items.append(content)
+    selected_items = []
+    for item in table_of_contents:
+        for title, content in item.items():
+            if st.checkbox(title):
+                selected_items.append(content)
 
-if selected_items:
-    st.write("Selected items:", selected_items)
+    if selected_items:
+        st.write("Selected items:", selected_items)
 
     # if "json_output" not in st.session_state:
     #     st.session_state.json_output = json_output
