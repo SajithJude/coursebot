@@ -8,17 +8,17 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
 from langchain import OpenAI
-st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="auto")
+st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("API_KEY")
 st.subheader("CourseBot")
-st.caption("AI_powered course creation made easy")
+st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
 
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
 
-cola, colb ,colc= st.columns([5,5,5])
+cola, colb ,colc= st.columns([5,5,5],gap="small")
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
