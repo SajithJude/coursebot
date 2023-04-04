@@ -49,7 +49,7 @@ if "selected_items" not in st.session_state:
     st.session_state.selected_items = []
 
 quer = col1.button("Extract Selected")
-sav = col2.Button("Save Edits")
+sav = col2.button("Save Edits")
 for item in st.session_state.table_of_contents:
     for title, content in item.items():
         if col1.checkbox(title):
