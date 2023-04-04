@@ -48,13 +48,14 @@ col1, col2, col3 = st.columns(3)
 if "selected_items" not in st.session_state:
     st.session_state.selected_items = []
 
+quer = col1.button("Query")
 for item in st.session_state.table_of_contents:
     for title, content in item.items():
         if col1.checkbox(title):
             if title not in st.session_state.selected_items:
                 st.session_state.selected_items.append(title)
 
-if st.button("Query"):
+if quer:
     chapter_contents = {}
     for title in st.session_state.selected_items:
         chapter_content = index.query(f"Extract the contents under the title {title}")
