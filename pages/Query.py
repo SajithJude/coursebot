@@ -22,7 +22,7 @@ else:
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
 
-toc = st.button("Chapters")
+toc = st.button("Get Chapters")
 
 if toc:
     toc_res = index.query(f"list down the chapters of this book as a json list")
@@ -38,38 +38,28 @@ col1, col2, col3 = st.columns(3)
 
 selected_item = col1.radio("Select an item:", st.session_state.json_output)
 
-
-##########################################
-
-
-
-
-# chapter = st.text_input("chapter number")
-# lo = st.button("Learning Objectives")
-
 if selected_item:
-    lores = index.query(f"list down the learning objectives of the chapter {selected_item} of this book as a json list")
+    loprompt= f"list down the learning objectives of the chapter {selected_item} of this book as a json list"
+    toprompt =f"list down the topics under the chapter {selected_item} of this book as a json list"
+    lores = index.query(loprompt)
     str_lo = str(lores)
-    # st.write(str_lo)
     json_lo = json.loads(str_lo)
     if "json_lo" not in st.session_state:
         st.session_state.json_lo = json_lo
 
-    # st.write(st.session_state.json_lo)
 
-
-########################################
-# topi = st.button("Topics")
-
-# if topi:
-    topires = index.query(f"list down the topics under the chapter {selected_item} of this book as a json list")
+    topires = index.query(toprompt)
     str_topi = str(topires)
-    # st.write(str_topi)
     json_topi = json.loads(str_topi)
     if "json_topi" not in st.session_state:
         st.session_state.json_topi = json_topi
 
-    # st.write(st.session_state.json_topi)
+    with col2.expander("Learning Objectives"):
+        st.write(loprompt)
+        st.write(st.session_state.json_lo)
+
+    with col3.expander("topics"):
+        st.write(st.session_state.json_topi)
 
 else:
     st.warning("Click the 'Chapters' button to retrieve the table of contents.")
@@ -78,9 +68,5 @@ else:
 # with st.expander("Chapters"):
 #     st.write(st.session_state.json_output)
 
-with col2.expander("Learning Objectives"):
-    st.write(st.session_state.json_lo)
 
-with col3.expander("topics"):
-    st.write(st.session_state.json_topi)
 
