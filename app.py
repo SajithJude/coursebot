@@ -80,7 +80,7 @@ try:
                 st.session_state[content_key] = content
             content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
             
-        root = ET.Element("topics")
+        root = ET.Element("chapter")
         for key, value in st.session_state.selected_chapters.items():
             if key == "1.1 Objectives":
                 topic_name = "objectives"
