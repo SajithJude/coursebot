@@ -26,7 +26,7 @@ toc = st.button("Table of contents")
 
 if toc:
     toc_res = index.query("list down the table of contents of this book as a json list")
-    st.write(toc_res)
+    st.write(list(toc_res))
     # json_output = json.loads(toc_res)
     # st.write(json_output)
 
