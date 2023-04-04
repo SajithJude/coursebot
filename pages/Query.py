@@ -21,20 +21,46 @@ else:
     # If there are no index files available, prompt the user to upload a PDF file
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
-chapter = st.text_input("chapter number")
-toc = st.button("Table of contents")
+
+
+toc = st.button("Chapters")
 
 if toc:
-    toc_res = index.query(f"list down the learning objectives of the {chapter} of this book as a json list")
+    toc_res = index.query(f"list down the chapters of this book as a json list")
     str_toc = str(toc_res)
     st.write(str_toc)
     json_output = json.loads(str_toc)
     st.write(json_output)
 
-    if toc_res:
-        toc_list = [item.text for item in toc_res]
-        selected_toc = st.radio("Select a table of contents item:", toc_list)
-    else:
-        st.warning("No table of contents found.")
+else:
+    st.warning("Click the 'Table of contents' button to retrieve the table of contents.")
+
+
+##########################################
+
+chapter = st.text_input("chapter number")
+lo = st.button("Learning Objectives")
+
+if lo:
+    lores = index.query(f"list down the learning objectives of the chapter {chapter} of this book as a json list")
+    str_lo = str(lores)
+    st.write(str_lo)
+    json_lo = json.loads(str_lo)
+    st.write(json_lo)
+
+else:
+    st.warning("Click the 'Table of contents' button to retrieve the table of contents.")
+
+
+########################################
+topi = st.button("Topics")
+
+if topi:
+    topires = index.query(f"list down the topics under the chapter {chapter} of this book as a json list")
+    str_topi = str(topires)
+    st.write(str_topi)
+    json_topi = json.loads(str_topi)
+    st.write(json_topi)
+
 else:
     st.warning("Click the 'Table of contents' button to retrieve the table of contents.")
