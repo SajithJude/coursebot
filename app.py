@@ -13,52 +13,9 @@ openai.api_key = os.getenv("API_KEY")
 st.subheader("CourseBot")
 st.caption("AI_powered course creation made easy")
 DATA_DIR = "data"
-if not os.path.exists(DATA_DIR):
-    os.mkdir(DATA_DIR)
-
-def save_uploaded_file(uploaded_file):
-    with open(os.path.join(DATA_DIR, uploaded_file.name), "wb") as f:
-        f.write(uploaded_file.getbuffer())
-        
-def delete_file(DATA_DIR, file_name):
-    pdf_path = os.path.join(DATA_DIR, file_name)
-    json_path = os.path.join(DATA_DIR, os.path.splitext(file_name)[0] + ".json")
-    if os.path.exists(pdf_path):
-        os.remove(pdf_path)
-        st.success(f"File {file_name} deleted successfully!")
-    else:
-        st.error(f"File {file_name} not found!")
-    if os.path.exists(json_path):
-        os.remove(json_path)
 
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
-
-uploaded_file = st.sidebar.file_uploader("Upload a PDF file", type="pdf")
-
-# Check if a file was uploaded
-if uploaded_file is not None:
-    # Save the uploaded file to the data directory
-    save_uploaded_file(uploaded_file)
-    st.success("It would take a while to index the books, please wait..!")
-    # Create a button to create the index
-# if st.button("Create Index"):
-    # Get the filename of the uploaded PDF
-    pdf_filename = uploaded_file.name
-    
-    # Load the documents from the data directory
-    documents = SimpleDirectoryReader(DATA_DIR).load_data()
-    # define LLM
-    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=3000))
-    service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
-
-    
-    # Create the index from the documents
-    index = GPTSimpleVectorIndex.from_documents(documents,service_context=service_context)
-    
-    # Save the index to the data directory with the same name as the PDF
-    index.save_to_disk(os.path.join(DATA_DIR, os.path.splitext(pdf_filename)[0] + ".json"))
-    st.success("Index created successfully!")
 
 
 cola, colb = st.columns([5,3])

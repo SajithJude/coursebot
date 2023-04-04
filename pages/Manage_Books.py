@@ -45,34 +45,34 @@ def save_uploaded_file(uploaded_file):
 
 # Define the Streamlit app
 def main():
-    st.title("Manage Books")
+    st.title("CourseBOT Admin")
 
 
-    # # Create a file uploader widget
-    # uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
+    # Create a file uploader widget
+    uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
     
-    # # Check if a file was uploaded
-    # if uploaded_file is not None:
-    #     # Save the uploaded file to the data directory
-    #     save_uploaded_file(uploaded_file)
-    #     st.success("It would take a while to index the books, please wait..!")
+    # Check if a file was uploaded
+    if uploaded_file is not None:
+        # Save the uploaded file to the data directory
+        save_uploaded_file(uploaded_file)
+        st.success("It would take a while to index the books, please wait..!")
     
-    # # Create a button to create the index
-    # # if st.button("Create Index"):
-    #     # Get the filename of the uploaded PDF
-    #     pdf_filename = uploaded_file.name
+    # Create a button to create the index
+    # if st.button("Create Index"):
+        # Get the filename of the uploaded PDF
+        pdf_filename = uploaded_file.name
         
-    #     # Load the documents from the data directory
-    #     documents = SimpleDirectoryReader(DATA_DIR).load_data()
+        # Load the documents from the data directory
+        documents = SimpleDirectoryReader(DATA_DIR).load_data()
         
-    #     # Create the index from the documents
-    #     index = GPTSimpleVectorIndex.from_documents(documents)
+        # Create the index from the documents
+        index = GPTSimpleVectorIndex.from_documents(documents)
         
-    #     # Save the index to the data directory with the same name as the PDF
-    #     index.save_to_disk(os.path.join(DATA_DIR, os.path.splitext(pdf_filename)[0] + ".json"))
-    #     st.success("Index created successfully!")
+        # Save the index to the data directory with the same name as the PDF
+        index.save_to_disk(os.path.join(DATA_DIR, os.path.splitext(pdf_filename)[0] + ".json"))
+        st.success("Index created successfully!")
     
-    # # Get a list of files in the directory
+    # Get a list of files in the directory
     files = os.listdir(DATA_DIR)
     
     # Filter out the JSON index files
