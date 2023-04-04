@@ -52,12 +52,12 @@ quer = col1.button("Extract Selected")
 download = col3.button("Download XML")
 # col3.write("")
 
-for item in st.session_state.table_of_contents:
-    for title, content in item.items():
-        if col1.checkbox(title):
-            if title not in st.session_state.selected_items:
-                st.session_state.selected_items.append(title)
-
+with col1.expander("Table of Contents"):
+    for item in st.session_state.table_of_contents:
+        for title, content in item.items():
+            if col1.checkbox(title):
+                if title not in st.session_state.selected_items:
+                    st.session_state.selected_items.append(title)
 if quer:
     chapter_contents = {}
     for title in st.session_state.selected_items:
@@ -91,11 +91,4 @@ if quer:
    
     with st.expander("XML content"):
         col3.write(pretty_xml)
-        data_uri = f"data:text/plain;charset=utf-8,{pretty_xml}"
-        col3.markdown(f'<a href="{data_uri}" download="my_file.xml">Download XML</a>', unsafe_allow_html=True)
-
-
-    
-        # if download:
-            
-   
+       
