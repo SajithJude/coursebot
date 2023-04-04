@@ -79,9 +79,16 @@ try:
             
         root = ET.Element("topics")
         for key, value in st.session_state.selected_chapters.items():
-            topic = ET.SubElement(root, "topic_name")
+            if key == "Objectives":
+                topic_name = "objectives"
+                topic_content = "objectives_content"
+            else:
+                topic_name = key.lower()
+                topic_content = f"{key.lower()}_content"
+                
+            topic = ET.SubElement(root, topic_name)
             topic.text = key
-            contents = ET.SubElement(root, "topic_contents")
+            contents = ET.SubElement(root, topic_content)
             contents.text = value
 
         # if col2.button("Save XML"):
