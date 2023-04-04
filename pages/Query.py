@@ -31,64 +31,66 @@ else:
     
 
 toc = colb.button("Load Chapter")
+try:
+    if toc:
+        toc_res = index.query(f"Generate a full table of contents for this book in a json format ")
+        str_toc = str(toc_res)
+        # st.write(str_toc)
+        json_output = json.loads(str_toc)
+        table_of_contents = json_output["Table of Contents"]
+        if "table_of_contents" not in st.session_state:
+            st.session_state.table_of_contents = table_of_contents
 
-if toc:
-    toc_res = index.query(f"Generate a full table of contents for this book in a json format ")
-    str_toc = str(toc_res)
-    # st.write(str_toc)
-    json_output = json.loads(str_toc)
-    table_of_contents = json_output["Table of Contents"]
-    if "table_of_contents" not in st.session_state:
-        st.session_state.table_of_contents = table_of_contents
+    st.write("")
+    # st.write()
+    col1, col2, col3 = st.columns([2,5,5])
 
-st.write("")
-# st.write()
-col1, col2, col3 = st.columns([2,5,5])
+    if "selected_items" not in st.session_state:
+        st.session_state.selected_items = []
 
-if "selected_items" not in st.session_state:
-    st.session_state.selected_items = []
+    quer = col1.button("Extract Selected")
+    download = col3.button("Download XML")
+    # col3.write("")
 
-quer = col1.button("Extract Selected")
-download = col3.button("Download XML")
-# col3.write("")
-
-with col1.expander("Table of Contents"):
     for item in st.session_state.table_of_contents:
         for title, content in item.items():
             if col1.checkbox(title):
                 if title not in st.session_state.selected_items:
                     st.session_state.selected_items.append(title)
-if quer:
-    chapter_contents = {}
-    for title in st.session_state.selected_items:
-        chapter_content = index.query(f"Extract the contents under the title {title}")
-        chapter_contents[title] = chapter_content.response
 
-    if chapter_contents:
-        sav = col2.button("Save Edits")
-        st.session_state.selected_chapters = chapter_contents
-        
-        # with col2.expander("Edit PDF Content"):
+    if quer:
+        chapter_contents = {}
+        for title in st.session_state.selected_items:
+            chapter_content = index.query(f"Extract the contents under the title {title}")
+            chapter_contents[title] = chapter_content.response
+
+        if chapter_contents:
+            sav = col2.button("Save Edits")
+            st.session_state.selected_chapters = chapter_contents
             
-    for title, content in st.session_state.selected_chapters.items():
-        col2.write(f"Title: {title}")
-        content_key = f"{title}_content"
-        if content_key not in st.session_state:
-            st.session_state[content_key] = content
-        content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
-        
-    root = ET.Element("topics")
-    for key, value in st.session_state.selected_chapters.items():
-        topic = ET.SubElement(root, "topic_name")
-        topic.text = key
-        contents = ET.SubElement(root, "topic_contents")
-        contents.text = value
+            # with col2.expander("Edit PDF Content"):
+                
+        for title, content in st.session_state.selected_chapters.items():
+            col2.write(f"Title: {title}")
+            content_key = f"{title}_content"
+            if content_key not in st.session_state:
+                st.session_state[content_key] = content
+            content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
+            
+        root = ET.Element("topics")
+        for key, value in st.session_state.selected_chapters.items():
+            topic = ET.SubElement(root, "topic_name")
+            topic.text = key
+            contents = ET.SubElement(root, "topic_contents")
+            contents.text = value
 
-    # if col2.button("Save XML"):
-        xml_string = ET.tostring(root)
-        # Use minidom to pretty print the XML string
-        pretty_xml = minidom.parseString(xml_string).toprettyxml()
-   
-    with st.expander("XML content"):
-        col3.write(pretty_xml)
-       
+        # if col2.button("Save XML"):
+            xml_string = ET.tostring(root)
+            # Use minidom to pretty print the XML string
+            pretty_xml = minidom.parseString(xml_string).toprettyxml()
+    
+        with st.expander("XML content"):
+            col3.write(pretty_xml)
+        
+except AttributeError:
+    st.warning("Click on load chapter first and select the required Topics to extract")
