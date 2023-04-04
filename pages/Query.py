@@ -15,7 +15,7 @@ DATA_DIR = "data"
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
-cola, colb = st.columns([5,1])
+cola, colb = st.columns([5,3])
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
@@ -43,7 +43,7 @@ if toc:
 
 st.write("")
 # st.write()
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns([2,5,5])
 
 if "selected_items" not in st.session_state:
     st.session_state.selected_items = []
@@ -89,5 +89,5 @@ if quer:
             # Use minidom to pretty print the XML string
             pretty_xml = minidom.parseString(xml_string).toprettyxml()
         with st.expander("XML content"):
-            col3.code(pretty_xml)
+            col3.write(pretty_xml)
         
