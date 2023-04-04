@@ -45,3 +45,7 @@ def main():
         index.save_to_disk(os.path.join(DATA_DIR, os.path.splitext(pdf_filename)[0] + ".json"))
         st.success("Index created successfully!")
     
+
+   
+if __name__ == "__main__":
+    main()
