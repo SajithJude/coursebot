@@ -42,7 +42,7 @@ if toc:
 
 try:
     selected_items = []
-    for item in table_of_contents:
+    for item in st.session_state.table_of_contents:
         for title, content in item.items():
             if st.checkbox(title):
                 selected_items.append(title)
