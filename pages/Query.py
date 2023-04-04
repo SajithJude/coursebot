@@ -93,7 +93,7 @@ if quer:
         col3.write(pretty_xml)
     
         if download:
-            data_uri = f"data:text/xml;charset=utf-8,{xml_string}"
+            data_uri = f"data:text/plain;charset=utf-8,{pretty_xml}"
             col3.markdown(f'<a href="{data_uri}" download="my_file.xml">Download XML</a>', unsafe_allow_html=True)
 
 
