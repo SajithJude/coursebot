@@ -22,10 +22,10 @@ else:
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
 
-toc = st.button("Get Chapters")
+toc = st.button("Get TOC")
 
 if toc:
-    toc_res = index.query(f"list down the chapters of this book as a json list")
+    toc_res = index.query(f"Generate a table of contents for this book as a json list")
     str_toc = str(toc_res)
     # st.write(str_toc)
     json_output = json.loads(str_toc)
