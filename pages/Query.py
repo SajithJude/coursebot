@@ -24,6 +24,7 @@ toc = st.button("Table of contents")
 
 if toc:
     toc_res = index.query("what are the table of contents of this book")
+    st.write(toc_res)
     if toc_res:
         toc_list = [item.text for item in toc_res]
         selected_toc = st.radio("Select a table of contents item:", toc_list)
