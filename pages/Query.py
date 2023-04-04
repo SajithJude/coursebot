@@ -28,42 +28,48 @@ toc = st.button("Chapters")
 if toc:
     toc_res = index.query(f"list down the chapters of this book as a json list")
     str_toc = str(toc_res)
-    st.write(str_toc)
+    # st.write(str_toc)
     json_output = json.loads(str_toc)
     if "json_output" not in st.session_state:
         st.session_state.json_output = json_output
 
-    st.write(st.session_state.json_output)
+
+
+
+selected_item = st.radio("Select an item:", st.session_state.json_output)
 
 
 ##########################################
 
-chapter = st.text_input("chapter number")
+
+
+
+# chapter = st.text_input("chapter number")
 lo = st.button("Learning Objectives")
 
 if lo:
-    lores = index.query(f"list down the learning objectives of the chapter {chapter} of this book as a json list")
+    lores = index.query(f"list down the learning objectives of the chapter {selected_item} of this book as a json list")
     str_lo = str(lores)
-    st.write(str_lo)
+    # st.write(str_lo)
     json_lo = json.loads(str_lo)
     if "json_lo" not in st.session_state:
         st.session_state.json_lo = json_lo
 
-    st.write(st.session_state.json_lo)
+    # st.write(st.session_state.json_lo)
 
 
 ########################################
 topi = st.button("Topics")
 
 if topi:
-    topires = index.query(f"list down the topics under the chapter {chapter} of this book as a json list")
+    topires = index.query(f"list down the topics under the chapter {selected_item} of this book as a json list")
     str_topi = str(topires)
     st.write(str_topi)
     json_topi = json.loads(str_topi)
     if "json_topi" not in st.session_state:
         st.session_state.json_topi = json_topi
 
-    st.write(st.session_state.json_topi)
+    # st.write(st.session_state.json_topi)
 
 else:
     st.warning("Click the 'Table of contents' button to retrieve the table of contents.")
