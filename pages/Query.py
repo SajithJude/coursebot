@@ -40,26 +40,29 @@ if toc:
 
 col1, col2 = st.columns(2)
 
-try:
-    selected_items = []
+if "selected_items" not in st.session_state:
+    st.session_state.selected_items = []
+
+for item in st.session_state.table_of_contents:
+    for title, content in item.items():
+        if col1.checkbox(title):
+            if title not in st.session_state.selected_items:
+                st.session_state.selected_items.append(title)
+
+if st.button("Query"):
     chapter_contents = {}
-    for item in st.session_state.table_of_contents:
-        for title, content in item.items():
-            if col1.checkbox(title):
-                selected_items.append(title)
-                chapter_content = index.query(f"Extract the contents under the title {title}")
-                chapter_contents[title] = chapter_content
+    for title in st.session_state.selected_items:
+        chapter_content = index.query(f"Extract the contents under the title {title}")
+        chapter_contents[title] = chapter_content
 
-    if selected_items:
+    if chapter_contents:
         st.session_state.selected_chapters = chapter_contents
+
+
+try:
     col2.write(st.session_state.selected_chapters)
-    # selected_toc = col2.radio("Select a table of contents item:", selected_items)
+except KeyError:
+    pass
 
-    # if selected_toc:
-    #     item_content = st.session_state.selected_chapters[selected_toc]
-    #     col3.write(item_content)
-
-except AttributeError:
-    st.warning("Generate TOC to view list")  
-else:
-    st.warning("Click the 'Chapters' button to retrieve the table of contents.")
+if not st.session_state.selected_items:
+    st.warning("Please select some chapters to extract")
