@@ -28,8 +28,8 @@ if toc:
     toc_res = index.query("list down the table of contents of this book")
     str_toc = str(toc_res)
     st.write(str_toc)
-    # json_output = json.loads(toc_res)
-    # st.write(json_output)
+    json_output = json.loads(str_toc)
+    st.write(json_output)
 
     if toc_res:
         toc_list = [item.text for item in toc_res]
