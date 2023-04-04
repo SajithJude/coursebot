@@ -49,7 +49,7 @@ try:
 
     if selected_items:
         st.write("Selected items:", selected_items)
-except ValueError:
+except AttributeError:
     st.warning("Generate TOC to view list")  
 else:
     st.warning("Click the 'Chapters' button to retrieve the table of contents.")
