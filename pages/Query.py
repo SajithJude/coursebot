@@ -48,7 +48,8 @@ col1, col2, col3 = st.columns(3)
 if "selected_items" not in st.session_state:
     st.session_state.selected_items = []
 
-quer = col1.button("Query")
+quer = col1.button("Extract Selected")
+sav = col2.Button("Save Edits")
 for item in st.session_state.table_of_contents:
     for title, content in item.items():
         if col1.checkbox(title):
@@ -65,6 +66,7 @@ if quer:
         st.session_state.selected_chapters = chapter_contents
         
         with col2.expander("Edit PDF Content"):
+            
             for title, content in st.session_state.selected_chapters.items():
                 col2.write(f"Title: {title}")
                 content_key = f"{title}_content"
