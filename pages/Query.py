@@ -49,7 +49,8 @@ if "selected_items" not in st.session_state:
     st.session_state.selected_items = []
 
 quer = col1.button("Extract Selected")
-col3.write("")
+download = col3.button("Download XML")
+# col3.write("")
 
 for item in st.session_state.table_of_contents:
     for title, content in item.items():
