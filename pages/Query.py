@@ -49,7 +49,7 @@ if "selected_items" not in st.session_state:
     st.session_state.selected_items = []
 
 quer = col1.button("Extract Selected")
-sav = col2.button("Save Edits")
+
 for item in st.session_state.table_of_contents:
     for title, content in item.items():
         if col1.checkbox(title):
@@ -63,16 +63,17 @@ if quer:
         chapter_contents[title] = chapter_content.response
 
     if chapter_contents:
+        sav = col2.button("Save Edits")
         st.session_state.selected_chapters = chapter_contents
         
-        with col2.expander("Edit PDF Content"):
+        # with col2.expander("Edit PDF Content"):
             
-            for title, content in st.session_state.selected_chapters.items():
-                col2.write(f"Title: {title}")
-                content_key = f"{title}_content"
-                if content_key not in st.session_state:
-                    st.session_state[content_key] = content
-                content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
+        for title, content in st.session_state.selected_chapters.items():
+            col2.write(f"Title: {title}")
+            content_key = f"{title}_content"
+            if content_key not in st.session_state:
+                st.session_state[content_key] = content
+            content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
         
         root = ET.Element("topics")
         for key, value in st.session_state.selected_chapters.items():
