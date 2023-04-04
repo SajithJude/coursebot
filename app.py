@@ -50,7 +50,7 @@ def main():
         # Load the documents from the data directory
         documents = SimpleDirectoryReader(DATA_DIR).load_data()
         # define LLM
-        llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-002", max_tokens=512))
+        llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=300))
         service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
 
         
