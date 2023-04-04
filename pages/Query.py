@@ -25,7 +25,7 @@ chapter = st.text_input("chapter number")
 toc = st.button("Table of contents")
 
 if toc:
-    toc_res = index.query(f"list down the topics in the {chapter} of this book as a json list")
+    toc_res = index.query(f"list down the learning objectives of the {chapter} of this book as a json list")
     str_toc = str(toc_res)
     st.write(str_toc)
     json_output = json.loads(str_toc)
