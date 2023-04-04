@@ -89,11 +89,12 @@ if quer:
         # Use minidom to pretty print the XML string
         pretty_xml = minidom.parseString(xml_string).toprettyxml()
    
-    if download:
-        data_uri = f"data:text/xml;charset=utf-8,{pretty_xml}"
-        col3.markdown(f'<a href="{data_uri}" download="my_file.xml">Download XML</a>', unsafe_allow_html=True)
-
-
     with st.expander("XML content"):
         col3.write(pretty_xml)
     
+if download:
+    data_uri = f"data:text/xml;charset=utf-8,{xml_string}"
+    col3.markdown(f'<a href="{data_uri}" download="my_file.xml">Download XML</a>', unsafe_allow_html=True)
+
+
+   
