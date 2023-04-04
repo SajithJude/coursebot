@@ -64,7 +64,7 @@ topi = st.button("Topics")
 if topi:
     topires = index.query(f"list down the topics under the chapter {selected_item} of this book as a json list")
     str_topi = str(topires)
-    st.write(str_topi)
+    # st.write(str_topi)
     json_topi = json.loads(str_topi)
     if "json_topi" not in st.session_state:
         st.session_state.json_topi = json_topi
