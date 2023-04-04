@@ -46,7 +46,7 @@ try:
 
     st.write("")
     # st.write()
-    col1, col2, col3 = st.tabs(["__Filter Table of Contents__  ", " __Extract and Edit Content__  ","  __Export Generated XML__  "])
+    col1, col2, col3 = st.tabs(["🔵__Filter Table of Contents__  ", "🔵 __Extract and Edit Content__  "," 🔵 __Export Generated XML__  "])
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
