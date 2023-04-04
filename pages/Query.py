@@ -47,8 +47,8 @@ if selected_item:
    
 
     topires = index.query(toprompt)
-    str_topi = str(topires)
-    json_topi = json.loads(str_topi)
+    # str_topi = str(topires)
+    # json_topi = json.loads(str_topi)
    
 
     # with col2.expander("Learning Objectives"):
@@ -57,7 +57,7 @@ if selected_item:
 
 # with col3.expander("topics"):
     col3.write(toprompt)
-    col3.write(json_topi)
+    col3.write(topires)
 
 else:
     st.warning("Click the 'Chapters' button to retrieve the table of contents.")
