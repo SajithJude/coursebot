@@ -30,7 +30,7 @@ else:
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
 
-toc = colb.button("Load Book")
+toc = colb.button("Load Chapter")
 
 if toc:
     toc_res = index.query(f"Generate a full table of contents for this book in a json format ")
