@@ -70,24 +70,30 @@ if quer:
         
         # with col2.expander("Edit PDF Content"):
             
-        for title, content in st.session_state.selected_chapters.items():
-            col2.write(f"Title: {title}")
-            content_key = f"{title}_content"
-            if content_key not in st.session_state:
-                st.session_state[content_key] = content
-            content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
+    for title, content in st.session_state.selected_chapters.items():
+        col2.write(f"Title: {title}")
+        content_key = f"{title}_content"
+        if content_key not in st.session_state:
+            st.session_state[content_key] = content
+        content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
         
-        root = ET.Element("topics")
-        for key, value in st.session_state.selected_chapters.items():
-            topic = ET.SubElement(root, "topic_name")
-            topic.text = key
-            contents = ET.SubElement(root, "topic_contents")
-            contents.text = value
+    root = ET.Element("topics")
+    for key, value in st.session_state.selected_chapters.items():
+        topic = ET.SubElement(root, "topic_name")
+        topic.text = key
+        contents = ET.SubElement(root, "topic_contents")
+        contents.text = value
 
-        # if col2.button("Save XML"):
-            xml_string = ET.tostring(root)
-            # Use minidom to pretty print the XML string
-            pretty_xml = minidom.parseString(xml_string).toprettyxml()
-        with st.expander("XML content"):
-            col3.write(pretty_xml)
-        
+    # if col2.button("Save XML"):
+        xml_string = ET.tostring(root)
+        # Use minidom to pretty print the XML string
+        pretty_xml = minidom.parseString(xml_string).toprettyxml()
+   
+    if download:
+        data_uri = f"data:text/xml;charset=utf-8,{pretty_xml}"
+        col3.markdown(f'<a href="{data_uri}" download="my_file.xml">Download XML</a>', unsafe_allow_html=True)
+
+
+    with st.expander("XML content"):
+        col3.write(pretty_xml)
+    
