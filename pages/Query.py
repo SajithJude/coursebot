@@ -27,7 +27,7 @@ toc = st.button("Get TOC")
 if toc:
     toc_res = index.query(f"Generate a table of contents for this book as a json list")
     str_toc = str(toc_res)
-    # st.write(str_toc)
+    st.write(str_toc)
     json_output = json.loads(str_toc)
     if "json_output" not in st.session_state:
         st.session_state.json_output = json_output
