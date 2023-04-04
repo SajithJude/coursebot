@@ -19,7 +19,7 @@ cola, colb = st.columns([5,1])
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
-    index_file = cola.selectbox("Select an index file to load:", index_filenames,label_visibility="hidden")
+    index_file = cola.selectbox("Select an index file to load:", index_filenames,label_visibility="collapsed")
     index_path = os.path.join(DATA_DIR, index_file)
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=512))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
