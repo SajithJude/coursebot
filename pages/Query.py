@@ -13,6 +13,13 @@ openai.api_key = os.getenv("API_KEY")
 st.subheader("CourseBot")
 st.caption("AI_powered course creation made easy")
 DATA_DIR = "data"
+if not os.path.exists(DATA_DIR):
+    os.mkdir(DATA_DIR)
+
+def save_uploaded_file(uploaded_file):
+    with open(os.path.join(DATA_DIR, uploaded_file.name), "wb") as f:
+        f.write(uploaded_file.getbuffer())
+
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
