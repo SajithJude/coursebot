@@ -4,6 +4,7 @@ from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader, Q
 import os
 import openai 
 import json
+import xml.etree.ElementTree as ET
 
 from langchain import OpenAI
 
@@ -57,11 +58,19 @@ if st.button("Query"):
 
     if chapter_contents:
         st.session_state.selected_chapters = chapter_contents
+        root = ET.Element("topics")
+        for key, value in st.session_state.selected_chapters.items():
+            topic = ET.SubElement(root, "topic_name")
+            topic.text = key
+            contents = ET.SubElement(root, "topic_contents")
+            contents.text = value
+        xml_string = ET.tostring(root)
+        st.write(xml_string)
 
 
 try:
     col2.write(st.session_state.selected_chapters)
-except KeyError:
+except AttributeError:
     pass
 
 if not st.session_state.selected_items:
