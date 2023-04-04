@@ -77,5 +77,5 @@ if st.button("Query"):
             content_key = f"{title}_content"
             if content_key not in st.session_state:
                 st.session_state[content_key] = content
-            content_value = st.text_input(label="Content", value=st.session_state[content_key], key=content_key)
+            content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
            
