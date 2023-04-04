@@ -15,10 +15,11 @@ DATA_DIR = "data"
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
+cola, colb = st.columns([5,1])
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
-    index_file = st.selectbox("Select an index file to load:", index_filenames)
+    index_file = cola.selectbox("Select an index file to load:", index_filenames)
     index_path = os.path.join(DATA_DIR, index_file)
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=512))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
@@ -29,7 +30,7 @@ else:
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
 
-toc = st.button("Get TOC")
+toc = colb.button("Get TOC")
 
 if toc:
     toc_res = index.query(f"Generate a full table of contents for this book in a json format ")
