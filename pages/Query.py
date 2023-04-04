@@ -10,7 +10,8 @@ from xml.dom import minidom
 from langchain import OpenAI
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("API_KEY")
-
+st.subheader("CourseBot")
+st.caption("AI_powered course creation made easy")
 DATA_DIR = "data"
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
