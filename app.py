@@ -46,7 +46,7 @@ if uploaded_file is not None:
         pdf_filename = uploaded_file.name
         
         # Load the documents from the data directory
-        documents = loader.load_data(file=uploaded_file)
+        documents = loader.load_data(uploaded_file)
         
         # Create the index from the documents
         index = GPTSimpleVectorIndex.from_documents(documents)
