@@ -6,6 +6,10 @@ import openai
 import json
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
+from pathlib import Path
+from llama_index import download_loader
+
+
 
 from langchain import OpenAI
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
@@ -14,11 +18,45 @@ st.title("CourseBot")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
 
+PDFReader = download_loader("PDFReader")
+
+loader = PDFReader()
+
+def save_uploaded_file(uploaded_file):
+    with open(os.path.join(DATA_DIR, uploaded_file.name), "wb") as f:
+        f.write(uploaded_file.getbuffer())
+
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
+cole, col1, col2, col3 = st.tabs(["⚪ __Upload PDF__  ","⚪ __Filter Table of Contents__  ", "⚪ __Extract and Edit Content__  "," ⚪ __Export Generated XML__  "])
 
-cola, colb = st.columns([6,1],gap="small")
+
+uploaded_file = cole.file_uploader("Upload a Chapter as a PDF file", type="pdf")
+
+# cola, colb = st.columns([6,1],gap="small")
+if uploaded_file is not None:
+        # Save the uploaded file to the data directory
+        save_uploaded_file(uploaded_file)
+        st.success("It would take a while to index the books, please wait..!")
+    
+    # Create a button to create the index
+    # if st.button("Create Index"):
+        # Get the filename of the uploaded PDF
+        pdf_filename = uploaded_file.name
+        
+        # Load the documents from the data directory
+        documents = loader.load_data(file=uploaded_file)
+        
+        # Create the index from the documents
+        index = GPTSimpleVectorIndex.from_documents(documents)
+        
+        # Save the index to the data directory with the same name as the PDF
+        index.save_to_disk(os.path.join(DATA_DIR, os.path.splitext(pdf_filename)[0] + ".json"))
+        st.success("Index created successfully!")
+
+
+
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
@@ -46,7 +84,6 @@ try:
 
     st.write("")
     # st.write()
-    col1, col2, col3 = st.tabs(["⚪ __Filter Table of Contents__  ", "⚪ __Extract and Edit Content__  "," ⚪ __Export Generated XML__  "])
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
