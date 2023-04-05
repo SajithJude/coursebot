@@ -27,6 +27,7 @@ def save_uploaded_file(uploaded_file):
         f.write(uploaded_file.getbuffer())
 
 # Get a list of available index files in the data directory
+index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
 cole, col1, col2, col3 = st.tabs(["⚪ __Upload PDF__  ","⚪ __Filter Table of Contents__  ", "⚪ __Extract and Edit Content__  "," ⚪ __Export Generated XML__  "])
 
@@ -55,12 +56,11 @@ if uploaded_file is not None:
         st.success("Index created successfully!")
 
 
-index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
-    index_file = cola.selectbox("Select an index file to load:", index_filenames,label_visibility="collapsed")
+    index_file = cole.selectbox("Select an index file to load:", index_filenames,label_visibility="collapsed")
     index_path = os.path.join(DATA_DIR, index_file)
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=512))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
