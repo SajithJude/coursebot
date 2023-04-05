@@ -29,7 +29,7 @@ def save_uploaded_file(uploaded_file):
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
-cole, col1, col2, col3 = st.tabs(["⚪ __Upload PDF__  ","⚪ __Filter Table of Contents__  ", "⚪ __Extract and Edit Content__  "," ⚪ __Export Generated XML__  "])
+cole, col1, col2, col3 = st.tabs(["⚪ __Upload Chapter__  ","⚪ __Filter Table of Contents__  ", "⚪ __Extract and Edit Content__  "," ⚪ __Export Generated XML__  "])
 
 
 uploaded_file = cole.file_uploader("Upload a Chapter as a PDF file", type="pdf")
@@ -81,12 +81,15 @@ try:
         table_of_contents = json_output["Table of Contents"]
         if "table_of_contents" not in st.session_state:
             st.session_state.table_of_contents = table_of_contents
+        st.success("Chapter loaded, Go to the next tab")
+        
 
     st.write("")
     # st.write()
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
+    col1.warning("Select the Neccessary topics and go the next page")
 
     quer = col2.button("Extract Selected")
     # download = col3.button("Download XML")
