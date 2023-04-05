@@ -27,7 +27,6 @@ def save_uploaded_file(uploaded_file):
         f.write(uploaded_file.getbuffer())
 
 # Get a list of available index files in the data directory
-index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
 cole, col1, col2, col3 = st.tabs(["⚪ __Upload PDF__  ","⚪ __Filter Table of Contents__  ", "⚪ __Extract and Edit Content__  "," ⚪ __Export Generated XML__  "])
 
@@ -56,6 +55,7 @@ if uploaded_file is not None:
         st.success("Index created successfully!")
 
 
+index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
 
 if index_filenames:
