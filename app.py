@@ -98,7 +98,7 @@ try:
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
-    col2.write(table_of_contents)
+    col2.write( st.session_state.table_of_contents)
 
     col1.warning("Select the Neccessary topics and go the next page")
 
