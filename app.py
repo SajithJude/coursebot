@@ -74,7 +74,7 @@ else:
 toc = cole.button("Load Chapter")
 try:
     if toc:
-        toc_res = index.query(f"Generate a full table of contents for this chaoter in a json format ")
+        toc_res = index.query(f"Generate a full table of contents for this book in a json format ")
         str_toc = str(toc_res)
         print(str_toc)
         json_output = json.loads(str_toc)
@@ -89,7 +89,6 @@ try:
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
-    col1.write( st.session_state.table_of_contents)
     col1.warning("Select the Neccessary topics and go the next page")
 
     quer = col2.button("Extract Selected")
