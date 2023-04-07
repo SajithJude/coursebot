@@ -87,7 +87,6 @@ try:
                 table_of_contents.append(chapter_dict)
         if "table_of_contents" not in st.session_state:
             st.session_state.table_of_contents = table_of_contents
-        col2.write(chapter_dict)
         # table_of_contents = json_output["Table of Contents"]
         # if "table_of_contents" not in st.session_state:
         #     st.session_state.table_of_contents = table_of_contents
@@ -99,6 +98,8 @@ try:
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
+    col2.write(table_of_contents)
+
     col1.warning("Select the Neccessary topics and go the next page")
 
     quer = col2.button("Extract Selected")
