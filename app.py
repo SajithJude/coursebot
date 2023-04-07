@@ -90,7 +90,7 @@ try:
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
     col1.warning("Select the Neccessary topics and go the next page")
-
+    col1.write(st.session_state.table_of_contents)
     quer = col2.button("Extract Selected")
     # download = col3.button("Download XML")
     # col3.write("")
