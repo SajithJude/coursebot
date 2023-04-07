@@ -78,10 +78,19 @@ try:
         str_toc = str(toc_res)
         print(str_toc)
         json_output = json.loads(str_toc)
-        table_of_contents = json_output["Table of Contents"]
+        table_of_contents = []
+        for chapter, items in json_output.items():
+            chapter_dict = {}
+            chapter_dict[chapter] = []
+            for item in items:
+                chapter_dict[chapter].append(item)
+                table_of_contents.append(chapter_dict)
         if "table_of_contents" not in st.session_state:
             st.session_state.table_of_contents = table_of_contents
-        st.success("Chapter loaded, Go to the next tab")
+        # table_of_contents = json_output["Table of Contents"]
+        # if "table_of_contents" not in st.session_state:
+        #     st.session_state.table_of_contents = table_of_contents
+        # st.success("Chapter loaded, Go to the next tab")
         
 
     st.write("")
