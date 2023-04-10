@@ -15,8 +15,11 @@ def process_pdf(uploaded_file):
     with NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
         temp_file.write(uploaded_file.getvalue())
         documents = loader.load_data(file=Path(temp_file.name))
+    
+    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
+    service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
 
-    index = GPTSimpleVectorIndex.from_documents(documents)
+    index = GPTSimpleVectorIndex.from_documents(documents,service_context=service_context)
     # st.session_state.index = index
     return index
         
