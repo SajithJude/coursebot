@@ -6,6 +6,9 @@ from tempfile import NamedTemporaryFile
 import json
 from langchain import OpenAI
 PDFReader = download_loader("PDFReader")
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+
 
 if "index" not in st.session_state:
     st.session_state.index = ""
@@ -80,7 +83,8 @@ st.write(st.session_state.json_out)
 
 
 xml_string = create_xml_from_dict(st.session_state.json_out)
-st.code(xml_string)
+pretty_xml = minidom.parseString(xml_string).toprettyxml()
+st.code(pretty_xml)
 
 
 
