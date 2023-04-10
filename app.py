@@ -97,9 +97,9 @@ try:
 
     for item in st.session_state.table_of_contents:
         # for title, content in item.items():
-        if col1.checkbox(title):
-            if title not in st.session_state.selected_items:
-                st.session_state.selected_items.append(title)
+        if col1.checkbox(item):
+            if item not in st.session_state.selected_items:
+                st.session_state.selected_items.append(item)
 
     if quer:
         chapter_contents = {}
