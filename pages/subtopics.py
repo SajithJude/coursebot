@@ -36,6 +36,6 @@ if uploaded_pdf is not None:
 
 button = st.button("Generate TOC")
 if button:
-    res = st.session_state.index.query("Generate a table of contents for this document including objectives separatley, and topics with subtopics as a json object")
+    res = st.session_state.index.query("Generate a table of contents for this document excluding objectives, include topics and subtopics as a json object")
     json_out = json.loads(res.response)
     st.write(json_out)
