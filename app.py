@@ -104,7 +104,7 @@ try:
     if quer:
         chapter_contents = {}
         for title in st.session_state.selected_items:
-            chapter_content = index.query(f"Extract the contents under the title {title}")
+            chapter_content = index.query(f"Extract and insert the relevant contents under the title {title}")
             chapter_contents[title] = chapter_content.response
 
         if chapter_contents:
