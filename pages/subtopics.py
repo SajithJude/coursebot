@@ -4,7 +4,7 @@ from llama_index import download_loader
 from llama_index import GPTSimpleVectorIndex, Document, LLMPredictor, ServiceContext
 from tempfile import NamedTemporaryFile
 import json
-
+from langchain import OpenAI
 PDFReader = download_loader("PDFReader")
 
 if "index" not in st.session_state:
