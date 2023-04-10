@@ -96,10 +96,10 @@ try:
     # col3.write("")
 
     for item in st.session_state.table_of_contents:
-        for title, content in item.items():
-            if col1.checkbox(title):
-                if title not in st.session_state.selected_items:
-                    st.session_state.selected_items.append(title)
+        # for title, content in item.items():
+        if col1.checkbox(title):
+            if title not in st.session_state.selected_items:
+                st.session_state.selected_items.append(title)
 
     if quer:
         chapter_contents = {}
