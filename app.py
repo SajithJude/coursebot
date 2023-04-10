@@ -74,7 +74,7 @@ else:
 toc = cole.button("Load Chapter")
 try:
     if toc:
-        toc_res = index.query(f"Generate all titles inside this chapter in a json list format ")
+        toc_res = index.query(f"Generate all topics inside this chapter in a json list format ")
         str_toc = str(toc_res)
         st.write(str_toc)
         table_of_contents = json.loads(str_toc)
