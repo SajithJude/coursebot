@@ -76,7 +76,7 @@ try:
     if toc:
         toc_res = index.query(f"Generate all titles inside this chapter in a json list format ")
         str_toc = str(toc_res)
-        print(str_toc)
+        st.write(str_toc)
         json_output = json.loads(str_toc)
         table_of_contents = json_output["Table of Contents"]
         if "table_of_contents" not in st.session_state:
