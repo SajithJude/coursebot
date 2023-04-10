@@ -26,6 +26,32 @@ def process_pdf(uploaded_file):
     # st.session_state.index = index
     return index
         
+import xml.etree.ElementTree as ET
+
+def create_element(parent, name, text):
+    element = ET.SubElement(parent, name)
+    element.text = text
+    return element
+
+def create_xml_from_dict(data):
+    root = ET.Element("root")
+    
+    for topic, subtopics in data.items():
+        topic_element = ET.SubElement(root, "topic")
+        topic_title_element = create_element(topic_element, "topics", topic)
+        
+        for subtopic, content in subtopics.items():
+            subtopic_element = ET.SubElement(topic_element, "subtopic")
+            subtopic_title_element = create_element(subtopic_element, "subtopics", subtopic)
+            subtopic_content_element = create_element(subtopic_element, "sub_topic_contents", content)
+    
+    return ET.tostring(root, encoding="unicode")
+
+# Your dictionary goes here
+# topics = {
+#     # ...
+# }
+
 
 uploaded_pdf = st.file_uploader("Upload a PDF file", type=["pdf"])
 
@@ -51,6 +77,12 @@ for section, subsections in st.session_state.json_out.items():
         st.session_state.json_out[section][subsection] = response.response
 
 st.write(st.session_state.json_out)
+
+
+xml_string = create_xml_from_dict(st.session_state.json_out)
+st.write(xml_string)
+
+
 
 objectives = st.button("Generate Objectives")
 if button:
