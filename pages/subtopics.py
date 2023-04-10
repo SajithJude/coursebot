@@ -10,6 +10,9 @@ PDFReader = download_loader("PDFReader")
 if "index" not in st.session_state:
     st.session_state.index = ""
 
+if "json_out" not in st.session_state:
+    st.session_state.json_out = ""
+
 def process_pdf(uploaded_file):
     loader = PDFReader()
     with NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
@@ -38,8 +41,16 @@ button = st.button("Generate TOC")
 if button:
     res = st.session_state.index.query("Generate a table of contents for this document excluding objectives, include topics and subtopics as a json object")
     json_out = json.loads(res.response)
+    st.session_state.json_out = json_out
     st.write(json_out)
 
+
+for section, subsections in st.session_state.json_out.items():
+    for subsection, value in subsections.items():
+        response = index.query(subsection)
+        st.session_state.json_out[section][subsection] = response
+
+st.write(st.session_state.json_out)
 
 objectives = st.button("Generate Objectives")
 if button:
