@@ -3,7 +3,7 @@ from pathlib import Path
 from llama_index import download_loader
 from llama_index import GPTSimpleVectorIndex, Document, LLMPredictor, ServiceContext
 from tempfile import NamedTemporaryFile
-
+import json
 
 PDFReader = download_loader("PDFReader")
 
@@ -34,4 +34,5 @@ if uploaded_pdf is not None:
 button = st.button("Generate TOC")
 if button:
     res = st.session_state.index.query("Generate a table of contents for this chapter in including topics and subtopics as a json object")
-    st.write(res.response)
+    json_out = json.loads(res.response)
+    st.write(json_out)
