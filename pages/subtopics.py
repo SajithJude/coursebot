@@ -47,7 +47,7 @@ if button:
 
 for section, subsections in st.session_state.json_out.items():
     for subsection, value in subsections.items():
-        response = index.query(subsection)
+        response = st.session_state.index.query(subsection)
         st.session_state.json_out[section][subsection] = response
 
 st.write(st.session_state.json_out)
