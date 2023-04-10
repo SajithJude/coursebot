@@ -39,3 +39,10 @@ if button:
     res = st.session_state.index.query("Generate a table of contents for this document excluding objectives, include topics and subtopics as a json object")
     json_out = json.loads(res.response)
     st.write(json_out)
+
+
+objectives = st.button("Generate Objectives")
+if button:
+    out = st.session_state.index.query("Extract the list of Objectives of this documents as a Json list")
+    json_objective = json.loads(out.response)
+    st.write(json_objective)
