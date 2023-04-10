@@ -80,7 +80,7 @@ st.write(st.session_state.json_out)
 
 
 xml_string = create_xml_from_dict(st.session_state.json_out)
-st.write(xml_string)
+st.code(xml_string, language=xml)
 
 
 
