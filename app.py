@@ -77,8 +77,8 @@ try:
         toc_res = index.query(f"Generate all titles inside this chapter in a json list format ")
         str_toc = str(toc_res)
         st.write(str_toc)
-        # json_output = json.loads("{"+str_toc+"}")
-        table_of_contents = [{"title": title} for title in toc_res]
+        table_of_contents = json.loads(toc_res)
+        # table_of_contents = [{"title": title} for title in toc_res]
         if "table_of_contents" not in st.session_state:
             st.session_state.table_of_contents = table_of_contents
         st.success("Chapter loaded, Go to the next tab")
