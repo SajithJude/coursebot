@@ -37,7 +37,7 @@ def create_element(parent, name, text):
     return element
 
 def create_xml_from_dict(data):
-    root = ET.Element("root")
+    root = ET.Element("chapter")
     
     for topic, subtopics in data.items():
         topic_element = ET.SubElement(root, "topic")
@@ -73,23 +73,24 @@ if button:
     st.session_state.json_out = json_out
     st.write(json_out)
 
+try:
+    for section, subsections in st.session_state.json_out.items():
+        for subsection, value in subsections.items():
+            response = st.session_state.index.query("Extract the information about :"+ str(subsection))
+            st.session_state.json_out[section][subsection] = response.response
 
-for section, subsections in st.session_state.json_out.items():
-    for subsection, value in subsections.items():
-        response = st.session_state.index.query("Extract the information about :"+ str(subsection))
-        st.session_state.json_out[section][subsection] = response.response
-
-st.write(st.session_state.json_out)
-
-
-xml_string = create_xml_from_dict(st.session_state.json_out)
-pretty_xml = minidom.parseString(xml_string).toprettyxml()
-st.code(pretty_xml)
+    st.write(st.session_state.json_out)
 
 
+    xml_string = create_xml_from_dict(st.session_state.json_out)
+    pretty_xml = minidom.parseString(xml_string).toprettyxml()
+    st.code(pretty_xml)
 
-objectives = st.button("Generate Objectives")
-if button:
-    out = st.session_state.index.query("Extract the list of Objectives of this documents as a Json list")
-    json_objective = json.loads(out.response)
-    st.write(json_objective)
+except AttributeError:
+    st.info("Upload PDF to start")
+
+# objectives = st.button("Generate Objectives")
+# if button:
+#     out = st.session_state.index.query("Extract the list of Objectives of this documents as a Json list")
+#     json_objective = json.loads(out.response)
+#     st.write(json_objective)
