@@ -68,23 +68,27 @@ if uploaded_pdf is not None:
 
 button = st.button("Generate TOC")
 if button:
-    res = st.session_state.index.query("Generate a table of contents for this document excluding objectives, include topics and subtopics as a json object")
+    res = st.session_state.index.query("Generate a table of contents for this document in a json format exclude objectives, and only include levels as topics and subtopics")
     json_out = json.loads(res.response)
     st.session_state.json_out = json_out
     st.write(json_out)
 
+try:
 
-for section, subsections in st.session_state.json_out.items():
-    for subsection, value in subsections.items():
-        response = st.session_state.index.query("Extract the information about :"+ str(subsection))
-        st.session_state.json_out[section][subsection] = response.response
+    for section, subsections in st.session_state.json_out.items():
+        for subsection, value in subsections.items():
+            response = st.session_state.index.query("Extract the information about :"+ str(subsection))
+            st.session_state.json_out[section][subsection] = response.response
 
-st.write(st.session_state.json_out)
+    st.write(st.session_state.json_out)
 
 
-xml_string = create_xml_from_dict(st.session_state.json_out)
-pretty_xml = minidom.parseString(xml_string).toprettyxml()
-st.code(pretty_xml)
+    xml_string = create_xml_from_dict(st.session_state.json_out)
+    pretty_xml = minidom.parseString(xml_string).toprettyxml()
+    st.code(pretty_xml)
+
+except AttributeError:
+    st.info("Upload Book and Generate TOC")
 
 
 
