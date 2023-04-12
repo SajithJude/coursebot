@@ -40,13 +40,13 @@ def create_xml_from_dict(data):
     root = ET.Element("chapter")
     
     for topic, subtopics in data.items():
-        topic_element = ET.SubElement(root, "topic")
-        topic_title_element = create_element(topic_element, "topics", topic)
+        topic_element = ET.SubElement(root, "Topics")
+        topic_title_element = create_element(topic_element, "TopicName", topic)
         
         for subtopic, content in subtopics.items():
-            subtopic_element = ET.SubElement(topic_element, "subtopic")
-            subtopic_title_element = create_element(subtopic_element, "subtopics", subtopic)
-            subtopic_content_element = create_element(subtopic_element, "sub_topic_contents", content)
+            subtopic_element = ET.SubElement(topic_element, "SubTopics")
+            subtopic_title_element = create_element(subtopic_element, "SubTopicName", subtopic)
+            subtopic_content_element = create_element(subtopic_element, "SubTopic", content)
     
     return ET.tostring(root, encoding="unicode")
 
