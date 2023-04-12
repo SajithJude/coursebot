@@ -99,10 +99,10 @@ try:
     for topic in st.session_state.table_of_contents['Topics']:
         for key, value in topic.items():
             # Add a description for the topic
-            new_dict[key] = {'content': '', 'values': []}
+            new_dict[key] = {'content': '', 'Subtopics': []}
             # Add descriptions for the values
             for item in value:
-                new_dict[key]['values'].append({'content': '', 'value': item})
+                new_dict[key]['values'].append({'content': '', 'Subtopic': item})
 
     # Convert the new dictionary to JSON
     new_json = json.dumps(new_dict, indent=2)
