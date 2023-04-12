@@ -71,10 +71,10 @@ else:
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
 
-toc = cole.button("Load Chapter")
+toc = cole.button("Genererate TOC")
 try:
     if toc:
-        toc_res = index.query(f"Generate all topics inside this chapter in a json list format ")
+        toc_res = index.query(f"Generate table of contents for this chapter in JSON format, where Titles inside structure should be topics, and the titles within topics should be subtopics")
         str_toc = str(toc_res)
         st.write(str_toc)
         table_of_contents = json.loads(str_toc)
