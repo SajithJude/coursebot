@@ -105,15 +105,32 @@ try:
                 new_dict[key]['Subtopics'].append({'content': '', 'Subtopic': item})
 
     # Convert the new dictionary to JSON
-    new_json = json.dumps(new_dict, indent=2)
+    # new_json = json.dumps(new_dict, indent=2)
     col1.write(new_dict)
 
     if quer:
         chapter_contents = {}
-        for title in st.session_state.selected_items:
-            chapter_content = index.query(f"Extract and insert the relevant contents under the title {title}")
-            chapter_contents[title] = chapter_content.response
+        for topic, subtopics_dict in new_dict.items():
+    # Loop through each subtopic for the topic
+            for subtopic_dict in subtopics_dict['Subtopics']:
+                subtopic_name = subtopic_dict['Subtopic']
+                # Query the value of "Topics" and "Subtopics" for the subtopic
+                # and insert the response into the relevant "content" field
+                subtopic_dict['content'] = f"Content for {subtopic_name} under {topic} topic."
+            
+            # Query the value of "Topics" for the topic
+            # and insert the response into the relevant "content" field
+            subtopics_list = [subtopic_dict['Subtopic'] for subtopic_dict in subtopics_dict['Subtopics']]
+            topics_content = f"Content for {topic} topic. Subtopics: {', '.join(subtopics_list)}"
+            subtopics_dict['content'] = topics_content
 
+            # Convert the updated dictionary to JSON
+            updated_json = json.dumps(new_dict, indent=2)
+        
+        st.write(new_dict)
+
+            # Print the updated JSON
+    # print(updated_json)
         if chapter_contents:
             # sav = col2.button("Save Edits")
             st.session_state.selected_chapters = chapter_contents
