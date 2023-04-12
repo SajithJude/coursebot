@@ -106,7 +106,7 @@ try:
 
     # Convert the new dictionary to JSON
     new_json = json.dumps(new_dict, indent=2)
-    col1.write(new_json)
+    col1.write(new_dict)
 
     if quer:
         chapter_contents = {}
