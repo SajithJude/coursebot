@@ -109,20 +109,22 @@ try:
     col1.write(new_dict)
 
     if quer:
-        chapter_contents = {}
+        # chapter_contents = {}
         for topic, subtopics_dict in new_dict.items():
     # Loop through each subtopic for the topic
             for subtopic_dict in subtopics_dict['Subtopics']:
                 subtopic_name = subtopic_dict['Subtopic']
+                subtopicres = index.query("extract the information about "+str(subtopic_name))
                 # Query the value of "Topics" and "Subtopics" for the subtopic
                 # and insert the response into the relevant "content" field
-                subtopic_dict['content'] = f"Content for {subtopic_name} under {topic} topic."
+                subtopic_dict['content'] = subtopicres.response
             
             # Query the value of "Topics" for the topic
             # and insert the response into the relevant "content" field
             subtopics_list = [subtopic_dict['Subtopic'] for subtopic_dict in subtopics_dict['Subtopics']]
-            topics_content = f"Content for {topic} topic. Subtopics: {', '.join(subtopics_list)}"
-            subtopics_dict['content'] = topics_content
+            topicres = index.query("extract the information about "+str(topic))
+            # topics_content = f"Content for {topic} topic. Subtopics: {', '.join(subtopics_list)}"
+            subtopics_dict['content'] = topicres.response
 
             # Convert the updated dictionary to JSON
             updated_json = json.dumps(new_dict, indent=2)
