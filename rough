@@ -1,0 +1,39 @@
+{
+    "Chapter": {
+        "ChapterName": "Understanding customer needs",
+        "Topics": {
+            "Topic": [
+                {
+                    "TopicName": "Identifying Customer Expectations",
+                    "SubTopics": {
+                        "SubTopic": [
+                            {
+                                "SubTopicName": "Clear communication channels",
+                                "SubTopicContent": "Content For Clear communication channels"
+                            },
+                            {
+                                "SubTopicName": "Personalized attention given",
+                                "SubTopicContent": "Content For Personalized attention given"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "TopicName": "Listening to Customer Feedback",
+                    "SubTopics": {
+                        "SubTopic": [
+                            {
+                                "SubTopicName": "Clear communication channels",
+                                "SubTopicContent": "Content For Clear communication channels"
+                            },
+                            {
+                                "SubTopicName": "Personalized attention given",
+                                "SubTopicContent": "Content For Personalized attention given"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
