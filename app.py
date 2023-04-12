@@ -96,11 +96,17 @@ try:
     # download = col3.button("Download XML")
     # col3.write("")
 
-    for item in st.session_state.table_of_contents:
-        # for title, content in item.items():
-        if col1.checkbox(item):
-            if item not in st.session_state.selected_items:
-                st.session_state.selected_items.append(item)
+    for topic in st.session_state.table_of_contents['Topics']:
+        for key, value in topic.items():
+            # Add a description for the topic
+            new_dict[key] = {'content': '', 'values': []}
+            # Add descriptions for the values
+            for item in value:
+                new_dict[key]['values'].append({'content': '', 'value': item})
+
+    # Convert the new dictionary to JSON
+    new_json = json.dumps(new_dict, indent=2)
+    col1.write(new_json)
 
     if quer:
         chapter_contents = {}
