@@ -95,7 +95,7 @@ try:
     quer = col2.button("Extract Selected")
     # download = col3.button("Download XML")
     # col3.write("")
-
+    new_dict = {}
     for topic in st.session_state.table_of_contents['Topics']:
         for key, value in topic.items():
             # Add a description for the topic
