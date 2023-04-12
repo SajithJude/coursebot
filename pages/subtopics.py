@@ -107,7 +107,7 @@ structure = """{
 """
 button = st.button("Generate TOC")
 if button:
-    res = st.session_state.index.query("Generate a table of contents for this document excluding objective, and include only topics and subtopics in its hierarchy ")
+    res = st.session_state.index.query("Generate a table of contents for this document in a json format as topics and subtopics, exclude the topic OBJECTIVE ")
     json_out = json.loads(res.response)
     st.session_state.json_out = json_out
     st.write(json_out)
