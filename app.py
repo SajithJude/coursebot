@@ -76,8 +76,9 @@ try:
     if toc:
         toc_res = index.query(f"Generate table of contents for this chapter in JSON format, where Titles inside structure should be topics, and the titles within topics should be subtopics")
         str_toc = str(toc_res)
-        st.write(str_toc)
         table_of_contents = json.loads(str_toc)
+        st.write(table_of_contents)
+
         # table_of_contents = [{"title": title} for title in toc_res]
         if "table_of_contents" not in st.session_state:
             st.session_state.table_of_contents = table_of_contents
