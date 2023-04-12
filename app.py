@@ -74,7 +74,7 @@ else:
 toc = cole.button("Genererate TOC")
 try:
     if toc:
-        toc_res = index.query(f"Generate a table of contents for this document with topics and subtopics in JSON format")
+        toc_res = index.query(f"Generate a table of contents for this document with topics and subtopics in JSON format, exclude the topics OBJECTIVE,Keywords,and Check Your Progress")
         str_toc = str(toc_res)
         table_of_contents = json.loads(str_toc)
         st.write(table_of_contents)
