@@ -407,15 +407,15 @@ try:
         #d = dict_input("Edit me!", edit_toc)
         #edit_toc_col.write(d)
 
-        col1, col2 = edit_toc_col.columns(2)
-        with col1:
+        # col1, col2 = edit_toc_col.columns(2)
+        # with col1:
             #edit_toc_col.write("A dict_input composite widget:")
-            with st.echo():
-                d = dict_input("Edit me!", edit_toc)
-        with col2:
+        with st.echo():
+            d = dict_input("Edit me!", edit_toc)
+        #with col2:
             #edit_toc_col.write("A standard dictionary view:")
-            with st.echo():
-                edit_toc_col.write(d)
+        with st.echo():
+            edit_toc_col.write(d)
 
         # edit_toc_col.write(
         #     """
