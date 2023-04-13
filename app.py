@@ -136,17 +136,17 @@ try:
                 content = subtopic_dict['content']
                 subtopic_dict['content'] = edit_col.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
 
-        if edit_col.button("Save"):
-            edit_col.write(st.session_state.new_dict)
+    if edit_col.button("Save"):
+        edit_col.write(st.session_state.new_dict)
 
-        # json_data = json.loads(st.session_state.new_dict)
-        xml_output = json_to_xml(st.session_state.new_dict)
+    # json_data = json.loads(st.session_state.new_dict)
+    xml_output = json_to_xml(st.session_state.new_dict)
 
-        # xml_string = ET.tostring(root)
-        # pretty_xml = minidom.parseString(xml_string).toprettyxml()
-    
-        with st.expander("XML content"):
-            xml_col.write(xml_output)
+    # xml_string = ET.tostring(root)
+    # pretty_xml = minidom.parseString(xml_string).toprettyxml()
+
+    with st.expander("XML content"):
+        xml_col.write(xml_output)
         
 except AttributeError:
     st.warning("Click on load chapter first and select the required Topics to extract")
