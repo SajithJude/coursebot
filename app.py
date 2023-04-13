@@ -85,7 +85,10 @@ uploaded_file = upload_col.file_uploader("Upload a Chapter as a PDF file", type=
 
 if uploaded_file is not None:
         index = process_pdf(uploaded_file)
-        st.success("Index created successfully")
+        if "index" not in st.session_state:
+            st.session_state.index = index
+
+        upload_col.success("Index created successfully")
 
 #         pdf_filename = uploaded_file.name
 
@@ -109,7 +112,7 @@ if uploaded_file is not None:
 toc = upload_col.button("Genererate TOC")
 try:
     if toc:
-        toc_res = index.query(f"Generate a table of contents for this document with topics and subtopics in JSON format, the hierarchy of the table of contents should only have 2 levels which is topics and subtopics, dont include the topics named Objective ,Keywords,and Check Your Progress within the table of contents")
+        toc_res = st.session_state.index.query(f"Generate a table of contents for this document with topics and subtopics in JSON format, the hierarchy of the table of contents should only have 2 levels which is topics and subtopics, dont include the topics named Objective ,Keywords,and Check Your Progress within the table of contents")
         str_toc = str(toc_res)
         table_of_contents = json.loads(str_toc)
 
@@ -142,11 +145,11 @@ try:
         for topic, subtopics_dict in new_dict.items():
             for subtopic_dict in subtopics_dict['Subtopics']:
                 subtopic_name = subtopic_dict['Subtopic']
-                subtopicres = index.query("extract the information about "+str(subtopic_name))
+                subtopicres = st.session_state.index.query("extract the information about "+str(subtopic_name))
                 st.info(f"extracting {subtopic_name}")
                 subtopic_dict['content'] = subtopicres.response
             
-            topicres = index.query("extract the information about "+str(topic))
+            topicres = st.session_state.index.query("extract the information about "+str(topic))
             st.info(f"extracting {topic}")
 
             subtopics_dict['content'] = topicres.response
