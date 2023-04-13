@@ -25,17 +25,11 @@ try:
 except ImportError:
     pyperclip = None
 
-st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
-openai.api_key = os.getenv("API_KEY")
-st.title("CourseBot")
-st.caption("AI-powered course creation made easy")
-DATA_DIR = "data"
-
 PIXELS_PER_LINE = 27
 INDENT = 8
 
 
-@st.cache_data
+@st.cache(allow_output_mutation=True)
 def state_singleton() -> Dict:
     return {}
 
@@ -53,11 +47,15 @@ class JsonInputState:
 class CopyPasteError(Exception):
     pass
 
+st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
+openai.api_key = os.getenv("API_KEY")
+st.title("CourseBot")
+st.caption("AI-powered course creation made easy")
+DATA_DIR = "data"
+
 PDFReader = download_loader("PDFReader")
 
 loader = PDFReader()
-
-edit_toc = {"Topics":[]}
 
 def load_db():
     if not os.path.exists("db.json"):
@@ -209,16 +207,21 @@ def dict_input(label, value, mutable_structure=False, key=None):
     # Copy and paste buttons
 
     try:
-        copy_con, paste_con = st.columns((1, 5))
+        copy_con, paste_con = st.beta_columns((1, 5))
     except st.StreamlitAPIException:
         copy_con, paste_con = st.empty(), st.empty()
 
-    if copy_con.button("Update", key=key if key else label + "-copy"):
-        edit_toc = state.value
+    if copy_con.button("Copy", key=key if key else label + "-copy"):
+        copy_json(state.value)
 
-    # if paste_con.button("Save", key=key if key else label + "-paste"):
-    #     st.session_state.table_of_contents = table_of_contents
-
+    if paste_con.button("Paste", key=key if key else label + "-paste"):
+        try:
+            _new_value = paste_json(state.value, mutable_structure)
+            state.default_value = state.value = _new_value
+            state.redraw_counter += 1
+            return json_input_text("")
+        except CopyPasteError as e:
+            st.warning(e)
     st.write("----")
 
     return state.value
@@ -345,107 +348,26 @@ try:
 
         upload_col.success("TOC loaded, Go to the next tab")
     
-    if edit_toc_col:
-        # Create empty dictionary
-        if "table_of_contents" not in st.session_state:
-            st.session_state.table_of_contents = {"Topics":[]}
-        upload_col.write(st.session_state.table_of_contents)
 
-        edit_toc = st.session_state.table_of_contents
-      
+    # Create empty dictionary
+    edit_toc = {"Topics": []}
 
-        # User input for number of topics
-        # num_topics = edit_toc_col.number_input("Enter number of topics:", min_value=1, max_value=10, step=1)
+    # User input for number of topics
+    num_topics = edit_toc_col.number_input("Enter number of topics:", min_value=1, max_value=10, step=1)
 
-        # # Iterate over topics and subtopics
-        # for i in range(num_topics):
-        #     topic = edit_toc_col.text_input(f"Enter Topic {i+1}:", key=str(i))
-        #     num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:",key=str(i)+"_"+str(topic), min_value=1, max_value=10, step=1)
-        #     subtopics = []
-        #     for j in range(num_subtopics):
-        #         subtopic = edit_toc_col.text_input(f"Enter Subtopic {j+1} for {topic}:", key=str(i)+"_"+str(j)+"_"+topic)
-        #         subtopics.append(subtopic)
-        #     topic_dict = {topic: subtopics}
-        #     edit_toc["Topics"].append(topic_dict)
+    # Iterate over topics and subtopics
+    for i in range(num_topics):
+        topic = edit_toc_col.text_input(f"Enter Topic {i+1}:", key=str(i))
+        num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:",key=str(i)+"_"+str(topic), min_value=1, max_value=10, step=1)
+        subtopics = []
+        for j in range(num_subtopics):
+            subtopic = edit_toc_col.text_input(f"Enter Subtopic {j+1} for {topic}:", key=str(i)+"_"+str(j)+"_"+topic)
+            subtopics.append(subtopic)
+        topic_dict = {topic: subtopics}
+        edit_toc["Topics"].append(topic_dict)
 
-        # Display the created dictionary
-        # edit_toc_col.write( edit_toc)
-
-        # edit_toc_col.write(
-        #     """
-        #     A version of the standard dict view that is editable would be handy for
-        #     quick prototyping, for when an app has many parameters, and as a
-        #     supplemental way to copy configuration in and out of a streamlit app.
-            
-        #     A native `dict_input` widget might be used to edit a
-        #     dictionary like this
-        #     """
-        # )
-        # with st.echo():
-        # dict_template = {
-        #     "a": 1,
-        #     "b": 2.0,
-        #     "c": "abc",
-        #     "d": {"a": 3},
-        #     "e": [4, 5.0, "def"],
-        # }
-
-        if edit_toc_col:
-    # Use st.session_state to store the edited dictionary
-            if "edited_dict" not in st.session_state:
-                st.session_state.edited_dict = edit_toc.copy()
-
-            # Display the dictionary in "Edit TOC" tab
-           
-    #     edit_toc_col.write(
-    #         """
-    #         and might look like a cross between the widgets below. The left is an
-    #         editable view of the standard dict widget on the right.
-    #         """
-    #     )
-
-        #d = dict_input("Edit me!", edit_toc)
-        #edit_toc_col.write(d)
-
-        col1, col2 = edit_toc_col.columns([10,1])
-        with col1:
-            #edit_toc_col.write("A dict_input composite widget:")
-            #with st.echo():
-                d = dict_input("Edit me!", edit_toc)
-        with col2:
-            #edit_toc_col.write("A standard dictionary view:")
-            #with st.echo():
-                edit_toc_col.write(d)
-
-        # edit_toc_col.write(
-        #     """
-        #     The view on the left can be edited. It will revert to its last valid
-        #     state if invalid json is entered, or if the key-structure of the dict
-        #     is changed or the type of a value is changed from that of its initial
-        #     value (`config`).  The buttons copy json out of the widget or into it.
-        
-        #     ### Call with a function
-        #     The value given to `json_input` might be a function rather than a dict.
-        #     As long as all the parameters have defaults then the inital dict is
-        #     inferred.  For example:
-        #     """
-        # )
-
-        # with st.echo():
-        #     def func(a=1, b=2.0, c="c"):
-        #         return a, b, c
-
-        #     config = dict_input("Parameters to call `func` with", func)
-            
-        #     edit_toc_col.write( func(**config))
-
-        # edit_toc_col.write(
-        #     """
-        #     ### Options
-        #     `dict_input` might also take a `dataclass` (not implemented). The option
-        #     `mutable_structure` may be set to True allowing the key structure and
-        #     value types to change (implemented)."""
-        # )
+    # Display the created dictionary
+    edit_toc_col.write( edit_toc)
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
