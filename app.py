@@ -113,9 +113,12 @@ try:
             for subtopic_dict in subtopics_dict['Subtopics']:
                 subtopic_name = subtopic_dict['Subtopic']
                 subtopicres = index.query("extract the information about "+str(subtopic_name))
+                st.info(f"extracting {subtopic_name}")
                 subtopic_dict['content'] = subtopicres.response
             
             topicres = index.query("extract the information about "+str(topic))
+            st.info(f"extracting {topic}")
+
             subtopics_dict['content'] = topicres.response
 
             updated_json = json.dumps(new_dict, indent=2)
