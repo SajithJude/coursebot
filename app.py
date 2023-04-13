@@ -141,7 +141,7 @@ try:
 
     # Iterate over topics and subtopics
     for i in range(num_topics):
-        topic = edit_toc_col.text_input(f"Enter Topic {i+1}:")
+        topic = edit_toc_col.text_input(f"Enter Topic {i+1}:", key=str(i))
         num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:", min_value=1, max_value=10, step=1)
         subtopics = []
         for j in range(num_subtopics):
@@ -151,7 +151,7 @@ try:
         edit_toc["Topics"].append(topic_dict)
 
     # Display the created dictionary
-    edit_toc_col.write("Created Dictionary:", edit_toc)
+    edit_toc_col.write( edit_toc)
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
