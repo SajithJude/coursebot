@@ -232,8 +232,9 @@ def dict_input(label, value, mutable_structure=False, key=None):
         str_edit_toc = json.dumps(res_edit_toc)
         
         parsed_json = json.loads(str_edit_toc)
-        global edit_toc
-        st.session_state.table_of_contents = state.value
+        global edit_toc 
+        edit_toc = json.dumps(parsed_json, indent=2)
+        st.session_state.table_of_contents = edit_toc
         
         st.experimental_rerun()
         # Dump the JSON data with indentation for formatting
