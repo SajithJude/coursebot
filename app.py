@@ -147,15 +147,16 @@ try:
 
 
     chapter_name = xml_col.text_input("enter chapter name")
-    if chapter_name:
+    save_xml = xml_col.button("Save XML")
+    if save_xml:
     # json_data = json.loads(st.session_state.new_dict)
         xml_output = json_to_xml(st.session_state.new_dict,chapter_name)
 
     # xml_string = ET.tostring(root)
         pretty_xml = minidom.parseString(xml_output).toprettyxml()
 
-    with xml_col.expander("XML content"):
-        xml_col.code(pretty_xml)
-        
+        with xml_col.expander("XML content"):
+            xml_col.code(pretty_xml)
+            
 except AttributeError:
     st.warning("Click on load chapter first and select the required Topics to extract")
