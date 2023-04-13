@@ -232,7 +232,7 @@ def dict_input(label, value, mutable_structure=False, key=None):
         str_edit_toc = json.dumps(res_edit_toc)
         edit_toc = json.loads(str_edit_toc)
         text_con = None
-        dict_input("Edit me!", edit_toc)
+        dict_input("Edit me!", state.value)
         
         
 
