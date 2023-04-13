@@ -3,6 +3,8 @@ from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader, Q
 import json
 from langchain import OpenAI
 from llama_index import download_loader
+from tempfile import NamedTemporaryFile
+
 PDFReader = download_loader("PDFReader")
 import os
 import openai 
