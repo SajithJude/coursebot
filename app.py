@@ -22,8 +22,13 @@ PDFReader = download_loader("PDFReader")
 loader = PDFReader()
 
 
-def json_to_xml(json_data):
-    topics = Element('Topics')
+def json_to_xml(json_data, chapter_name):
+    chapter = Element('Chapter')
+
+    chapter_name_element = SubElement(chapter, 'ChapterName')
+    chapter_name_element.text = chapter_name
+
+    topics = SubElement(chapter, 'Topics')
 
     for topic_name, topic_info in json_data.items():
         topic = SubElement(topics, 'Topic')
@@ -40,7 +45,7 @@ def json_to_xml(json_data):
             subtopic_content = SubElement(subtopic, 'SubTopicContent')
             subtopic_content.text = subtopic_info['content']
 
-    return tostring(topics).decode()
+    return tostring(chapter).decode()
 
 
 
@@ -140,11 +145,14 @@ try:
     if edit_col.button("Save"):
         edit_col.write(st.session_state.new_dict)
 
+
+    chapter_name = xml_col.text_input("enter chapter name")
+    if chapter_name:
     # json_data = json.loads(st.session_state.new_dict)
-    xml_output = json_to_xml(st.session_state.new_dict)
+        xml_output = json_to_xml(st.session_state.new_dict,chapter_name)
 
     # xml_string = ET.tostring(root)
-    pretty_xml = minidom.parseString(xml_output).toprettyxml()
+        pretty_xml = minidom.parseString(xml_output).toprettyxml()
 
     with xml_col.expander("XML content"):
         xml_col.code(pretty_xml)
