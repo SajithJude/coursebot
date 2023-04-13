@@ -350,7 +350,12 @@ try:
     
     if edit_toc_col:
         # Create empty dictionary
-        edit_toc = {"Topics": []}
+        if "table_of_contents" not in st.session_state:
+            st.session_state.table_of_contents = {"Topics":[]}
+        upload_col.write(st.session_state.table_of_contents)
+
+        edit_toc = st.session_state.table_of_contents
+      
 
         # User input for number of topics
         # num_topics = edit_toc_col.number_input("Enter number of topics:", min_value=1, max_value=10, step=1)
