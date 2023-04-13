@@ -216,8 +216,8 @@ def dict_input(label, value, mutable_structure=False, key=None):
     if copy_con.button("Update", key=key if key else label + "-copy"):
         edit_toc = state.value
 
-    if paste_con.button("Save", key=key if key else label + "-paste"):
-        st.session_state.table_of_contents = table_of_contents
+    # if paste_con.button("Save", key=key if key else label + "-paste"):
+    #     st.session_state.table_of_contents = table_of_contents
 
     st.write("----")
 
@@ -411,11 +411,11 @@ try:
         with col1:
             #edit_toc_col.write("A dict_input composite widget:")
             #with st.echo():
-            d = dict_input("Edit me!", edit_toc)
+                d = dict_input("Edit me!", edit_toc)
         with col2:
             #edit_toc_col.write("A standard dictionary view:")
             #with st.echo():
-            edit_toc_col.write(d)
+                edit_toc_col.write(d)
 
         # edit_toc_col.write(
         #     """
