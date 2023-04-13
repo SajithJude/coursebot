@@ -2,6 +2,7 @@ import streamlit as st
 from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader, QuestionAnswerPrompt, LLMPredictor, ServiceContext
 import json
 from langchain import OpenAI
+from llama_index import download_loader
 PDFReader = download_loader("PDFReader")
 import os
 import openai 
