@@ -402,7 +402,7 @@ try:
             """
         )
 
-        col1, col2 = edit_toc_col.beta_columns(2)
+        col1, col2 = edit_toc_col.columns(2)
         with col1:
             edit_toc_col.write("A dict_input composite widget:")
             with st.echo():
