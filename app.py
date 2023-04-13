@@ -147,7 +147,7 @@ try:
     pretty_xml = minidom.parseString(xml_output).toprettyxml()
 
     with xml_col.expander("XML content"):
-        xml_col.write(pretty_xml)
+        xml_col.code(pretty_xml)
         
 except AttributeError:
     st.warning("Click on load chapter first and select the required Topics to extract")
