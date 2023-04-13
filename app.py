@@ -89,7 +89,7 @@ def process_pdf(uploaded_file):
 
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
-upload_col, extract_col, edit_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__", "⚪ __Extract_Contents__", "⚪ __Edit Contents__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
+upload_col, edit_toc_col, extract_col, edit_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__", "⚪ __Edit TOC__","⚪ __Extract_Contents__", "⚪ __Edit Contents__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
 
 uploaded_file = upload_col.file_uploader("Upload a Chapter as a PDF file", type="pdf")
 
@@ -131,6 +131,27 @@ try:
         upload_col.write(st.session_state.table_of_contents)
 
         upload_col.success("TOC loaded, Go to the next tab")
+    
+
+    # Create empty dictionary
+    edit_toc = {"Topics": []}
+
+    # User input for number of topics
+    num_topics = edit_toc_col.number_input("Enter number of topics:", min_value=1, max_value=10, step=1)
+
+    # Iterate over topics and subtopics
+    for i in range(num_topics):
+        topic = edit_toc_col.text_input(f"Enter Topic {i+1}:", key=str(i))
+        num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:",key=str(i)+"_"+str(topic), min_value=1, max_value=10, step=1)
+        subtopics = []
+        for j in range(num_subtopics):
+            subtopic = edit_toc_col.text_input(f"Enter Subtopic {j+1} for {topic}:", key=str(i)+"_"+str(j)+"_"+topic)
+            subtopics.append(subtopic)
+        topic_dict = {topic: subtopics}
+        edit_toc["Topics"].append(topic_dict)
+
+    # Display the created dictionary
+    edit_toc_col.write( edit_toc)
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
