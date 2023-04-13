@@ -20,6 +20,29 @@ PDFReader = download_loader("PDFReader")
 
 loader = PDFReader()
 
+
+def json_to_xml(json_data):
+    topics = Element('Topics')
+
+    for topic_name, topic_info in json_data.items():
+        topic = SubElement(topics, 'Topic')
+        topic_name_element = SubElement(topic, 'TopicName')
+        topic_name_element.text = topic_name
+
+        subtopics = SubElement(topic, 'SubTopics')
+        for subtopic_info in topic_info['Subtopics']:
+            subtopic = SubElement(subtopics, 'SubTopic')
+
+            subtopic_name = SubElement(subtopic, 'SubTopicName')
+            subtopic_name.text = subtopic_info['Subtopic']
+
+            subtopic_content = SubElement(subtopic, 'SubTopicContent')
+            subtopic_content.text = subtopic_info['content']
+
+    return tostring(topics).decode()
+
+
+
 def save_uploaded_file(uploaded_file):
     with open(os.path.join(DATA_DIR, uploaded_file.name), "wb") as f:
         f.write(uploaded_file.getbuffer())
@@ -113,25 +136,14 @@ try:
         if edit_col.button("Save"):
             edit_col.write(st.session_state.new_dict)
 
-        root = ET.Element("chapter")
-        for key, value in st.session_state.selected_chapters.items():
-            if key == "1.1 Objectives":
-                topic_name = "objectives"
-                topic_content = "objectives_content"
-            else:
-                topic_name = "topic_name"
-                topic_content = "topic_content"
-                
-            topic = ET.SubElement(root, topic_name)
-            topic.text = key
-            contents = ET.SubElement(root, topic_content)
-            contents.text = value
+        # json_data = json.loads(st.session_state.new_dict)
+        xml_output = json_to_xml(st.session_state.new_dict)
 
-        xml_string = ET.tostring(root)
-        pretty_xml = minidom.parseString(xml_string).toprettyxml()
+        # xml_string = ET.tostring(root)
+        # pretty_xml = minidom.parseString(xml_string).toprettyxml()
     
         with st.expander("XML content"):
-            xml_col.write(pretty_xml)
+            xml_col.write(xml_output)
         
 except AttributeError:
     st.warning("Click on load chapter first and select the required Topics to extract")
