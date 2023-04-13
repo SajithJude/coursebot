@@ -388,6 +388,28 @@ try:
                 "e": [4, 5.0, "def"],
             }
 
+        if edit_toc_col:
+    # Display the dictionary in "Edit TOC" tab
+            st.write("Original Dictionary:")
+            st.write(dict_template)
+
+            # Create editable form for the dictionary
+            st.write("Edit Dictionary:")
+            edited_dict = dict_template.copy()
+            edited_dict["a"] = st.number_input("a", value=edited_dict["a"])
+            edited_dict["b"] = st.number_input("b", value=edited_dict["b"])
+            edited_dict["c"] = st.text_input("c", value=edited_dict["c"])
+            edited_dict["d"]["a"] = st.number_input("d - a", value=edited_dict["d"]["a"])
+            edited_dict["e"][0] = st.number_input("e - 0", value=edited_dict["e"][0])
+            edited_dict["e"][1] = st.number_input("e - 1", value=edited_dict["e"][1])
+            edited_dict["e"][2] = st.text_input("e - 2", value=edited_dict["e"][2])
+
+            # Update dictionary with edited values on submit
+            if st.button("Submit"):
+                dict_template = edited_dict
+                st.success("Dictionary Updated!")
+
+            
         edit_toc_col.write(
             """
             and might look like a cross between the widgets below. The left is an
