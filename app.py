@@ -207,21 +207,21 @@ def dict_input(label, value, mutable_structure=False, key=None):
     # Copy and paste buttons
 
     try:
-        copy_con, paste_con = st.beta_columns((1, 5))
+        copy_con, paste_con = st.columns((1, 5))
     except st.StreamlitAPIException:
         copy_con, paste_con = st.empty(), st.empty()
 
-    if copy_con.button("Copy", key=key if key else label + "-copy"):
+    if copy_con.button("Save", key=key if key else label + "-copy"):
         copy_json(state.value)
 
-    if paste_con.button("Paste", key=key if key else label + "-paste"):
-        try:
-            _new_value = paste_json(state.value, mutable_structure)
-            state.default_value = state.value = _new_value
-            state.redraw_counter += 1
-            return json_input_text("")
-        except CopyPasteError as e:
-            st.warning(e)
+    # if paste_con.button("Paste", key=key if key else label + "-paste"):
+    #     try:
+    #         _new_value = paste_json(state.value, mutable_structure)
+    #         state.default_value = state.value = _new_value
+    #         state.redraw_counter += 1
+    #         return json_input_text("")
+    #     except CopyPasteError as e:
+    #         st.warning(e)
     st.write("----")
 
     return state.value
