@@ -21,6 +21,15 @@ PDFReader = download_loader("PDFReader")
 
 loader = PDFReader()
 
+def load_db():
+    if not os.path.exists("db.json"):
+        with open("db.json", "w") as f:
+            json.dump({}, f)
+    
+    with open("db.json", "r") as f:
+        db = json.load(f)
+    
+    return db
 
 def json_to_xml(json_data, chapter_name):
     chapter = Element('Chapter')
@@ -55,7 +64,7 @@ def save_uploaded_file(uploaded_file):
 
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
-upload_col, extract_col, edit_col, xml_col = st.tabs(["⚪ __Upload Chapter__  ","⚪ __Extract_Contents__  ", "⚪ __Edit Contents__  "," ⚪ __Export Generated XML__  "])
+upload_col, extract_col, edit_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__", "⚪ __Extract_Contents__", "⚪ __Edit Contents__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
 
 uploaded_file = upload_col.file_uploader("Upload a Chapter as a PDF file", type="pdf")
 
@@ -149,14 +158,29 @@ try:
     chapter_name = xml_col.text_input("enter chapter name")
     save_xml = xml_col.button("Save XML")
     if save_xml:
-    # json_data = json.loads(st.session_state.new_dict)
-        xml_output = json_to_xml(st.session_state.new_dict,chapter_name)
-
-    # xml_string = ET.tostring(root)
+        xml_output = json_to_xml(st.session_state.new_dict, chapter_name)
         pretty_xml = minidom.parseString(xml_output).toprettyxml()
+
+        db = load_db()
+        db[chapter_name] = pretty_xml
+
+        with open("db.json", "w") as f:
+            json.dump(db, f)
 
         with xml_col.expander("XML content"):
             xml_col.code(pretty_xml)
-            
+
+
+    db = load_db()
+    chapter_list = list(db.keys())
+
+    if chapter_list:
+        selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
+        manage_col.code(db[selected_chapter], language="xml")
+    else:
+        manage_col.warning("No chapters found. Upload a chapter and save its XML first.")
+    
+
+                
 except AttributeError:
     st.warning("Click on load chapter first and select the required Topics to extract")
