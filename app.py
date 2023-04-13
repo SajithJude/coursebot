@@ -237,8 +237,6 @@ def dict_input(label, value, mutable_structure=False, key=None):
         
         st.session_state.table_of_contents = edit_toc
         
-        st.experimental_rerun()
-
     # if paste_con.button("Save", key=key if key else label + "-paste"):
     #     st.session_state.table_of_contents = table_of_contents
 
