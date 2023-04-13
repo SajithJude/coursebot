@@ -231,6 +231,15 @@ def dict_input(label, value, mutable_structure=False, key=None):
         logging.debug(type(res_edit_toc))
         str_edit_toc = json.dumps(res_edit_toc)
         edit_toc = json.loads(str_edit_toc)
+        col1, col2 = edit_toc_col.columns([10,1])
+        with col1:
+            #edit_toc_col.write("A dict_input composite widget:")
+            #with st.echo():
+                d = dict_input("Edit me!", edit_toc)
+        with col2:
+            #edit_toc_col.write("A standard dictionary view:")
+            #with st.echo():
+                edit_toc_col.write(d)
 
     # if paste_con.button("Save", key=key if key else label + "-paste"):
     #     st.session_state.table_of_contents = table_of_contents
