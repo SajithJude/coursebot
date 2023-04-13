@@ -223,6 +223,7 @@ def dict_input(label, value, mutable_structure=False, key=None):
 
     if copy_con.button("Update", key=key if key else label + "-copy"):
         res_edit_toc = state.value
+        print(res_edit_toc)
         str_edit_toc = str(res_edit_toc)
         edit_toc = json.loads(str_edit_toc)
 
