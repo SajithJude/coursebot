@@ -379,14 +379,14 @@ try:
             dictionary like this
             """
         )
-        with st.echo():
-            dict_template = {
-                "a": 1,
-                "b": 2.0,
-                "c": "abc",
-                "d": {"a": 3},
-                "e": [4, 5.0, "def"],
-            }
+        # with st.echo():
+        dict_template = {
+            "a": 1,
+            "b": 2.0,
+            "c": "abc",
+            "d": {"a": 3},
+            "e": [4, 5.0, "def"],
+        }
 
         if edit_toc_col:
     # Use st.session_state to store the edited dictionary
@@ -410,7 +410,7 @@ try:
         with col2:
             edit_toc_col.write("A standard dictionary view:")
             with st.echo():
-                edit_toc_col.write( d)
+                edit_toc_col.write(d)
 
         # edit_toc_col.write(
         #     """
