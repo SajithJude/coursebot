@@ -57,6 +57,8 @@ PDFReader = download_loader("PDFReader")
 
 loader = PDFReader()
 
+edit_toc = {"Topics":[]}
+
 def load_db():
     if not os.path.exists("db.json"):
         with open("db.json", "w") as f:
@@ -212,7 +214,7 @@ def dict_input(label, value, mutable_structure=False, key=None):
         copy_con, paste_con = st.empty(), st.empty()
 
     if copy_con.button("Save", key=key if key else label + "-copy"):
-        copy_json(state.value)
+        edit_toc = state.value
 
     # if paste_con.button("Paste", key=key if key else label + "-paste"):
     #     try:
