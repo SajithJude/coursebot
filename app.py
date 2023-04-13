@@ -29,6 +29,7 @@ DATA_DIR = "data"
 PIXELS_PER_LINE = 27
 INDENT = 8
 
+edit_toc ={}
 
 @st.cache_data
 def state_singleton() -> Dict:
@@ -221,7 +222,9 @@ def dict_input(label, value, mutable_structure=False, key=None):
         copy_con, paste_con = st.empty(), st.empty()
 
     if copy_con.button("Update", key=key if key else label + "-copy"):
-        edit_toc = state.value
+        res_edit_toc = state.value
+        str_edit_toc = str(res_edit_toc)
+        edit_toc = json.loads(str_edit_toc)
 
     # if paste_con.button("Save", key=key if key else label + "-paste"):
     #     st.session_state.table_of_contents = table_of_contents
@@ -309,7 +312,7 @@ try:
     if edit_toc_col:
         # Create empty dictionary
         
-        upload_col.write(st.session_state.table_of_contents)
+        #upload_col.write(st.session_state.table_of_contents)
 
         edit_toc = st.session_state.table_of_contents
       
