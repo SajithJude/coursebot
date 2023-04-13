@@ -9,6 +9,7 @@ PDFReader = download_loader("PDFReader")
 import os
 import openai 
 import json
+
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from pathlib import Path
@@ -142,7 +143,7 @@ try:
     # Iterate over topics and subtopics
     for i in range(num_topics):
         topic = edit_toc_col.text_input(f"Enter Topic {i+1}:", key=str(i))
-        num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:",key=str(i)+str(topic), min_value=1, max_value=10, step=1)
+        num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:",key=str(i)+"_"+str(topic), min_value=1, max_value=10, step=1)
         subtopics = []
         for j in range(num_subtopics):
             subtopic = edit_toc_col.text_input(f"Enter Subtopic {j+1} for {topic}:", key=str(i)+"_"+str(j)+"_"+topic)
@@ -226,10 +227,10 @@ try:
         with xml_col.expander("XML content"):
             xml_col.code(pretty_xml)
 
-        # st.session_state.table_of_contents = {}
-        # st.session_state.selected_items = []
-        # st.session_state.new_dict = {}
-        # st.session_state.index = ""
+        st.session_state.table_of_contents = {}
+        st.session_state.selected_items = []
+        st.session_state.new_dict = {}
+        st.session_state.index = ""
 
 
  
