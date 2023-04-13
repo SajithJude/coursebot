@@ -36,6 +36,16 @@ def load_db():
     
     return db
 
+def delete_chapter(chapter_name):
+    db = load_db()
+    if chapter_name in db:
+        del db[chapter_name]
+        with open("db.json", "w") as f:
+            json.dump(db, f)
+        return True
+    return False
+
+
 def json_to_xml(json_data, chapter_name):
     chapter = Element('Chapter')
 
@@ -211,6 +221,20 @@ chapter_list = list(db.keys())
 if chapter_list:
     selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
     manage_col.code(db[selected_chapter], language="xml")
+    delete_button = manage_col.button("Delete Chapter")
+    if delete_button:
+        if delete_chapter(selected_chapter):
+            manage_col.success(f"Chapter {selected_chapter} deleted successfully.")
+            db = load_db()
+            chapter_list = list(db.keys())
+            if chapter_list:
+                selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
+                manage_col.code(db[selected_chapter], language="xml")
+            else:
+                manage_col.warning("No chapters found. Upload a chapter and save its XML first.")
+        else:
+            manage_col.error(f"Failed to delete chapter {selected_chapter}.")
+
 else:
     manage_col.warning("No chapters found. Upload a chapter and save its XML first.")
-    
+
