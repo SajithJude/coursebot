@@ -402,6 +402,8 @@ try:
             """
         )
 
+        dict_input("Edit me!", edit_toc)
+
         col1, col2 = edit_toc_col.columns(2)
         with col1:
             #edit_toc_col.write("A dict_input composite widget:")
