@@ -142,10 +142,10 @@ try:
     # Iterate over topics and subtopics
     for i in range(num_topics):
         topic = edit_toc_col.text_input(f"Enter Topic {i+1}:", key=str(i))
-        num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:", min_value=1, max_value=10, step=1)
+        num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:",key=str(i)+"_"+str(topic), min_value=1, max_value=10, step=1)
         subtopics = []
         for j in range(num_subtopics):
-            subtopic = edit_toc_col.text_input(f"Enter Subtopic {j+1} for {topic}:")
+            subtopic = edit_toc_col.text_input(f"Enter Subtopic {j+1} for {topic}:", key=str(i)+"_"+str(j)+"_"+topic)
             subtopics.append(subtopic)
         topic_dict = {topic: subtopics}
         edit_toc["Topics"].append(topic_dict)
