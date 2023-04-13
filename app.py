@@ -407,10 +407,10 @@ try:
             edit_toc_col.write("A dict_input composite widget:")
             with st.echo():
                 d = dict_input("Edit me!", dict_template)
-        # with col2:
-        #     edit_toc_col.write("A standard dictionary view:")
-        #     with st.echo():
-        #         edit_toc_col.write( d)
+        with col2:
+            edit_toc_col.write("A standard dictionary view:")
+            with st.echo():
+                edit_toc_col.write( d)
 
         # edit_toc_col.write(
         #     """
