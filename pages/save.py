@@ -105,14 +105,14 @@ for topic, subtopics_dict in json_dict.items():
     # Get the content for the topic
     content = subtopics_dict['content']
     # Create a text input field for the content and store the updated content in the dictionary
-    subtopics_dict['content'] = st.text_input(f"Edit content for {topic}:", value=content)
+    subtopics_dict['content'] = st.text_area(f"Topic {topic}:", value=content)
     # Loop through each subtopic for the topic
     for subtopic_dict in subtopics_dict['Subtopics']:
         subtopic_name = subtopic_dict['Subtopic']
         # Get the content for the subtopic
         content = subtopic_dict['content']
         # Create a text input field for the content and store the updated content in the dictionary
-        subtopic_dict['content'] = st.text_input(f"Edit content for subtopic {subtopic_name} under topic {topic} :", value=content)
+        subtopic_dict['content'] = st.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
 
 # Create a "Save" button
 if st.button("Save"):
