@@ -369,16 +369,16 @@ try:
         # Display the created dictionary
         edit_toc_col.write( edit_toc)
 
-        edit_toc_col.write(
-            """
-            A version of the standard dict view that is editable would be handy for
-            quick prototyping, for when an app has many parameters, and as a
-            supplemental way to copy configuration in and out of a streamlit app.
+        # edit_toc_col.write(
+        #     """
+        #     A version of the standard dict view that is editable would be handy for
+        #     quick prototyping, for when an app has many parameters, and as a
+        #     supplemental way to copy configuration in and out of a streamlit app.
             
-            A native `dict_input` widget might be used to edit a
-            dictionary like this
-            """
-        )
+        #     A native `dict_input` widget might be used to edit a
+        #     dictionary like this
+        #     """
+        # )
         with st.echo():
             dict_template = {
                 "a": 1,
@@ -388,19 +388,19 @@ try:
                 "e": [4, 5.0, "def"],
             }
 
-    #     if edit_toc_col:
-    # # Use st.session_state to store the edited dictionary
-    #         if "edited_dict" not in st.session_state:
-    #             st.session_state.edited_dict = dict_template.copy()
+        if edit_toc_col:
+    # Use st.session_state to store the edited dictionary
+            if "edited_dict" not in st.session_state:
+                st.session_state.edited_dict = dict_template.copy()
 
-    #         # Display the dictionary in "Edit TOC" tab
+            # Display the dictionary in "Edit TOC" tab
            
-        edit_toc_col.write(
-            """
-            and might look like a cross between the widgets below. The left is an
-            editable view of the standard dict widget on the right.
-            """
-        )
+        # edit_toc_col.write(
+        #     """
+        #     and might look like a cross between the widgets below. The left is an
+        #     editable view of the standard dict widget on the right.
+        #     """
+        # )
 
         # col1, col2 = edit_toc_col.beta_columns(2)
         # with col1:
