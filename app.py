@@ -25,6 +25,14 @@ try:
 except ImportError:
     pyperclip = None
 
+
+
+st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
+openai.api_key = os.getenv("API_KEY")
+st.title("CourseBot")
+st.caption("AI-powered course creation made easy")
+DATA_DIR = "data"
+
 PIXELS_PER_LINE = 27
 INDENT = 8
 
@@ -46,12 +54,6 @@ class JsonInputState:
 
 class CopyPasteError(Exception):
     pass
-
-st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
-openai.api_key = os.getenv("API_KEY")
-st.title("CourseBot")
-st.caption("AI-powered course creation made easy")
-DATA_DIR = "data"
 
 PDFReader = download_loader("PDFReader")
 
