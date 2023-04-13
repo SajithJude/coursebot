@@ -388,12 +388,12 @@ try:
                 "e": [4, 5.0, "def"],
             }
 
-        if edit_toc_col:
-    # Use st.session_state to store the edited dictionary
-            if "edited_dict" not in st.session_state:
-                st.session_state.edited_dict = dict_template.copy()
+    #     if edit_toc_col:
+    # # Use st.session_state to store the edited dictionary
+    #         if "edited_dict" not in st.session_state:
+    #             st.session_state.edited_dict = dict_template.copy()
 
-            # Display the dictionary in "Edit TOC" tab
+    #         # Display the dictionary in "Edit TOC" tab
            
         edit_toc_col.write(
             """
