@@ -308,8 +308,7 @@ try:
 
     if edit_toc_col:
         # Create empty dictionary
-        if "table_of_contents" not in st.session_state:
-            st.session_state.table_of_contents = {"Topics":[]}
+        
         upload_col.write(st.session_state.table_of_contents)
 
         edit_toc = st.session_state.table_of_contents
