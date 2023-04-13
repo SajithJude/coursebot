@@ -174,7 +174,7 @@ try:
  
                 
 except AttributeError:
-    st.warning("Click on load chapter first and select the required Topics to extract")
+    st.info("Click on Generate TOC to get started")
 
 db = load_db()
 chapter_list = list(db.keys())
