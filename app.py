@@ -144,10 +144,10 @@ try:
     xml_output = json_to_xml(st.session_state.new_dict)
 
     # xml_string = ET.tostring(root)
-    # pretty_xml = minidom.parseString(xml_string).toprettyxml()
+    pretty_xml = minidom.parseString(xml_output).toprettyxml()
 
-    with st.expander("XML content"):
-        xml_col.write(xml_output)
+    with xml_col.expander("XML content"):
+        xml_col.write(pretty_xml)
         
 except AttributeError:
     st.warning("Click on load chapter first and select the required Topics to extract")
