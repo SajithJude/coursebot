@@ -2,7 +2,7 @@ import streamlit as st
 import json
 
 # Load the JSON as a dictionary
-json_dict = json.loads('''{
+json_dict = json.loads("""{
   "Funding the Balance Sheet": {
     "content": "\n\nThe objective of the treasury is to fund the balance sheet as cheaply as possible taking into account the marginal impact of these actions. The treasury should deploy and invest the deposit liabilities, internal generation and cash flows from maturing assets for optimum return on appropriate maturities either current or forward basis consistent with the bank’s risk policies/appetite. The treasury should also identify and borrow on the best terms from the market to meet the clearing deficits of the bank. The front office of the treasury is responsible for managing investment and market risks in accordance with guidance received from the bank’s ALCO. This is undertaken through the Dealing Room which acts as the bank’s interface to international and domestic financial markets. The mid-office is responsible for onsite risk measurement, monitoring and management reporting, while the back-office is responsible for deal slip verification, generation and dispatch of interbank confirmations, monitoring receipt of confirmations from counterparty banks, effecting/receiving payments, settlement through CCIL or direct through nostro as applicable, monitoring receipt of forex funds in interbank contracts, statutory reports to the RBI, and management of nostro funds to advise latest funds position to the front office.",
     "Subtopics": [
@@ -98,7 +98,7 @@ json_dict = json.loads('''{
       }
     ]
   }
-}''')
+}""")
 
 # Loop through each topic in the JSON dictionary
 for topic, subtopics_dict in json_dict.items():
