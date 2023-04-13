@@ -227,13 +227,14 @@ def dict_input(label, value, mutable_structure=False, key=None):
         copy_con, paste_con = st.empty(), st.empty()
 
     if copy_con.button("Update", key=key if key else label + "-copy"):
+        global edit_toc 
         res_edit_toc = state.value
         logging.debug(type(res_edit_toc))
         str_edit_toc = json.dumps(res_edit_toc)
         
-        parsed_json = json.loads(str_edit_toc)
-        global edit_toc 
-        edit_toc = json.dumps(parsed_json, indent=2)
+        
+        edit_toc =  json.loads(str_edit_toc)
+        
         st.session_state.table_of_contents = edit_toc
         
         st.experimental_rerun()
