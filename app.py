@@ -402,11 +402,11 @@ try:
             """
         )
 
-        # col1, col2 = edit_toc_col.beta_columns(2)
-        #with col1:
-        edit_toc_col.write("A dict_input composite widget:")
-        with st.echo():
-            d = dict_input("Edit me!", dict_template)
+        col1, col2 = edit_toc_col.beta_columns(2)
+        with col1:
+            edit_toc_col.write("A dict_input composite widget:")
+            with st.echo():
+                d = dict_input("Edit me!", dict_template)
         # with col2:
         #     edit_toc_col.write("A standard dictionary view:")
         #     with st.echo():
