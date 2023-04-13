@@ -9,7 +9,9 @@ PDFReader = download_loader("PDFReader")
 import os
 import openai 
 import json
-
+from dataclasses import dataclass
+from typing import Dict
+import inspect
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from pathlib import Path
@@ -17,11 +19,39 @@ from llama_index import download_loader
 from xml.etree.ElementTree import Element, SubElement, tostring
 
 from langchain import OpenAI
+
+try:
+    import pyperclip
+except ImportError:
+    pyperclip = None
+
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("API_KEY")
 st.title("CourseBot")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
+
+PIXELS_PER_LINE = 27
+INDENT = 8
+
+
+@st.cache_data
+def state_singleton() -> Dict:
+    return {}
+
+
+STATE = state_singleton()
+
+
+@dataclass
+class JsonInputState:
+    value: dict
+    default_value: dict
+    redraw_counter = 0
+
+
+class CopyPasteError(Exception):
+    pass
 
 PDFReader = download_loader("PDFReader")
 
