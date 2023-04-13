@@ -425,7 +425,7 @@ try:
 
         config = dict_input("Parameters to call `func` with", func)
         
-        edit_toc_col.write("func output:\n\n", func(**config))
+        edit_toc_col.write( func(**config))
 
     edit_toc_col.write(
         """
