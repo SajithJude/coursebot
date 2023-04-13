@@ -142,17 +142,22 @@ try:
     # edit_col.write(new_dict)
 
     if quer:
+        progress_bar = extract_col.progress(0)
+        total_items = sum(len(subtopics_dict['Subtopics']) for _, subtopics_dict in new_dict.items()) + len(new_dict)
+        items_processed = 0
         for topic, subtopics_dict in new_dict.items():
             for subtopic_dict in subtopics_dict['Subtopics']:
                 subtopic_name = subtopic_dict['Subtopic']
-                subtopicres = st.session_state.index.query("extract the information about "+str(subtopic_name))
-                st.info(f"extracting {subtopic_name}")
+                subtopicres = index.query("extract the information about "+str(subtopic_name))
                 subtopic_dict['content'] = subtopicres.response
+                items_processed += 1
+                progress_bar.progress(items_processed / total_items)
             
-            topicres = st.session_state.index.query("extract the information about "+str(topic))
-            st.info(f"extracting {topic}")
-
+            topicres = index.query("extract the information about "+str(topic))
             subtopics_dict['content'] = topicres.response
+            items_processed += 1
+            progress_bar.progress(items_processed / total_items)
+
 
             updated_json = json.dumps(new_dict, indent=2)
         
