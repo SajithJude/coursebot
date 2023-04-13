@@ -230,7 +230,13 @@ def dict_input(label, value, mutable_structure=False, key=None):
         res_edit_toc = state.value
         logging.debug(type(res_edit_toc))
         str_edit_toc = json.dumps(res_edit_toc)
-        edit_toc = json.loads(str_edit_toc)
+        
+        parsed_json = json.loads(str_edit_toc)
+
+        # Dump the JSON data with indentation for formatting
+        edit_toc = json.dumps(parsed_json, indent=2)
+
+        warning_con = None
         
         
 
