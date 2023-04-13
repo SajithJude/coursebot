@@ -232,7 +232,7 @@ def dict_input(label, value, mutable_structure=False, key=None):
         str_edit_toc = json.dumps(res_edit_toc)
         
         parsed_json = json.loads(str_edit_toc)
-
+        global edit_toc
         # Dump the JSON data with indentation for formatting
         edit_toc = {"topic":["Hello world"]}
 
