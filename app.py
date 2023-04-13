@@ -367,31 +367,31 @@ try:
             edit_toc["Topics"].append(topic_dict)
 
         # Display the created dictionary
-        edit_toc_col.write( edit_toc)
+        # edit_toc_col.write( edit_toc)
 
-        edit_toc_col.write(
-            """
-            A version of the standard dict view that is editable would be handy for
-            quick prototyping, for when an app has many parameters, and as a
-            supplemental way to copy configuration in and out of a streamlit app.
+        # edit_toc_col.write(
+        #     """
+        #     A version of the standard dict view that is editable would be handy for
+        #     quick prototyping, for when an app has many parameters, and as a
+        #     supplemental way to copy configuration in and out of a streamlit app.
             
-            A native `dict_input` widget might be used to edit a
-            dictionary like this
-            """
-        )
+        #     A native `dict_input` widget might be used to edit a
+        #     dictionary like this
+        #     """
+        # )
         # with st.echo():
-        dict_template = {
-            "a": 1,
-            "b": 2.0,
-            "c": "abc",
-            "d": {"a": 3},
-            "e": [4, 5.0, "def"],
-        }
+        # dict_template = {
+        #     "a": 1,
+        #     "b": 2.0,
+        #     "c": "abc",
+        #     "d": {"a": 3},
+        #     "e": [4, 5.0, "def"],
+        # }
 
         if edit_toc_col:
     # Use st.session_state to store the edited dictionary
             if "edited_dict" not in st.session_state:
-                st.session_state.edited_dict = dict_template.copy()
+                st.session_state.edited_dict = edit_toc.copy()
 
             # Display the dictionary in "Edit TOC" tab
            
@@ -406,7 +406,7 @@ try:
         with col1:
             edit_toc_col.write("A dict_input composite widget:")
             with st.echo():
-                d = dict_input("Edit me!", dict_template)
+                d = dict_input("Edit me!", edit_toc)
         with col2:
             edit_toc_col.write("A standard dictionary view:")
             with st.echo():
