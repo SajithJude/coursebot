@@ -389,13 +389,17 @@ try:
             }
 
         if edit_toc_col:
-    # Display the dictionary in "Edit TOC" tab
+    # Use st.session_state to store the edited dictionary
+            if "edited_dict" not in st.session_state:
+                st.session_state.edited_dict = dict_template.copy()
+
+            # Display the dictionary in "Edit TOC" tab
             st.write("Original Dictionary:")
             st.write(dict_template)
 
             # Create editable form for the dictionary
             st.write("Edit Dictionary:")
-            edited_dict = dict_template.copy()
+            edited_dict = st.session_state.edited_dict.copy()
             edited_dict["a"] = st.number_input("a", value=edited_dict["a"])
             edited_dict["b"] = st.number_input("b", value=edited_dict["b"])
             edited_dict["c"] = st.text_input("c", value=edited_dict["c"])
@@ -406,7 +410,7 @@ try:
 
             # Update dictionary with edited values on submit
             if st.button("Submit"):
-                dict_template = edited_dict
+                st.session_state.edited_dict = edited_dict
                 st.success("Dictionary Updated!")
 
             
