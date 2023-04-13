@@ -379,7 +379,7 @@ try:
         dictionary like this
         """
     )
-    with st.echo():
+    with edit_toc_col.echo():
         dict_template = {
             "a": 1,
             "b": 2.0,
