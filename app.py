@@ -29,7 +29,7 @@ PIXELS_PER_LINE = 27
 INDENT = 8
 
 
-@st.cache_data(allow_output_mutation=True)
+@st.cache_data
 def state_singleton() -> Dict:
     return {}
 
