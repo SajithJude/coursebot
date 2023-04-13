@@ -234,7 +234,7 @@ def dict_input(label, value, mutable_structure=False, key=None):
         parsed_json = json.loads(str_edit_toc)
 
         # Dump the JSON data with indentation for formatting
-        edit_toc = json.dumps(parsed_json, indent=2)
+        edit_toc = {"topic":["Hello world"]}
 
         warning_con = None
         
