@@ -29,10 +29,10 @@ def save_uploaded_file(uploaded_file):
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
-cole, col2, col1, col3 = st.tabs(["⚪ __Upload Chapter__  ","⚪ __Extract_Contents__  ", "⚪ __Edit Contents__  "," ⚪ __Export Generated XML__  "])
+upload_col, extract_col, edit_col, xml_col = st.tabs(["⚪ __Upload Chapter__  ","⚪ __Extract_Contents__  ", "⚪ __Edit Contents__  "," ⚪ __Export Generated XML__  "])
 
 
-uploaded_file = cole.file_uploader("Upload a Chapter as a PDF file", type="pdf")
+uploaded_file = upload_col.file_uploader("Upload a Chapter as a PDF file", type="pdf")
 
 # cola, colb = st.columns([6,1],gap="small")
 if uploaded_file is not None:
@@ -60,7 +60,7 @@ if uploaded_file is not None:
 
 if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
-    index_file = cole.selectbox("Select an index file to load:", index_filenames,label_visibility="collapsed")
+    index_file = upload_col.selectbox("Select an index file to load:", index_filenames,label_visibility="collapsed")
     index_path = os.path.join(DATA_DIR, index_file)
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
@@ -71,18 +71,18 @@ else:
     st.warning("No index files found. Please upload a PDF file to create an index.")
     
 
-toc = cole.button("Genererate TOC")
+toc = upload_col.button("Genererate TOC")
 try:
     if toc:
         toc_res = index.query(f"Generate a table of contents for this document with topics and subtopics in JSON format, the hierarchy of the table of contents should only have 2 levels which is topics and subtopics, dont include the topics named Objective ,Keywords,and Check Your Progress within the table of contents")
         str_toc = str(toc_res)
         table_of_contents = json.loads(str_toc)
-        st.write(table_of_contents)
+        upload_col.write(table_of_contents)
 
         # table_of_contents = [{"title": title} for title in toc_res]
         if "table_of_contents" not in st.session_state:
             st.session_state.table_of_contents = table_of_contents
-        st.success("Chapter loaded, Go to the next tab")
+        upload_col.success("TOC loaded, Go to the next tab")
         
 
     st.write("")
@@ -90,11 +90,10 @@ try:
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
-    col1.warning("Select the Neccessary topics and go the next page")
-    col1.write(st.session_state.table_of_contents)
-    quer = col2.button("Extract Selected")
-    # download = col3.button("Download XML")
-    # col3.write("")
+    edit_col.warning("Select the Neccessary topics and go the next page")
+    # edit_col.write(st.session_state.table_of_contents)
+    quer = extract_col.button("Extract Selected")
+
     new_dict = {}
     for topic in st.session_state.table_of_contents['Topics']:
         for key, value in topic.items():
@@ -104,9 +103,8 @@ try:
             for item in value:
                 new_dict[key]['Subtopics'].append({'content': '', 'Subtopic': item})
 
-    # Convert the new dictionary to JSON
-    # new_json = json.dumps(new_dict, indent=2)
-    col1.write(new_dict)
+
+    # edit_col.write(new_dict)
 
     if quer:
         # chapter_contents = {}
@@ -129,37 +127,33 @@ try:
             # Convert the updated dictionary to JSON
             updated_json = json.dumps(new_dict, indent=2)
         
-        col2.write(new_dict)
+        extract_col.write(new_dict)
 
-            # Print the updated JSON
-    # print(updated_json)
-        # if chapter_contents:
-            # sav = col2.button("Save Edits")
         if "new_dict" not in st.session_state:
             st.session_state.new_dict = new_dict
             
-            # with col2.expander("Edit PDF Content"):
+            # with extract_col.expander("Edit PDF Content"):
                 
         # Loop through each topic in the JSON dictionary
         for topic, subtopics_dict in st.session_state.new_dict.items():
             # Get the content for the topic
             content = subtopics_dict['content']
             # Create a text input field for the content and store the updated content in the dictionary
-            subtopics_dict['content'] = col1.text_area(f"Topic {topic}:", value=content)
+            subtopics_dict['content'] = edit_col.text_area(f"Topic {topic}:", value=content)
             # Loop through each subtopic for the topic
             for subtopic_dict in subtopics_dict['Subtopics']:
                 subtopic_name = subtopic_dict['Subtopic']
                 # Get the content for the subtopic
                 content = subtopic_dict['content']
-                # Create a text input field for the content and col1ore the updated content in the dictionary
-                subtopic_dict['content'] = col1.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
+                # Create a text input field for the content and edit_colore the updated content in the dictionary
+                subtopic_dict['content'] = edit_col.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
 
         # Create a "Save" button
-        if col1.button("Save"):
+        if edit_col.button("Save"):
             # Convert the updated dictionary to JSON
             # updated_json = json.dumps(st.session_state.new_dict, indent=2)
             # Write the updated JSON to a file or database, or print it to the console
-            st.write(st.session_state.new_dict)
+            edit_col.write(st.session_state.new_dict)
 
 
 
@@ -177,13 +171,13 @@ try:
             contents = ET.SubElement(root, topic_content)
             contents.text = value
 
-        # if col2.button("Save XML"):
+        # if extract_col.button("Save XML"):
             xml_string = ET.tostring(root)
             # Use minidom to pretty print the XML string
             pretty_xml = minidom.parseString(xml_string).toprettyxml()
     
         with st.expander("XML content"):
-            col3.write(pretty_xml)
+            xml_col.write(pretty_xml)
         
 except AttributeError:
     st.warning("Click on load chapter first and select the required Topics to extract")
