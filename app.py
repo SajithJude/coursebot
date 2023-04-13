@@ -407,7 +407,7 @@ try:
         #d = dict_input("Edit me!", edit_toc)
         #edit_toc_col.write(d)
 
-        col1, col2 = edit_toc_col.columns(2)
+        col1, col2 = edit_toc_col.columns([10,1])
         with col1:
             #edit_toc_col.write("A dict_input composite widget:")
             with st.echo():
