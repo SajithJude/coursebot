@@ -29,7 +29,7 @@ def save_uploaded_file(uploaded_file):
 # Get a list of available index files in the data directory
 index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 
-cole, col1, col2, col3 = st.tabs(["⚪ __Upload Chapter__  ","⚪ __Filter Table of Contents__  ", "⚪ __Extract and Edit Content__  "," ⚪ __Export Generated XML__  "])
+cole, col2, col1, col3 = st.tabs(["⚪ __Upload Chapter__  ","⚪ __Extract_Contents__  ", "⚪ __Edit Contents__  "," ⚪ __Export Generated XML__  "])
 
 
 uploaded_file = cole.file_uploader("Upload a Chapter as a PDF file", type="pdf")
@@ -129,7 +129,7 @@ try:
             # Convert the updated dictionary to JSON
             updated_json = json.dumps(new_dict, indent=2)
         
-        st.write(new_dict)
+        col2.write(new_dict)
 
             # Print the updated JSON
     # print(updated_json)
@@ -140,13 +140,29 @@ try:
             
             # with col2.expander("Edit PDF Content"):
                 
-        for title, content in st.session_state.selected_chapters.new_dict():
-            col2.markdown(f"**Title: {title}**")
-            content_key = f"{title}_content"
-            if content_key not in st.session_state:
-                st.session_state[content_key] = content
-            content_value = col2.text_area(label="Content", value=st.session_state[content_key], key=content_key)
-            
+        # Loop through each topic in the JSON dictionary
+        for topic, subtopics_dict in st.session_state.new_dict.items():
+            # Get the content for the topic
+            content = subtopics_dict['content']
+            # Create a text input field for the content and store the updated content in the dictionary
+            subtopics_dict['content'] = col1.text_area(f"Topic {topic}:", value=content)
+            # Loop through each subtopic for the topic
+            for subtopic_dict in subtopics_dict['Subtopics']:
+                subtopic_name = subtopic_dict['Subtopic']
+                # Get the content for the subtopic
+                content = subtopic_dict['content']
+                # Create a text input field for the content and col1ore the updated content in the dictionary
+                subtopic_dict['content'] = col1.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
+
+        # Create a "Save" button
+        if col1.button("Save"):
+            # Convert the updated dictionary to JSON
+            # updated_json = json.dumps(st.session_state.new_dict, indent=2)
+            # Write the updated JSON to a file or database, or print it to the console
+            st.write(st.session_state.new_dict)
+
+
+
         root = ET.Element("chapter")
         for key, value in st.session_state.selected_chapters.items():
             if key == "1.1 Objectives":
