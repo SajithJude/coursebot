@@ -7,6 +7,8 @@ import json
 from langchain import OpenAI
 PDFReader = download_loader("PDFReader")
 import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import Element, SubElement, tostring
+
 from xml.dom import minidom
 
 
