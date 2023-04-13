@@ -133,9 +133,10 @@ try:
 
             # Print the updated JSON
     # print(updated_json)
-        if chapter_contents:
+        # if chapter_contents:
             # sav = col2.button("Save Edits")
-            st.session_state.selected_chapters = chapter_contents
+        if "new_dict" not in st.session_state:
+            st.session_state.new_dict = new_dict
             
             # with col2.expander("Edit PDF Content"):
                 
