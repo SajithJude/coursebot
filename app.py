@@ -20,6 +20,11 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 
 from langchain import OpenAI
 
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("API_KEY")
 st.title("CourseBot")
@@ -223,7 +228,7 @@ def dict_input(label, value, mutable_structure=False, key=None):
 
     if copy_con.button("Update", key=key if key else label + "-copy"):
         res_edit_toc = state.value
-        print(res_edit_toc)
+        logging.debug("This is a prompt logged to internal log"+res_edit_toc)
         str_edit_toc = str(res_edit_toc)
         edit_toc = json.loads(str_edit_toc)
 
