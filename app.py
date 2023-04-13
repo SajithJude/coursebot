@@ -233,14 +233,11 @@ def dict_input(label, value, mutable_structure=False, key=None):
         
         parsed_json = json.loads(str_edit_toc)
         global edit_toc
+        st.session_state.table_of_contents = state.value
+        
+        st.experimental_rerun()
         # Dump the JSON data with indentation for formatting
-        edit_toc = {"topic":["Hello world"]}
-        value_s = json.dumps(
-            edit_toc, indent=INDENT, sort_keys=True
-        )
-        input_s.value = value_s
-
-        warning_con = None
+        
         
         
 
