@@ -402,45 +402,45 @@ try:
             """
         )
 
-        col1, col2 = edit_toc_col.beta_columns(2)
-        with col1:
-            edit_toc_col.write("A dict_input composite widget:")
-            with st.echo():
-                d = dict_input("Edit me!", dict_template)
-        with col2:
-            edit_toc_col.write("A standard dictionary view:")
-            with st.echo():
-                edit_toc_col.write( d)
+        # col1, col2 = edit_toc_col.beta_columns(2)
+        # with col1:
+        #     edit_toc_col.write("A dict_input composite widget:")
+        #     with st.echo():
+        #         d = dict_input("Edit me!", dict_template)
+        # with col2:
+        #     edit_toc_col.write("A standard dictionary view:")
+        #     with st.echo():
+        #         edit_toc_col.write( d)
 
-        edit_toc_col.write(
-            """
-            The view on the left can be edited. It will revert to its last valid
-            state if invalid json is entered, or if the key-structure of the dict
-            is changed or the type of a value is changed from that of its initial
-            value (`config`).  The buttons copy json out of the widget or into it.
+        # edit_toc_col.write(
+        #     """
+        #     The view on the left can be edited. It will revert to its last valid
+        #     state if invalid json is entered, or if the key-structure of the dict
+        #     is changed or the type of a value is changed from that of its initial
+        #     value (`config`).  The buttons copy json out of the widget or into it.
         
-            ### Call with a function
-            The value given to `json_input` might be a function rather than a dict.
-            As long as all the parameters have defaults then the inital dict is
-            inferred.  For example:
-            """
-        )
+        #     ### Call with a function
+        #     The value given to `json_input` might be a function rather than a dict.
+        #     As long as all the parameters have defaults then the inital dict is
+        #     inferred.  For example:
+        #     """
+        # )
 
-        with st.echo():
-            def func(a=1, b=2.0, c="c"):
-                return a, b, c
+        # with st.echo():
+        #     def func(a=1, b=2.0, c="c"):
+        #         return a, b, c
 
-            config = dict_input("Parameters to call `func` with", func)
+        #     config = dict_input("Parameters to call `func` with", func)
             
-            edit_toc_col.write( func(**config))
+        #     edit_toc_col.write( func(**config))
 
-        edit_toc_col.write(
-            """
-            ### Options
-            `dict_input` might also take a `dataclass` (not implemented). The option
-            `mutable_structure` may be set to True allowing the key structure and
-            value types to change (implemented)."""
-        )
+        # edit_toc_col.write(
+        #     """
+        #     ### Options
+        #     `dict_input` might also take a `dataclass` (not implemented). The option
+        #     `mutable_structure` may be set to True allowing the key structure and
+        #     value types to change (implemented)."""
+        # )
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
