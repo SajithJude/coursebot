@@ -403,7 +403,7 @@ try:
     with col2:
         edit_toc_col.write("A standard dictionary view:")
         with st.echo():
-            edit_toc_col.write(".", d)
+            edit_toc_col.write( d)
 
     edit_toc_col.write(
         """
