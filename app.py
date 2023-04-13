@@ -152,6 +152,7 @@ try:
                 subtopic_dict['content'] = subtopicres.response
                 items_processed += 1
                 progress_bar.progress(items_processed / total_items)
+                extract_col.info(f"Extracted {subtopic_name}")
             
             topicres = index.query("extract the information about "+str(topic))
             subtopics_dict['content'] = topicres.response
