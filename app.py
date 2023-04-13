@@ -171,16 +171,17 @@ try:
             xml_col.code(pretty_xml)
 
 
-    db = load_db()
-    chapter_list = list(db.keys())
-
-    if chapter_list:
-        selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
-        manage_col.code(db[selected_chapter], language="xml")
-    else:
-        manage_col.warning("No chapters found. Upload a chapter and save its XML first.")
-    
-
+ 
                 
 except AttributeError:
     st.warning("Click on load chapter first and select the required Topics to extract")
+
+db = load_db()
+chapter_list = list(db.keys())
+
+if chapter_list:
+    selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
+    manage_col.code(db[selected_chapter], language="xml")
+else:
+    manage_col.warning("No chapters found. Upload a chapter and save its XML first.")
+    
