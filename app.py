@@ -391,6 +391,7 @@ try:
     edit_col.warning("Select the Neccessary topics and go the next page")
 
     quer = extract_col.button("Extract Selected")
+    lines= extract_col.number_input("Number of lines per block", min_value=3, max_value=10, value=4, step=1)
 
 
     new_dict = {}
@@ -412,7 +413,7 @@ try:
         for topic, subtopics_dict in new_dict.items():
             for subtopic_dict in subtopics_dict['Subtopics']:
                 subtopic_name = subtopic_dict['Subtopic']
-                subtopicres = index.query("extract the information about "+str(subtopic_name))
+                subtopicres = index.query("describe the information about "+str(subtopic_name)+" in "+str(lines)+ " lines.")
                 subtopic_dict['content'] = subtopicres.response
                 items_processed += 1
                 progress_bar.progress(items_processed / total_items)
