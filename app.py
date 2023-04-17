@@ -402,65 +402,66 @@ try:
                 for item in value:
                     new_dict[key]['Subtopics'].append({'content': '', 'Subtopic': item})
 
-    except KeyError:
-        st.extract_col("select no of lines and Extract TOC in next page")
-        # pass 
+    
     # edit_col.write(new_dict)
-    lines= extract_col.number_input("Number of lines per block", min_value=3, max_value=10, value=4, step=1)
+        lines= extract_col.number_input("Number of lines per block", min_value=3, max_value=10, value=4, step=1)
 
-    if quer:
-        progress_bar = extract_col.progress(0)
-        total_items = sum(len(subtopics_dict['Subtopics']) for _, subtopics_dict in new_dict.items()) + len(new_dict)
-        items_processed = 0
-        for topic, subtopics_dict in new_dict.items():
-            for subtopic_dict in subtopics_dict['Subtopics']:
-                subtopic_name = subtopic_dict['Subtopic']
-                subtopicres = index.query("describe the information about "+str(subtopic_name)+" in "+str(lines)+ " lines.")
-                subtopic_dict['content'] = subtopicres.response
+        if quer:
+            progress_bar = extract_col.progress(0)
+            total_items = sum(len(subtopics_dict['Subtopics']) for _, subtopics_dict in new_dict.items()) + len(new_dict)
+            items_processed = 0
+            for topic, subtopics_dict in new_dict.items():
+                for subtopic_dict in subtopics_dict['Subtopics']:
+                    subtopic_name = subtopic_dict['Subtopic']
+                    subtopicres = index.query("describe the information about "+str(subtopic_name)+" in "+str(lines)+ " lines.")
+                    subtopic_dict['content'] = subtopicres.response
+                    items_processed += 1
+                    progress_bar.progress(items_processed / total_items)
+                    extract_col.info(f"Extracted {subtopic_name}")
+                
+                topicres = index.query("extract the information about "+str(topic))
+                subtopics_dict['content'] = topicres.response
                 items_processed += 1
                 progress_bar.progress(items_processed / total_items)
-                extract_col.info(f"Extracted {subtopic_name}")
+
+
+                updated_json = json.dumps(new_dict, indent=2)
             
-            topicres = index.query("extract the information about "+str(topic))
-            subtopics_dict['content'] = topicres.response
-            items_processed += 1
-            progress_bar.progress(items_processed / total_items)
+            extract_col.write(new_dict)
+
+            if "new_dict" not in st.session_state:
+                st.session_state.new_dict = new_dict
+                
+            for topic, subtopics_dict in st.session_state.new_dict.items():
+                content = subtopics_dict['content']
+                subtopics_dict['content'] = edit_col.text_area(f"Topic {topic}:", value=content)
+                for subtopic_dict in subtopics_dict['Subtopics']:
+                    subtopic_name = subtopic_dict['Subtopic']
+                    content = subtopic_dict['content']
+                    subtopic_dict['content'] = edit_col.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
+            # pass 
+
+        if edit_col.button("Save"):
+            edit_col.write(st.session_state.new_dict)
 
 
-            updated_json = json.dumps(new_dict, indent=2)
-        
-        extract_col.write(new_dict)
+        chapter_name = xml_col.text_input("enter chapter name")
+        save_xml = xml_col.button("Save XML")
+        if save_xml:
+            xml_output = json_to_xml(st.session_state.new_dict, chapter_name)
+            pretty_xml = minidom.parseString(xml_output).toprettyxml()
 
-        if "new_dict" not in st.session_state:
-            st.session_state.new_dict = new_dict
-            
-        for topic, subtopics_dict in st.session_state.new_dict.items():
-            content = subtopics_dict['content']
-            subtopics_dict['content'] = edit_col.text_area(f"Topic {topic}:", value=content)
-            for subtopic_dict in subtopics_dict['Subtopics']:
-                subtopic_name = subtopic_dict['Subtopic']
-                content = subtopic_dict['content']
-                subtopic_dict['content'] = edit_col.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
-        # pass 
+            db = load_db()
+            db[chapter_name] = pretty_xml
 
-    if edit_col.button("Save"):
-        edit_col.write(st.session_state.new_dict)
+            with open("db.json", "w") as f:
+                json.dump(db, f)
 
-
-    chapter_name = xml_col.text_input("enter chapter name")
-    save_xml = xml_col.button("Save XML")
-    if save_xml:
-        xml_output = json_to_xml(st.session_state.new_dict, chapter_name)
-        pretty_xml = minidom.parseString(xml_output).toprettyxml()
-
-        db = load_db()
-        db[chapter_name] = pretty_xml
-
-        with open("db.json", "w") as f:
-            json.dump(db, f)
-
-        with xml_col.expander("XML content"):
-            xml_col.code(pretty_xml)
+            with xml_col.expander("XML content"):
+                xml_col.code(pretty_xml)
+    except KeyError:
+        st.extract_col("select no of lines and Extract TOC in next page")
+        # pass
 
         # st.session_state.table_of_contents = {}
         # st.session_state.selected_items = []
