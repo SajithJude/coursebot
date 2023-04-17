@@ -404,7 +404,7 @@ try:
                     new_dict[key]['Subtopics'].append({'content': '', 'Subtopic': item})
 
     except KeyError:
-        st.info("select no of lines and Extract TOC in next page")
+        st.extract_col("select no of lines and Extract TOC in next page")
         # pass 
     # edit_col.write(new_dict)
 
