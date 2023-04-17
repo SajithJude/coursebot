@@ -161,7 +161,7 @@ try:
 
 
     new_dict = {}
-    for topic in st.session_state.table_of_contents['Topics']:
+    for topic in edit_toc['Topics']:
         for key, value in topic.items():
             # Add a description for the topic
             new_dict[key] = {'content': '', 'Subtopics': []}
