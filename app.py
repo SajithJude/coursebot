@@ -459,10 +459,10 @@ try:
         with xml_col.expander("XML content"):
             xml_col.code(pretty_xml)
 
-        st.session_state.table_of_contents = {}
-        st.session_state.selected_items = []
-        st.session_state.new_dict = {}
-        st.session_state.index = ""
+        # st.session_state.table_of_contents = {}
+        # st.session_state.selected_items = []
+        # st.session_state.new_dict = {}
+        # st.session_state.index = ""
 
 
  
