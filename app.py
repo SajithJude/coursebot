@@ -428,18 +428,20 @@ try:
             updated_json = json.dumps(new_dict, indent=2)
         
         extract_col.write(new_dict)
-
-        if "new_dict" not in st.session_state:
-            st.session_state.new_dict = new_dict
-            
-        for topic, subtopics_dict in st.session_state.new_dict.items():
-            content = subtopics_dict['content']
-            subtopics_dict['content'] = edit_col.text_area(f"Topic {topic}:", value=content)
-            for subtopic_dict in subtopics_dict['Subtopics']:
-                subtopic_name = subtopic_dict['Subtopic']
-                content = subtopic_dict['content']
-                subtopic_dict['content'] = edit_col.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
-        pass 
+        try:
+            if "new_dict" not in st.session_state:
+                st.session_state.new_dict = new_dict
+                
+            for topic, subtopics_dict in st.session_state.new_dict.items():
+                content = subtopics_dict['content']
+                subtopics_dict['content'] = edit_col.text_area(f"Topic {topic}:", value=content)
+                for subtopic_dict in subtopics_dict['Subtopics']:
+                    subtopic_name = subtopic_dict['Subtopic']
+                    content = subtopic_dict['content']
+                    subtopic_dict['content'] = edit_col.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
+        except KeyError:
+            st.info("select no of lines and Extract TOC in next page")
+        # pass 
 
     if edit_col.button("Save"):
         edit_col.write(st.session_state.new_dict)
