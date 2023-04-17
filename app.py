@@ -218,9 +218,9 @@ try:
 
  
                 
-except AttributeError:
+except (KeyError, AttributeError) as e:
     st.info("Click on Generate TOC to get started")
-
+    print(f"Error: {type(e).__name__} - {e}")
 db = load_db()
 chapter_list = list(db.keys())
 
