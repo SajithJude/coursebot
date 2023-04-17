@@ -134,24 +134,24 @@ try:
     
 
     # Create empty dictionary
-    edit_toc = {"Topics": []}
+    # edit_toc = {"Topics": []}
 
-    # User input for number of topics
-    num_topics = edit_toc_col.number_input("Enter number of topics:", min_value=1, max_value=10, step=1)
+    # # User input for number of topics
+    # num_topics = edit_toc_col.number_input("Enter number of topics:", min_value=1, max_value=10, step=1)
 
-    # Iterate over topics and subtopics
-    for i in range(num_topics):
-        topic = edit_toc_col.text_input(f"Enter Topic {i+1}:", key=str(i))
-        num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:",key=str(i)+"_"+str(topic), min_value=1, max_value=10, step=1)
-        subtopics = []
-        for j in range(num_subtopics):
-            subtopic = edit_toc_col.text_input(f"Enter Subtopic {j+1} for {topic}:", key=str(i)+"_"+str(j)+"_"+topic)
-            subtopics.append(subtopic)
-        topic_dict = {topic: subtopics}
-        edit_toc["Topics"].append(topic_dict)
+    # # Iterate over topics and subtopics
+    # for i in range(num_topics):
+    #     topic = edit_toc_col.text_input(f"Enter Topic {i+1}:", key=str(i))
+    #     num_subtopics = edit_toc_col.number_input(f"Enter number of subtopics for {topic}:",key=str(i)+"_"+str(topic), min_value=1, max_value=10, step=1)
+    #     subtopics = []
+    #     for j in range(num_subtopics):
+    #         subtopic = edit_toc_col.text_input(f"Enter Subtopic {j+1} for {topic}:", key=str(i)+"_"+str(j)+"_"+topic)
+    #         subtopics.append(subtopic)
+    #     topic_dict = {topic: subtopics}
+    #     edit_toc["Topics"].append(topic_dict)
 
-    # Display the created dictionary
-    edit_toc_col.write( edit_toc)
+    # # Display the created dictionary
+    # edit_toc_col.write( edit_toc)
 
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
@@ -161,7 +161,7 @@ try:
 
 
     new_dict = {}
-    for topic in edit_toc['Topics']:
+    for topic in st.session_state.table_of_contents['Topics']:
         for key, value in topic.items():
             # Add a description for the topic
             new_dict[key] = {'content': '', 'Subtopics': []}
