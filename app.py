@@ -389,9 +389,8 @@ try:
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
     edit_col.warning("Select the Neccessary topics and go the next page")
-
-    quer = extract_col.button("Extract Selected")
     lines= extract_col.number_input("Number of lines per block", min_value=3, max_value=10, value=4, step=1)
+    quer = extract_col.button("Extract Selected")
 
     try:
         new_dict = {}
