@@ -389,7 +389,7 @@ try:
     if "selected_items" not in st.session_state:
         st.session_state.selected_items = []
     edit_col.warning("Select the Neccessary topics and go the next page")
-    lines= extract_col.number_input("Number of lines per block", min_value=3, max_value=10, value=4, step=1)
+
     quer = extract_col.button("Extract Selected")
 
     try:
@@ -408,25 +408,27 @@ try:
     # edit_col.write(new_dict)
 
     if quer:
-        progress_bar = extract_col.progress(0)
-        total_items = sum(len(subtopics_dict['Subtopics']) for _, subtopics_dict in new_dict.items()) + len(new_dict)
-        items_processed = 0
-        for topic, subtopics_dict in new_dict.items():
-            for subtopic_dict in subtopics_dict['Subtopics']:
-                subtopic_name = subtopic_dict['Subtopic']
-                subtopicres = index.query("describe the information about "+str(subtopic_name)+" in "+str(lines)+ " lines.")
-                subtopic_dict['content'] = subtopicres.response
+        lines= extract_col.number_input("Number of lines per block", min_value=3, max_value=10, value=4, step=1)
+        if lines:
+            progress_bar = extract_col.progress(0)
+            total_items = sum(len(subtopics_dict['Subtopics']) for _, subtopics_dict in new_dict.items()) + len(new_dict)
+            items_processed = 0
+            for topic, subtopics_dict in new_dict.items():
+                for subtopic_dict in subtopics_dict['Subtopics']:
+                    subtopic_name = subtopic_dict['Subtopic']
+                    subtopicres = index.query("describe the information about "+str(subtopic_name)+" in "+str(lines)+ " lines.")
+                    subtopic_dict['content'] = subtopicres.response
+                    items_processed += 1
+                    progress_bar.progress(items_processed / total_items)
+                    extract_col.info(f"Extracted {subtopic_name}")
+                
+                topicres = index.query("extract the information about "+str(topic))
+                subtopics_dict['content'] = topicres.response
                 items_processed += 1
                 progress_bar.progress(items_processed / total_items)
-                extract_col.info(f"Extracted {subtopic_name}")
-            
-            topicres = index.query("extract the information about "+str(topic))
-            subtopics_dict['content'] = topicres.response
-            items_processed += 1
-            progress_bar.progress(items_processed / total_items)
 
 
-            updated_json = json.dumps(new_dict, indent=2)
+                updated_json = json.dumps(new_dict, indent=2)
         
         extract_col.write(new_dict)
 
