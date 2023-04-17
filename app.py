@@ -393,17 +393,19 @@ try:
     quer = extract_col.button("Extract Selected")
     lines= extract_col.number_input("Number of lines per block", min_value=3, max_value=10, value=4, step=1)
 
+    try:
+        new_dict = {}
+        for topic in st.session_state.table_of_contents['Topics']:
+            for key, value in topic.items():
+                # Add a description for the topic
+                new_dict[key] = {'content': '', 'Subtopics': []}
+                # Add descriptions for the values
+                for item in value:
+                    new_dict[key]['Subtopics'].append({'content': '', 'Subtopic': item})
 
-    new_dict = {}
-    for topic in st.session_state.table_of_contents['Topics']:
-        for key, value in topic.items():
-            # Add a description for the topic
-            new_dict[key] = {'content': '', 'Subtopics': []}
-            # Add descriptions for the values
-            for item in value:
-                new_dict[key]['Subtopics'].append({'content': '', 'Subtopic': item})
-
-
+    except KeyError:
+        st.info("select no of lines and Extract TOC in next page")
+        # pass 
     # edit_col.write(new_dict)
 
     if quer:
@@ -428,19 +430,17 @@ try:
             updated_json = json.dumps(new_dict, indent=2)
         
         extract_col.write(new_dict)
-        try:
-            if "new_dict" not in st.session_state:
-                st.session_state.new_dict = new_dict
-                
-            for topic, subtopics_dict in st.session_state.new_dict.items():
-                content = subtopics_dict['content']
-                subtopics_dict['content'] = edit_col.text_area(f"Topic {topic}:", value=content)
-                for subtopic_dict in subtopics_dict['Subtopics']:
-                    subtopic_name = subtopic_dict['Subtopic']
-                    content = subtopic_dict['content']
-                    subtopic_dict['content'] = edit_col.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
-        except KeyError:
-            st.info("select no of lines and Extract TOC in next page")
+
+        if "new_dict" not in st.session_state:
+            st.session_state.new_dict = new_dict
+            
+        for topic, subtopics_dict in st.session_state.new_dict.items():
+            content = subtopics_dict['content']
+            subtopics_dict['content'] = edit_col.text_area(f"Topic {topic}:", value=content)
+            for subtopic_dict in subtopics_dict['Subtopics']:
+                subtopic_name = subtopic_dict['Subtopic']
+                content = subtopic_dict['content']
+                subtopic_dict['content'] = edit_col.text_area(f"Subtopic {subtopic_name} under topic {topic} :", value=content)
         # pass 
 
     if edit_col.button("Save"):
