@@ -93,6 +93,27 @@ upload_col, edit_toc_col, extract_col, edit_col, xml_col, manage_col = st.tabs([
 
 uploaded_file = upload_col.file_uploader("Upload a Chapter as a PDF file", type="pdf")
 
+forma = """"{
+  "Topics": [
+    {
+      "Topic 1": [
+        "Subtopic 1.1",
+        "Subtopic 1.2",
+        "Subtopic 1.3"
+      ]
+    },
+    {
+      "Topic 2": [
+        "Subtopic 2.1",
+        "Subtopic 2.2",
+        "Subtopic 2.3"
+      ]
+    },
+     continue with topics...
+  ]
+}
+
+"""
 if uploaded_file is not None:
         index = process_pdf(uploaded_file)
         if "index" not in st.session_state:
@@ -100,29 +121,11 @@ if uploaded_file is not None:
 
         upload_col.success("Index created successfully")
 
-#         pdf_filename = uploaded_file.name
-
-#         documents = loader.load_data(file=Path(f"data/{pdf_filename}"))
-
-#         index = GPTSimpleVectorIndex.from_documents(documents)
-
-#         index.save_to_disk(os.path.join(DATA_DIR, os.path.splitext(pdf_filename)[0] + ".json"))
-#         st.success("Index created successfully!")
-
-# if index_filenames:
-#     index_file = upload_col.selectbox("Select an index file to load:", index_filenames,label_visibility="collapsed")
-#     index_path = os.path.join(DATA_DIR, index_file)
-#     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
-#     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
-
-#     index = GPTSimpleVectorIndex.load_from_disk(index_path,service_context=service_context)
-# else:
-#     st.warning("No index files found. Please upload a PDF file to create an index.")
 
 toc = upload_col.button("Genererate TOC")
 try:
     if toc:
-        toc_res = st.session_state.index.query(f"Generate a table of contents for this document with topics and subtopics in JSON format, the hierarchy of the table of contents should only have 2 levels which is topics and subtopics, dont include the topics named Objective ,Keywords,and Check Your Progress within the table of contents")
+        toc_res = st.session_state.index.query(f" create a table of contents with topics and subtopics by reading through the document and create a table of contents that accurately reflects the main topics and subtopics covered in the document. The table of contents should be in the following format: " + str(forma))
         str_toc = str(toc_res)
         table_of_contents = json.loads(str_toc)
 
