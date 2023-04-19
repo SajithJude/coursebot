@@ -255,9 +255,20 @@ chapter_list = list(db.keys())
 if chapter_list:
     delete_button = manage_col.button("Delete Chapter")
     
+    
 
     selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
     manage_col.code(db[selected_chapter], language="xml")
+
+    post_button= manage_col.button("POst apoi")
+    if post_button:
+        response =  post_xml_string(str(db[selected_chapter]))
+        st.write(response)
+        print(response)
+
+
+
+
     if delete_button:
         if delete_chapter(selected_chapter):
             manage_col.success(f"Chapter {selected_chapter} deleted successfully.")
