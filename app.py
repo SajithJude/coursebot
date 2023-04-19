@@ -48,8 +48,8 @@ def delete_chapter(chapter_name):
     return False
 
 def post_xml_string(xml_string):
-    url = "https://coursebot2.flipick.com/couresbuilderapi/api/Course/ImportCourse"
-    data = {"ImportXML": f"{xml_string}"}
+    url = 'https://coursebot2.flipick.com/couresbuilderapi/api/Course/ImportCourse'
+    data = {'ImportXML': f'{xml_string}'}
     response = requests.post(url, data=data)
     print(data)
     print(response)
