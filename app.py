@@ -223,6 +223,8 @@ try:
     if save_xml:
         xml_output = json_to_xml(st.session_state.new_dict, chapter_name, NoOfWordsForVOPerBullet, NoOfWordsPerBullet, NoOfBullets) 
         response = post_xml_string(xml_output)
+        if response:
+            st.info(response)
         pretty_xml = minidom.parseString(xml_output).toprettyxml()
 
         db = load_db()
