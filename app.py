@@ -19,7 +19,7 @@ import requests
 
 from langchain import OpenAI
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
-openai.api_key = os.getenv("API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 st.title("CourseBot")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
