@@ -47,6 +47,13 @@ def delete_chapter(chapter_name):
         return True
     return False
 
+def post_xml_string(xml_string):
+    url = "https://coursebot.flipick.com/couresbuilderapi/api/Course/ImportCourse"
+    data = {"ImportXML": xml_string}
+    response = requests.post(url, data=data)
+    return response
+
+
 
 def json_to_xml(json_data, chapter_name, NoOfWordsForVOPerBullet, NoOfWordsPerBullet, NoOfBullets):
     chapter = Element('Chapter')
@@ -206,6 +213,7 @@ try:
         edit_col.write(st.session_state.new_dict)
 
 
+
     chapter_name = xml_col.text_input("enter chapter name")
     NoOfBullets = xml_col.text_input("No. of Bullets per Sub Topic")
     NoOfWordsPerBullet = xml_col.text_input("No. of words per Bullet")
@@ -214,6 +222,7 @@ try:
     save_xml = xml_col.button("Save XML")
     if save_xml:
         xml_output = json_to_xml(st.session_state.new_dict, chapter_name, NoOfWordsForVOPerBullet, NoOfWordsPerBullet, NoOfBullets) 
+        response = post_xml_string(xml_output)
         pretty_xml = minidom.parseString(xml_output).toprettyxml()
 
         db = load_db()
@@ -241,6 +250,7 @@ chapter_list = list(db.keys())
 
 if chapter_list:
     delete_button = manage_col.button("Delete Chapter")
+    
 
     selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
     manage_col.code(db[selected_chapter], language="xml")
