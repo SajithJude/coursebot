@@ -14,6 +14,8 @@ from xml.dom import minidom
 from pathlib import Path
 from llama_index import download_loader
 from xml.etree.ElementTree import Element, SubElement, tostring
+import requests
+
 
 from langchain import OpenAI
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
@@ -46,8 +48,17 @@ def delete_chapter(chapter_name):
     return False
 
 
-def json_to_xml(json_data, chapter_name):
+def json_to_xml(json_data, chapter_name, NoOfWordsForVOPerBullet, NoOfWordsPerBullet, NoOfBullets):
     chapter = Element('Chapter')
+
+    no_of_bullets_element = SubElement(chapter, 'NoOfBullets')
+    no_of_bullets_element.text = str(NoOfBullets)
+
+    no_of_words_per_bullet_element = SubElement(chapter, 'NoOfWordsPerBullet')
+    no_of_words_per_bullet_element.text = str(NoOfWordsPerBullet)
+
+    no_of_words_for_vo_per_bullet_element = SubElement(chapter, 'NoOfWordsForVOPerBullet')
+    no_of_words_for_vo_per_bullet_element.text = str(NoOfWordsForVOPerBullet)
 
     chapter_name_element = SubElement(chapter, 'ChapterName')
     chapter_name_element.text = chapter_name
@@ -196,9 +207,13 @@ try:
 
 
     chapter_name = xml_col.text_input("enter chapter name")
+    NoOfBullets = xml_col.text_input("No. of Bullets per Sub Topic")
+    NoOfWordsPerBullet = xml_col.text_input("No. of words per Bullet")
+    NoOfWordsForVOPerBullet = xml_col.text_input("No. of words for Voice Over per Bullet")
+
     save_xml = xml_col.button("Save XML")
     if save_xml:
-        xml_output = json_to_xml(st.session_state.new_dict, chapter_name)
+        xml_output = json_to_xml(st.session_state.new_dict, chapter_name, NoOfWordsForVOPerBullet, NoOfWordsPerBullet, NoOfBullets) 
         pretty_xml = minidom.parseString(xml_output).toprettyxml()
 
         db = load_db()
