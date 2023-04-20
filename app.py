@@ -50,11 +50,10 @@ def delete_chapter(chapter_name):
 def post_xml_string(xml_string):
     url = 'https://coursebot2.flipick.com/couresbuilderapi/api/Course/ImportCourse'
     headers = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json'
+        'Content-type': 'application/json'
     }
-    data = json.dumps({"ImportXML": str(xml_string)})
-    response = requests.post(url, headers=headers, data=data)
+    payload = json.dumps({"ImportXML": str(xml_string)})
+    response = requests.request("POST",url, headers=headers, data=data)
     print(data)
     print(response)
     return response
