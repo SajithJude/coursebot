@@ -267,7 +267,7 @@ if chapter_list:
     if post_button:
         url = "https://coursebot2.flipick.com/couresbuilderapi/api/Course/ImportCourse"
         payload = json.dumps({
-                                "ImportXML": f"{db[selected_chapter]}"
+                                "ImportXML": str(db[selected_chapter])
                                 })
         headers = {
                     'Content-Type': 'application/json'
