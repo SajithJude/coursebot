@@ -255,15 +255,16 @@ db = load_db()
 chapter_list = list(db.keys())
 
 if chapter_list:
+    
+    
+    
+
+    selected_chapter = manage_col.selectbox("Select a chapter first:", chapter_list)
+    # manage_col.write(type(db[selected_chapter]))
+    # manage_col.code(db[selected_chapter], language="xml")
     delete_button = manage_col.button("Delete Chapter")
     post_button= manage_col.button("Continue with CourseBOT 2")
 
-    
-    
-
-    selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
-    # manage_col.write(type(db[selected_chapter]))
-    # manage_col.code(db[selected_chapter], language="xml")
 
     if post_button:
         url = "https://coursebot2.flipick.com/couresbuilderapi/api/Course/ImportCourse"
