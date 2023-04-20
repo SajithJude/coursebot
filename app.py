@@ -54,7 +54,7 @@ def post_xml_string(xml_string):
     }
     payload = json.dumps({"ImportXML": str(xml_string)})
     response = requests.request("POST",url, headers=headers, data=payload)
-    print(data)
+    # print(data)
     print(response)
     return response
 
