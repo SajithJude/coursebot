@@ -252,10 +252,12 @@ except (KeyError, AttributeError) as e:
     st.info("Click on Generate TOC to get started")
     print(f"Error: {type(e).__name__} - {e}")
 db = load_db()
-chapter_list = list(db.keys())
+# chapter_list = list(db.keys())
 
 if chapter_list:
     delete_button = manage_col.button("Delete Chapter")
+    post_button= manage_col.button("Continue with CourseBOT 2")
+
     
     
 
@@ -263,7 +265,6 @@ if chapter_list:
     manage_col.write(type(db[selected_chapter]))
     manage_col.code(db[selected_chapter], language="xml")
 
-    post_button= manage_col.button("POst apoi")
     if post_button:
         url = "https://coursebot2.flipick.com/couresbuilderapi/api/Course/ImportCourse"
         payload = json.dumps({
