@@ -279,7 +279,7 @@ if chapter_list:
         response = requests.request("POST", url, headers=headers, data=payload)
         st.write(response)
         print(response)
-        response_dict = json.loads(response_text)
+        response_dict = json.loads(response.text)
 
 # Extract the URL
         url_to_launch = response_dict["result"]["urlToLaunch"]
