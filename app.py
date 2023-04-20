@@ -252,7 +252,7 @@ except (KeyError, AttributeError) as e:
     st.info("Click on Generate TOC to get started")
     print(f"Error: {type(e).__name__} - {e}")
 db = load_db()
-# chapter_list = list(db.keys())
+chapter_list = list(db.keys())
 
 if chapter_list:
     delete_button = manage_col.button("Delete Chapter")
@@ -262,7 +262,7 @@ if chapter_list:
     
 
     selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
-    manage_col.write(type(db[selected_chapter]))
+    # manage_col.write(type(db[selected_chapter]))
     manage_col.code(db[selected_chapter], language="xml")
 
     if post_button:
