@@ -263,7 +263,7 @@ if chapter_list:
 
     selected_chapter = manage_col.selectbox("Select a chapter:", chapter_list)
     # manage_col.write(type(db[selected_chapter]))
-    manage_col.code(db[selected_chapter], language="xml")
+    # manage_col.code(db[selected_chapter], language="xml")
 
     if post_button:
         url = "https://coursebot2.flipick.com/couresbuilderapi/api/Course/ImportCourse"
@@ -278,7 +278,12 @@ if chapter_list:
         response = requests.request("POST", url, headers=headers, data=payload)
         st.write(response)
         print(response)
-        st.write(response.text)
+        response_dict = json.loads(response_text)
+
+# Extract the URL
+        url_to_launch = response_dict["result"]["urlToLaunch"]
+        manage_col.subheader("Click on the url bellow to continue.")
+        manage_col.write(url_to_launch)
 
 
 
