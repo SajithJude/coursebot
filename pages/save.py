@@ -15,5 +15,5 @@ headers = {
 if st.button("Send"):
     response = requests.request("POST", url, headers=headers, data=payload)
     st.write(response)
-    print(response)
+    # print(resp)
     st.write(response.text)
