@@ -53,7 +53,7 @@ def post_xml_string(xml_string):
         'Content-type': 'application/json',
         'Accept': 'application/json'
     }
-    data = {"ImportXML": str(xml_string)}
+    data = json.dumps({"ImportXML": str(xml_string)})
     response = requests.post(url, headers=headers, data=data)
     print(data)
     print(response)
