@@ -4,3 +4,4 @@ llama-index
 langchain
 PyPDF2
 pyperclip
+fitz
