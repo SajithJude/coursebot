@@ -663,25 +663,25 @@ if quer:
 edcol, excol = voice_col.columns([1,3])
 
 # Course Description
-course_description_limit = edcol.number_input("Course Description Word Count Limit", value=30, min_value=1)
+# course_description_limit = edcol.number_input("Course Description Word Count Limit", value=30, min_value=1)
 
-# Course Description VoiceOver
-course_description_voiceover_limit = edcol.number_input("Course Description VoiceOver Word Count Limit", value=50, min_value=1)
+# # Course Description VoiceOver
+# course_description_voiceover_limit = edcol.number_input("Course Description VoiceOver Word Count Limit", value=50, min_value=1)
 
-# Topic Summary
-topic_summary_limit = edcol.number_input("Topic Summary Word Count Limit", value=30, min_value=1)
+# # Topic Summary
+# topic_summary_limit = edcol.number_input("Topic Summary Word Count Limit", value=30, min_value=1)
 
-# Topic Summary VoiceOver
-topic_summary_voiceover_limit = edcol.number_input("Topic Summary VoiceOver Word Count Limit", value=50, min_value=1)
+# # Topic Summary VoiceOver
+# topic_summary_voiceover_limit = edcol.number_input("Topic Summary VoiceOver Word Count Limit", value=50, min_value=1)
 
-# Number of Bullets per Slide
-num_bullets_per_slide = edcol.number_input("Number of Bullets per Slide", value=4, min_value=1)
+# # Number of Bullets per Slide
+# num_bullets_per_slide = edcol.number_input("Number of Bullets per Slide", value=4, min_value=1)
 
-# Number of Words per Bullet
-num_words_bullet = edcol.number_input("Number of Words per Bullet", value=10, min_value=1)
+# # Number of Words per Bullet
+# num_words_bullet = edcol.number_input("Number of Words per Bullet", value=10, min_value=1)
 
-# Bullet VoiceOver
-bullet_voiceover_limit = edcol.number_input("VoiceOver per Bullet Word Count Limit", value=20, min_value=1)
+# # Bullet VoiceOver
+# bullet_voiceover_limit = edcol.number_input("VoiceOver per Bullet Word Count Limit", value=20, min_value=1)
 
 # Paraphrasing Percentage Range
 # paraphrasing_range = edcol.slider("Paraphrasing % Range", min_value=25, max_value=35, value=(25, 35))
