@@ -463,10 +463,46 @@ try:
             str_to = str(str_toc)
         # st.write(str_to)
         table_of_contents = json.loads(str_to.strip())
+        st.session_state.table_of_contents = table_of_contents
+        
+        if "dictionary" not in st.session_state:
+            st.session_state.dictionary = {
+        "Course": {
+            "Course_Name": "",
+            "Course_Description": "",
+            "VoiceOver": ""
+        },
+        "Topics": [],
+        "Course_Objectives": [
+            {
+            "Objective": "",
+            "VoiceOver": ""
+            },
+        ]
+        }
+
+        # Convert topics to new format
+
+        for topic in st.session_state.table_of_contents["Topics"]:
+        for topic_name, subtopics in topic.items():
+            new_topic = {
+            "Topic_Name": topic_name,
+            "Subtopics": [],
+            "Topic_Summary": "",
+            "Topic_Summary_VoiceOver": ""
+            }
+            for subtopic in subtopics:
+            new_subtopic = {
+                "Subtopic_Name": subtopic,
+                "Bullets": [],
+                "VoiceOver": [],
+                "Image": ""
+            }
+            new_topic["Subtopics"].append(new_subtopic)
+            st.session_state.dictionary["Topics"].append(new_topic)
 
         
         # if "table_of_contents" not in st.session_state:
-        st.session_state.table_of_contents = table_of_contents
         pastecol.success("TOC loaded, Go to the next tab")
         pastecol.write(st.session_state.table_of_contents)
 
@@ -500,6 +536,7 @@ if "dictionary" not in st.session_state:
 }
 
 # Convert topics to new format
+
 for topic in st.session_state.table_of_contents["Topics"]:
   for topic_name, subtopics in topic.items():
     new_topic = {
@@ -518,17 +555,8 @@ for topic in st.session_state.table_of_contents["Topics"]:
       new_topic["Subtopics"].append(new_subtopic)
     st.session_state.dictionary["Topics"].append(new_topic)
 
-# st.write(st.session_state.dictionary)
 
-# if "new_dict" not in st.session_state:
-#     st.session_state.new_dict = {}
-# for topic in st.session_state.table_of_contents["Topics"]:
-#     for key, value in topic.items():
-#         # Add a description for the topic
-#         st.session_state.new_dict[key] = {'content': '', 'Subtopics': []}
-#         # Add descriptions for the values
-#         for item in value:
-#             st.session_state.new_dict[key]['Subtopics'].append({'content': '', 'Subtopic': item})
+
 
 
 pagecol, ecol = extract_col.columns([2,5],gap="large")
