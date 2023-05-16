@@ -438,10 +438,12 @@ if uploaded_file is not None:
         with open(uploaded_file.name, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
+hrs = upload_col.number_input("How many minutes is your video")
+lo_input = upload_col.text_area("Learning Objectives")
 
 if upload_col.button("Get Insights"):
-    count = st.session_state.index.query(f"How many words are in this document").response
-    hours = st.session_state.index.query(f"Genereate a course structure if Im about to create a 1 hr course based on this document").response
+    count = st.session_state.index.query(f"How many words are there in this document").response
+    hours = st.session_state.index.query(f"Genereate a course structure with topics and subtopics if Im about to create a {hrs} minutes course for based on this document, for the following learning objectives {lo_input}").response
     upload_col.write(count)
     upload_col.write(hours)
 
