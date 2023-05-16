@@ -537,15 +537,19 @@ pagecol, ecol = extract_col.columns([2,5],gap="large")
 if pagecol.button("Generate"):
     for topic in st.session_state.dictionary["Topics"]:
         topic_sum = st.session_state.index.query(f"Generate Topic Summary description of 30 words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
+        ecol.info(topic_sum)
         Voice_topic_sum = st.session_state.index.query(f"Generate Topic Summary voice over script of 50 words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
+        ecol.info(Voice_topic_sum)
         topic["Topic_Summary"] = topic_sum
         topic["Topic_Summary_VoiceOver"] = Voice_topic_sum
-
         for subtopic in topic["Subtopics"]:
-            bullets = st.session_state.index.query(f"Generate 4 comma seperated Bullet points for the section named {subtopic['Subtopic_Name']}, where each bullet should be made of 10 words").response.strip()
-            voiceovers = st.session_state.index.query(f"Generate 4 comma seperated voice over scripts for the section named {subtopic['Subtopic_Name']}, where each voice over should be exactly 20 words").response.strip()
+            bullets = st.session_state.index.query(f"Generate 4 comma-seperated Bullet points enclosed within single inverted-comas for the section named {subtopic['Subtopic_Name']}\n, word count per Bullet is 10 words, and dont use commas within each bullet.").response.strip()
             subtopic["Bullets"] = bullets.split(",")  # assume bullets are comma-separated
+            ecol.write(subtopic["Bullets"])
+
+            voiceovers = st.session_state.index.query(f"Generate 4 comma-seperated voice over scripts enclosed within single inverted-comas for the section named {subtopic['Subtopic_Name']}\n, Word count per voice over is 20 and dont include commas within each voice over.").response.strip()
             subtopic["VoiceOver"] = voiceovers.split(",")  # assume voice overs are comma-separated
+            ecol.write(subtopic["VoiceOver"])
 
 pagecol.write(st.session_state.dictionary)
 # # Course Description
