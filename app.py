@@ -543,12 +543,12 @@ if pagecol.button("Generate"):
         topic["Topic_Summary"] = topic_sum
         topic["Topic_Summary_VoiceOver"] = Voice_topic_sum
         for subtopic in topic["Subtopics"]:
-            bullets = st.session_state.index.query(f"Generate 4 comma-seperated Bullet points enclosed within single inverted-comas for the section named {subtopic['Subtopic_Name']}\n, word count per Bullet is 10 words, and dont use commas within each bullet.").response.strip()
-            subtopic["Bullets"] = bullets.split(",")  # assume bullets are comma-separated
+            bullets = st.session_state.index.query(f"Generate 4 Bullet points that are seperated by a /(forward slash) for the section named {subtopic['Subtopic_Name']}\n, word count per Bullet is 10 words, and dont use commas within each bullet.").response.strip()
+            subtopic["Bullets"] = bullets.split("/")  # assume bullets are comma-separated
             ecol.write(subtopic["Bullets"])
 
-            voiceovers = st.session_state.index.query(f"Generate 4 comma-seperated voice over scripts enclosed within single inverted-comas for the section named {subtopic['Subtopic_Name']}\n, Word count per voice over is 20 and dont include commas within each voice over.").response.strip()
-            subtopic["VoiceOver"] = voiceovers.split(",")  # assume voice overs are comma-separated
+            voiceovers = st.session_state.index.query(f"Generate 4 comma-seperated voice over scripts that are seperated by /(forward slash) for the section named {subtopic['Subtopic_Name']}\n, Word count per voice over is 20 and dont include commas within each voice over.").response.strip()
+            subtopic["VoiceOver"] = voiceovers.split("/")  # assume voice overs are comma-separated
             ecol.write(subtopic["VoiceOver"])
 
 pagecol.write(st.session_state.dictionary)
