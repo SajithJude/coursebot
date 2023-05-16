@@ -484,7 +484,9 @@ try:
         # Convert topics to new format
 
         for topic in st.session_state.table_of_contents["Topics"]:
+
             for topic_name, subtopics in topic.items():
+
                 new_topic = {
                 "Topic_Name": topic_name,
                 "Subtopics": [],
@@ -492,13 +494,14 @@ try:
                 "Topic_Summary_VoiceOver": ""
                 }
                 for subtopic in subtopics:
+
                     new_subtopic = {
                         "Subtopic_Name": subtopic,
                         "Bullets": [],
                         "VoiceOver": [],
                         "Image": ""
                     }
-                new_topic["Subtopics"].append(new_subtopic)
+                    new_topic["Subtopics"].append(new_subtopic)
             st.session_state.dictionary["Topics"].append(new_topic)
 
         
@@ -535,25 +538,25 @@ if "dictionary" not in st.session_state:
   ]
 }
 
-# Convert topics to new format
+# # Convert topics to new format
 
-for topic in st.session_state.table_of_contents["Topics"]:
-  for topic_name, subtopics in topic.items():
-    new_topic = {
-      "Topic_Name": topic_name,
-      "Subtopics": [],
-      "Topic_Summary": "",
-      "Topic_Summary_VoiceOver": ""
-    }
-    for subtopic in subtopics:
-      new_subtopic = {
-        "Subtopic_Name": subtopic,
-        "Bullets": [],
-        "VoiceOver": [],
-        "Image": ""
-      }
-      new_topic["Subtopics"].append(new_subtopic)
-    st.session_state.dictionary["Topics"].append(new_topic)
+# for topic in st.session_state.table_of_contents["Topics"]:
+#   for topic_name, subtopics in topic.items():
+#     new_topic = {
+#       "Topic_Name": topic_name,
+#       "Subtopics": [],
+#       "Topic_Summary": "",
+#       "Topic_Summary_VoiceOver": ""
+#     }
+#     for subtopic in subtopics:
+#       new_subtopic = {
+#         "Subtopic_Name": subtopic,
+#         "Bullets": [],
+#         "VoiceOver": [],
+#         "Image": ""
+#       }
+#       new_topic["Subtopics"].append(new_subtopic)
+#     st.session_state.dictionary["Topics"].append(new_topic)
 
 
 
