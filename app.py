@@ -439,6 +439,14 @@ if uploaded_file is not None:
             f.write(uploaded_file.getbuffer())
 
 
+if upload_col.button("Get Insights"):
+    count = st.session_state.index.query(f"what is the word count of this book").response
+    hours = st.session_state.index.query(f"what is the word count of this book").response
+    upload_col.write(count)
+    upload_col.write(hours)
+
+
+
 
 
 ###################### tab 2 ################
