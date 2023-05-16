@@ -483,7 +483,57 @@ except json.JSONDecodeError as e:
 ######################       extract content      ##########################################
 
 
+if "dictionary" not in st.session_state:
+    st.session_state.dictionary = {
+  "Course": {
+    "Course_Name": "",
+    "Course_Description": "",
+    "VoiceOver": ""
+  },
+  "Topics": [],
+  "Course_Objectives": [
+    {
+      "Objective": "",
+      "VoiceOver": ""
+    },
+  ]
+}
 
+# dictionary = {
+#   "Course": {
+#     "Course_Name": "",
+#     "Course_Description": "",
+#     "VoiceOver": ""
+#   },
+#   "Topics": [],
+#   "Course_Objectives": [
+#     {
+#       "Objective": "",
+#       "VoiceOver": ""
+#     },
+#   ]
+# }
+
+# Convert topics to new format
+for topic in st.session_state.table_of_contents["Topics"]:
+  for topic_name, subtopics in topic.items():
+    new_topic = {
+      "Topic_Name": topic_name,
+      "Subtopics": [],
+      "Topic_Summary": "",
+      "Topic_Summary_VoiceOver": ""
+    }
+    for subtopic in subtopics:
+      new_subtopic = {
+        "Subtopic_Name": subtopic,
+        "Bullets": [],
+        "VoiceOver": [],
+        "Image": ""
+      }
+      new_topic["Subtopics"].append(new_subtopic)
+    st.session_state.dictionary["Topics"].append(new_topic)
+
+st.write(st.session_state.dictionary)
 
 if "new_dict" not in st.session_state:
     st.session_state.new_dict = {}
