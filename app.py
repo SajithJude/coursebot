@@ -536,13 +536,16 @@ pagecol, ecol = extract_col.columns([2,5],gap="large")
 
 if pagecol.button("Generate"):
     for topic in st.session_state.dictionary["Topics"]:
+        topic_sum = st.session_state.index.query(f"Generate Topic Summary description of 30 words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
+        Voice_topic_sum = st.session_state.index.query(f"Generate Topic Summary voice over script of 50 words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
+        topic["Topic_Summary"] = topic_sum
+        topic["Topic_Summary_VoiceOver"] = Voice_topic_sum
+
         for subtopic in topic["Subtopics"]:
-            bullets = st.session_state.index.query(f"Generate 4 comma seperated Bullet points for the section named {subtopic['Subtopic_Name']}, where each bullet should be exactly 10 words").response.strip()
+            bullets = st.session_state.index.query(f"Generate 4 comma seperated Bullet points for the section named {subtopic['Subtopic_Name']}, where each bullet should be made of 10 words").response.strip()
             voiceovers = st.session_state.index.query(f"Generate 4 comma seperated voice over scripts for the section named {subtopic['Subtopic_Name']}, where each voice over should be exactly 20 words").response.strip()
-            # if st.button(f"Update {subtopic['Subtopic_Name']}"):
             subtopic["Bullets"] = bullets.split(",")  # assume bullets are comma-separated
             subtopic["VoiceOver"] = voiceovers.split(",")  # assume voice overs are comma-separated
-                # st.success(f"{subtopic['Subtopic_Name']} updated!")
 
 pagecol.write(st.session_state.dictionary)
 # # Course Description
@@ -589,12 +592,12 @@ if quer:
 
 
 # st.session_state.new_dict = data['data']
-for topic_key, topic_value in st.session_state.new_dict.items():
-    expander = ecol.expander(f"{topic_key}")
-    expander.write(topic_value["content"])
-    for subtopic in topic_value["Subtopics"]:
-        expander.markdown(f"**{subtopic['Subtopic']}**")
-        expander.write(subtopic["content"])
+# for topic_key, topic_value in st.session_state.new_dict.items():
+#     expander = ecol.expander(f"{topic_key}")
+#     expander.write(topic_value["content"])
+#     for subtopic in topic_value["Subtopics"]:
+#         expander.markdown(f"**{subtopic['Subtopic']}**")
+#         expander.write(subtopic["content"])
 
 
        
