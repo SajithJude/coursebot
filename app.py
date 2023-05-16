@@ -499,21 +499,6 @@ if "dictionary" not in st.session_state:
   ]
 }
 
-# dictionary = {
-#   "Course": {
-#     "Course_Name": "",
-#     "Course_Description": "",
-#     "VoiceOver": ""
-#   },
-#   "Topics": [],
-#   "Course_Objectives": [
-#     {
-#       "Objective": "",
-#       "VoiceOver": ""
-#     },
-#   ]
-# }
-
 # Convert topics to new format
 for topic in st.session_state.table_of_contents["Topics"]:
   for topic_name, subtopics in topic.items():
@@ -549,6 +534,17 @@ for topic in st.session_state.table_of_contents["Topics"]:
 pagecol, ecol = extract_col.columns([2,5],gap="large")
 
 
+if pagecol.button("Generate"):
+    for topic in st.session_state.dictionary["Topics"]:
+        for subtopic in topic["Subtopics"]:
+            bullets = st.session_state.index.query(f"Generate 4 comma seperated Bullet points for the section named {subtopic['Subtopic_Name']}, where each bullet should be exactly 10 words").response.strip()
+            voiceovers = st.session_state.index.query(f"Generate 4 comma seperated voice over scripts for the section named {subtopic['Subtopic_Name']}, where each voice over should be exactly 20 words").response.strip()
+            # if st.button(f"Update {subtopic['Subtopic_Name']}"):
+            subtopic["Bullets"] = bullets.split(",")  # assume bullets are comma-separated
+            subtopic["VoiceOver"] = voiceovers.split(",")  # assume voice overs are comma-separated
+                # st.success(f"{subtopic['Subtopic_Name']} updated!")
+
+pagecol.write(st.session_state.dictionary)
 # # Course Description
 # course_description_limit = pagecol.number_input("Course Description Word Count Limit", value=30, min_value=1)
 
