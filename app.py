@@ -518,17 +518,17 @@ for topic in st.session_state.table_of_contents["Topics"]:
       new_topic["Subtopics"].append(new_subtopic)
     st.session_state.dictionary["Topics"].append(new_topic)
 
-st.write(st.session_state.dictionary)
+# st.write(st.session_state.dictionary)
 
-if "new_dict" not in st.session_state:
-    st.session_state.new_dict = {}
-for topic in st.session_state.table_of_contents["Topics"]:
-    for key, value in topic.items():
-        # Add a description for the topic
-        st.session_state.new_dict[key] = {'content': '', 'Subtopics': []}
-        # Add descriptions for the values
-        for item in value:
-            st.session_state.new_dict[key]['Subtopics'].append({'content': '', 'Subtopic': item})
+# if "new_dict" not in st.session_state:
+#     st.session_state.new_dict = {}
+# for topic in st.session_state.table_of_contents["Topics"]:
+#     for key, value in topic.items():
+#         # Add a description for the topic
+#         st.session_state.new_dict[key] = {'content': '', 'Subtopics': []}
+#         # Add descriptions for the values
+#         for item in value:
+#             st.session_state.new_dict[key]['Subtopics'].append({'content': '', 'Subtopic': item})
 
 
 pagecol, ecol = extract_col.columns([2,5],gap="large")
