@@ -552,6 +552,18 @@ if pagecol.button("Generate"):
             ecol.write(subtopic["VoiceOver"])
 
 pagecol.write(st.session_state.dictionary)
+
+
+for topic in st.session_state.dictionary["Topics"]:
+    with ecol.expander(topic["Topic_Name"]):
+        for key, value in topic.items():
+            if key == "Subtopics":
+                for subtopic in value:
+                    with ecol.expander(subtopic["Subtopic_Name"]):
+                        for sub_key, sub_value in subtopic.items():
+                            ecol.write(f"{sub_key}: {sub_value}")
+            else:
+                ecol.write(f"{key}: {value}")
 # # Course Description
 # course_description_limit = pagecol.number_input("Course Description Word Count Limit", value=30, min_value=1)
 
