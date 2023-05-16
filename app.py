@@ -440,8 +440,8 @@ if uploaded_file is not None:
 
 
 if upload_col.button("Get Insights"):
-    count = st.session_state.index.query(f"what is the word count of this book").response
-    hours = st.session_state.index.query(f"what is the word count of this book").response
+    count = st.session_state.index.query(f"How many words are in this book").response
+    hours = st.session_state.index.query(f"What is the optimum duriation if Im about to create a course based on this book").response
     upload_col.write(count)
     upload_col.write(hours)
 
