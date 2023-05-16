@@ -533,21 +533,36 @@ for topic in st.session_state.table_of_contents["Topics"]:
 
 pagecol, ecol = extract_col.columns([2,5],gap="large")
 
+# # Topic Summary
+topic_summary_limit = pagecol.number_input("Topic Summary Word Count Limit", value=30, min_value=1)
+
+# Topic Summary VoiceOver
+topic_summary_voiceover_limit = pagecol.number_input("Topic Summary VoiceOver Word Count Limit", value=50, min_value=1)
+
+# Number of Bullets per Slide
+num_bullets_per_slide = pagecol.number_input("Number of Bullets per Slide", value=4, min_value=1)
+
+# Number of Words per Bullet
+num_words_bullet = pagecol.number_input("Number of Words per Bullet", value=10, min_value=1)
+
+# Bullet VoiceOver
+bullet_voiceover_limit = pagecol.number_input("VoiceOver per Bullet Word Count Limit", value=20, min_value=1)
+# # aaaa
 
 if pagecol.button("Generate"):
     for topic in st.session_state.dictionary["Topics"]:
-        topic_sum = st.session_state.index.query(f"Generate Topic Summary description of 30 words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
+        topic_sum = st.session_state.index.query(f"Generate Topic Summary description of {topic_summary_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
         ecol.info(topic_sum)
-        Voice_topic_sum = st.session_state.index.query(f"Generate Topic Summary voice over script of 50 words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
+        Voice_topic_sum = st.session_state.index.query(f"Generate Topic Summary voice over script of {topic_summary_voiceover_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
         ecol.info(Voice_topic_sum)
         topic["Topic_Summary"] = topic_sum
         topic["Topic_Summary_VoiceOver"] = Voice_topic_sum
         for subtopic in topic["Subtopics"]:
-            bullets = st.session_state.index.query(f"Generate 4 Bullet points that are seperated by a /(forward slash) for the section named {subtopic['Subtopic_Name']}\n, word count per Bullet is 10 words, and dont use commas within each bullet.").response.strip()
+            bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points that are seperated by a /(forward slash) for the section named {subtopic['Subtopic_Name']}\n, word count per Bullet is {num_words_bullet}.").response.strip()
             subtopic["Bullets"] = bullets.split("/")  # assume bullets are comma-separated
             ecol.write(subtopic["Bullets"])
 
-            voiceovers = st.session_state.index.query(f"Generate 4 comma-seperated voice over scripts that are seperated by /(forward slash) for the section named {subtopic['Subtopic_Name']}\n, Word count per voice over is 20 and dont include commas within each voice over.").response.strip()
+            voiceovers = st.session_state.index.query(f"Generate {num_bullets_per_slide} comma-seperated voice over scripts that are seperated by /(forward slash) for the section named {subtopic['Subtopic_Name']}\n, Word count per voice over is {bullet_voiceover_limit}.").response.strip()
             subtopic["VoiceOver"] = voiceovers.split("/")  # assume voice overs are comma-separated
             ecol.write(subtopic["VoiceOver"])
 
@@ -570,21 +585,7 @@ for topic in st.session_state.dictionary["Topics"]:
 # # Course Description VoiceOver
 # course_description_voiceover_limit = pagecol.number_input("Course Description VoiceOver Word Count Limit", value=50, min_value=1)
 
-# # Topic Summary
-# topic_summary_limit = pagecol.number_input("Topic Summary Word Count Limit", value=30, min_value=1)
 
-# # Topic Summary VoiceOver
-# topic_summary_voiceover_limit = pagecol.number_input("Topic Summary VoiceOver Word Count Limit", value=50, min_value=1)
-
-# # Number of Bullets per Slide
-# num_bullets_per_slide = pagecol.number_input("Number of Bullets per Slide", value=4, min_value=1)
-
-# # Number of Words per Bullet
-# num_words_bullet = pagecol.number_input("Number of Words per Bullet", value=10, min_value=1)
-
-# # Bullet VoiceOver
-# bullet_voiceover_limit = pagecol.number_input("VoiceOver per Bullet Word Count Limit", value=20, min_value=1)
-# # aaaa
 
 
 quer = ecol.button("Extract Contents")
