@@ -6,7 +6,7 @@ from llama_index import download_loader
 from tempfile import NamedTemporaryFile
 import base64
 import io
-import fitz
+# import fitz
 from PIL import Image
 import ast
 import os
@@ -445,24 +445,24 @@ if uploaded_file is not None:
         with open(uploaded_file.name, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
-        # display PDF file
-        with fitz.open(uploaded_file.name) as doc:
-            for page in doc:  # iterate through the pages
-                pix = page.get_pixmap()  # render page to an image
-                pix.save("pages/page-%i.png" % page.number) 
-            for page_index in range(len(doc)):
-                page = doc[page_index]
-                image_list = page.get_images(full=True)
-                for image_index, img in enumerate(page.get_images(), start=1):
+        # # display PDF file
+        # with fitz.open(uploaded_file.name) as doc:
+        #     for page in doc:  # iterate through the pages
+        #         pix = page.get_pixmap()  # render page to an image
+        #         pix.save("pages/page-%i.png" % page.number) 
+        #     for page_index in range(len(doc)):
+        #         page = doc[page_index]
+        #         image_list = page.get_images(full=True)
+        #         for image_index, img in enumerate(page.get_images(), start=1):
                 
 
-                    xref = img[0]
-                    base_image = doc.extract_image(xref)
-                    image_bytes = base_image["image"]
-                    image_ext = base_image["ext"]
-                    image = Image.open(io.BytesIO(image_bytes))
-                    image_filename = f"images/image_page{page_index}_{image_index}.{image_ext}"
-                    image.save(image_filename)
+        #             xref = img[0]
+        #             base_image = doc.extract_image(xref)
+        #             image_bytes = base_image["image"]
+        #             image_ext = base_image["ext"]
+        #             image = Image.open(io.BytesIO(image_bytes))
+        #             image_filename = f"images/image_page{page_index}_{image_index}.{image_ext}"
+        #             image.save(image_filename)
 
 
 pastecol, copycol = upload_col.columns(2,gap="medium")
