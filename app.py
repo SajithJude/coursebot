@@ -713,7 +713,7 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
     pretty_xml = minidom.parseString(xml).toprettyxml()
     
 
-ecol.code(pretty_xml)
+    ecol.code(pretty_xml)
 
 
 # pagecol.write(st.session_state.dictionary)
