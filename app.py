@@ -684,14 +684,11 @@ if ecol.button("Extract and Generate"):
     st.session_state.button_clicked = True
             
     if "dictionary" not in st.session_state:
-        Course_Name = st.session_state.crsnm
-        Course_Description = st.session_state.index.query(f"Generate a Course Description with word count of {course_description_limit}").response.strip()
-        VoiceOver = st.session_state.index.query(f"Generate a Course Description voice over script with word count of {course_description_voiceover_limit}").response.strip()
         st.session_state.dictionary = {
     "Course": {
-        "Course_Name": str(Course_Name),
-        "Course_Description": str(Course_Description),
-        "VoiceOver": str(VoiceOver)
+        "Course_Name": "",
+        "Course_Description": "",
+        "VoiceOver": ""
     },
     "Topics": [],
     "Course_Objectives": [
@@ -702,7 +699,6 @@ if ecol.button("Extract and Generate"):
     ]
     }
     
-    st.session_state.dictionary
     # if "table_of_contents" in st.session_state:
     # Convert topics to new forma
     for topic in st.session_state.table_of_contents["Topics"]:
