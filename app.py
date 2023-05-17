@@ -602,7 +602,7 @@ if "processed_all_items" not in st.session_state:
 
 
 gen = ecol.button("Extract and Generate")
-
+ecol.write(st.session_state.dictionary)
 if gen and not st.session_state.processed_all_items:
 
     for topic in st.session_state.dictionary["Topics"]:
