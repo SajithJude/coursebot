@@ -446,7 +446,7 @@ if uploaded_file is not None:
 
 ###################### tab 2 ################
 toc_option = toc_col.radio("How do you want to base your course structure", ("Documents Table of Content", "Customize"), horizontal=True)
-
+toc_col.info("Choose Customize if you want AI to suggest a course structure, modify (it if needed) after pasting it on the left and click process")
 # pastecol, copycol = toc_col.columns(2,gap="medium")
 
 
@@ -466,9 +466,9 @@ try:
         #     copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
         #     copycol.code(sample_table.response)
 
-        toc_input = toc_col.text_area("Paste TOC / AI generated Structure")
+        toc_input = toc_col.text_area("Copy Paste TOC from document")
 
-        if toc_col.button("Generate Course Structure"):
+        if toc_col.button("Process Structure"):
             # try:
                 # table_of_contents = json.loads(toc_input)
             with st.spinner('Please wait, it might take a while to process the Course structure'):
@@ -494,9 +494,9 @@ try:
             copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
             copycol.code(sample_table.response)
 
-        toc_input = pastecol.text_area("Paste TOC / AI generated Structure")
+        toc_input = pastecol.text_area("Copy sPaste AI's recomendation")
 
-        if pastecol.button("Generate Course Structure"):
+        if pastecol.button("Process Structure"):
             # try:
                 # table_of_contents = json.loads(toc_input)
             with st.spinner('Please wait, it might take a while to process the Course structure'):
