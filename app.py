@@ -563,8 +563,8 @@ try:
         st.session_state.dictionary["Topics"].append(new_topic)
 
 
-except AttributeError as e:
-    st.write(e)
+except AttributeError:
+    print(e)
 
 
 pagecol, ecol = extract_col.columns([2,5],gap="large")
@@ -598,6 +598,8 @@ bullet_voiceover_limit = pagecol.number_input("VoiceOver per Bullet Word Count L
 #             else:
 #                 ecol.write(f"{key}: {value}")
 
+if "button_clicked" not in st.session_state:
+    st.session_state.button_clicked = False
 
 if "processed_all_items" not in st.session_state:
     st.session_state.processed_all_items = False
@@ -626,6 +628,7 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
             voiceovers = st.session_state.index.query(f"Generate {num_bullets_per_slide} comma-seperated voice over scripts that are seperated by /(forward slash) for the section named {subtopic['Subtopic_Name']}\n, Word count per voice over is {bullet_voiceover_limit}.").response.strip()
             subtopic["VoiceOver"] = voiceovers.split("/")  # assume voice overs are comma-separated
             extract_col.write(subtopic["VoiceOver"])
+    st.session_state.button_clicked = False
     st.session_state.processed_all_items = True
 
 
