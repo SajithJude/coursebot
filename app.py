@@ -523,46 +523,48 @@ except json.JSONDecodeError as e:
 
 ######################       extract content      ##########################################
 
-
-if "dictionary" not in st.session_state:
-    st.session_state.dictionary = {
-  "Course": {
-    "Course_Name": "",
-    "Course_Description": "",
-    "VoiceOver": ""
-  },
-  "Topics": [],
-  "Course_Objectives": [
-    {
-      "Objective": "",
-      "VoiceOver": ""
+try:
+        
+    if "dictionary" not in st.session_state:
+        st.session_state.dictionary = {
+    "Course": {
+        "Course_Name": "",
+        "Course_Description": "",
+        "VoiceOver": ""
     },
-  ]
-}
+    "Topics": [],
+    "Course_Objectives": [
+        {
+        "Objective": "",
+        "VoiceOver": ""
+        },
+    ]
+    }
 
-# if "table_of_contents" in st.session_state:
-# Convert topics to new forma
-for topic in st.session_state.table_of_contents["Topics"]:
-    for topic_name, subtopics in topic.items():
-        new_topic = {
-        "Topic_Name": topic_name,
-        "Subtopics": [],
-        "Topic_Summary": "",
-        "Topic_Summary_VoiceOver": ""
-        }
-
-        for subtopic in subtopics:
-            new_subtopic = {
-                "Subtopic_Name": subtopic,
-                "Bullets": [],
-                "VoiceOver": [],
-                "Image": ""
+    # if "table_of_contents" in st.session_state:
+    # Convert topics to new forma
+    for topic in st.session_state.table_of_contents["Topics"]:
+        for topic_name, subtopics in topic.items():
+            new_topic = {
+            "Topic_Name": topic_name,
+            "Subtopics": [],
+            "Topic_Summary": "",
+            "Topic_Summary_VoiceOver": ""
             }
-        new_topic["Subtopics"].append(new_subtopic)
-    st.session_state.dictionary["Topics"].append(new_topic)
+
+            for subtopic in subtopics:
+                new_subtopic = {
+                    "Subtopic_Name": subtopic,
+                    "Bullets": [],
+                    "VoiceOver": [],
+                    "Image": ""
+                }
+            new_topic["Subtopics"].append(new_subtopic)
+        st.session_state.dictionary["Topics"].append(new_topic)
 
 
-
+except json.JSONDecodeError as e:
+    st.write(e)
 
 
 pagecol, ecol = extract_col.columns([2,5],gap="large")
