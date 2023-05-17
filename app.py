@@ -377,6 +377,47 @@ def generate_xml_structure(new_dict,coursedesctip,coursedescriptionvoiceover,cn)
     # xml_string = xml_string.replace('<?xml version="1.0" ?>', '')
     # st.write(xml_string)
     return xml_string
+# import xml.etree.ElementTree as ET
+
+def create_xml(dictionary):
+    root = ET.Element("slide")
+
+    # Slide 1: Course
+    course = dictionary["Course"]
+    ET.SubElement(root, "slide1", Course_Name=course["Course_Name"], 
+                  Course_Description=course["Course_Description"], 
+                  VoiceOver=course["VoiceOver"])
+
+    # Slide 2: Topics
+    topic_names = ", ".join(topic["Topic_Name"] for topic in dictionary["Topics"])
+    ET.SubElement(root, "slide2", Topics=topic_names)
+
+    # Other slides: One per topic + subtopic
+    slide_num = 3
+    for topic in dictionary["Topics"]:
+        # Slide: Topic and its Subtopics
+        ET.SubElement(root, f"slide{slide_num}", Topic_Name=topic["Topic_Name"],
+                      Subtopics=", ".join(subtopic["Subtopic_Name"] for subtopic in topic["Subtopics"]))
+        slide_num += 1
+
+        # Slides: One per Subtopic
+        for subtopic in topic["Subtopics"]:
+            ET.SubElement(root, f"slide{slide_num}", Subtopic_Name=str(subtopic["Subtopic_Name"]),
+                          Bullets=", ".join(subtopic["Bullets"]),
+                          VoiceOver=", ".join(subtopic["VoiceOver"]))
+            slide_num += 1
+
+        # Slide: Topic Summary
+        ET.SubElement(root, f"slide{slide_num}", Topic_Summary=topic["Topic_Summary"], 
+                      Topic_Summary_VoiceOver=topic["Topic_Summary_VoiceOver"])
+        slide_num += 1
+
+    # Final slide: Congratulations
+    ET.SubElement(root, f"slide{slide_num}", Message="Congratulations!")
+
+    # Convert to XML string
+    xml_str = ET.tostring(root, encoding='unicode')
+    return xml_str
 
 
 def process_pdf(uploaded_file):
@@ -645,7 +686,6 @@ if ecol.button("Extract and Generate"):
 
 
 # gen = ecol.button("Extract and Generate")
-    ecol.write(st.session_state.dictionary)
 if st.session_state.button_clicked and not st.session_state.processed_all_items:
     
     for topic in st.session_state.dictionary["Topics"]:
@@ -669,8 +709,11 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
     st.session_state.button_clicked = False
     st.session_state.processed_all_items = True
 
-    st.session_state.dictionary
+    xml = create_xml(st.session_state.dictionary)
+    pretty_xml = minidom.parseString(xml).toprettyxml()
+    
 
+ecol.code(pretty_xml)
 
 
 # pagecol.write(st.session_state.dictionary)
