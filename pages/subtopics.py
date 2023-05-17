@@ -319,7 +319,7 @@ try:
                 st.session_state.lovo = lovo
             sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ").response
             copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
-            copycol.code(sample_table.response)
+            copycol.code(sample_table)
 
         toc_input = pastecol.text_area("Copy sPaste AI's recomendation")
 
