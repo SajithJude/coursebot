@@ -456,7 +456,7 @@ copycol.write("AI Generated Structure for custom learning objectives")
 #     upload_col.write(hours)
 
 
-lo_input = copycol.text_area("Learning Objectives")
+lo_input = copycol.text_area("What are the Learning Objectives (comma-separated)")
 sampletoc = copycol.button("AI Generated Table")
 if sampletoc:
     sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ")
