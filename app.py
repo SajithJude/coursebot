@@ -402,9 +402,9 @@ if ecol.button("Extract and Generate"):
     if "dictionary" not in st.session_state:
         st.session_state.dictionary = {
     "Course": {
-        "Course_Name": "",
-        "Course_Description": "",
-        "VoiceOver": ""
+        "Course_Name": st.session_state.crsnm,
+        "Course_Description": st.session_state.descrip,
+        "VoiceOver": st.session_state.cvo
     },
     "Topics": [],
     "Course_Objectives": [
