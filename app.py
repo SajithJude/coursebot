@@ -329,8 +329,13 @@ try:
         copycol,pastecol  = toc_col.columns(2,gap="medium")
         # copycol.write("AI Generated Structure")
         lo_input = copycol.text_area("Enter Learning Objectives (comma-separated)")
+        if "lo_input" not in st.session_state:
+            st.session_state.lo_input = lo_input
         sampletoc = copycol.button("Get AI's Recomendation")
         if sampletoc:
+            lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives {lo_input} ")
+            if "lovo" not in st.session_state:
+                st.session_state.lovo = lovo
             sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ")
             copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
             copycol.code(sample_table.response)
@@ -409,8 +414,8 @@ if ecol.button("Extract and Generate"):
     "Topics": [],
     "Course_Objectives": [
         {
-        "Objective": "",
-        "VoiceOver": ""
+        "Objective": st.session_state.lo_input,
+        "VoiceOver": st.session_state.lovo
         },
     ]
     }
