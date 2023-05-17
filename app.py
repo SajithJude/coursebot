@@ -135,248 +135,9 @@ def form_callback():
     st.write(st.session_state.my_slider)
     st.write(st.session_state.my_checkbox)
 
-# def generate_xml_structure(new_dict,coursedesctip,coursedescriptionvoiceover,cn):
-#     root = ET.Element("Slides")
-
-#     # First slide with topic names
-#     slide = ET.SubElement(root, f"Slide1")
-#     slideName = ET.SubElement(slide, "Slide_Name")
-#     slideName.text = "Course_Name"
-#     crsnmelement =  ET.SubElement(slide, "Course_Name")
-#     crsnmelement.text = cn.strip()
-#     cd =  ET.SubElement(slide, "Course_Description")
-#     cd.text = coursedesctip.strip()
-#     cdvo  =  ET.SubElement(slide, "VoiceOver")
-#     cdvo1  =  ET.SubElement(cdvo, "VoiceOver_1")
-#     cdvo1.text = coursedescriptionvoiceover.strip()
-
-
-#     slide_counter = 2
-#     slide = ET.SubElement(root, f"Slide{slide_counter}")
-
-#     tpcount=1
-#     slideName = ET.SubElement(slide, "Slide_Name")
-#     slideName.text = "Topics"
-#     topic_list = ET.SubElement(slide, "Topics")
-
-#     for topic in new_dict:
-#         topic_name = ET.SubElement(topic_list, f"Topic_{tpcount}")
-#         topic_name.text = topic
-#         tpcount +=1
-#     vocount=1
-#     voiceovertopic_list = ET.SubElement(slide, "VoiceOver")
-#     for topic in new_dict:
-#         topic_voiceover = ET.SubElement(voiceovertopic_list, f"VoiceOver_{vocount}")
-#         topic_voiceover.text = topic
-#         vocount +=1
-
-#     slide_counter += 1
-
-#     # Iterate through topics and subtopics
-#     for topic, details in new_dict.items():
-#         slide = ET.SubElement(root, f"Slide{slide_counter}")
-#         # slideName = ET.SubElement(slide, "Slide_Name")
-#         # slideName.text = "Topic_Name"
-        
-        
-#         # Add subtopics if they exist
-#         if details["Subtopics"]:
-            
-#             sub_slide = ET.SubElement(root, f"Slide{slide_counter}")
-#             slideName = ET.SubElement(sub_slide, "Slide_Name")
-#             slideName.text = "Topic_Name"
-#             Topic_Name = ET.SubElement(sub_slide, "Topic_Name")
-#             Topic_Name.text= topic
-#             subtopiccounter=1
-#             for subtopic in details["Subtopics"]:
-#                 subtopic_elem = ET.SubElement(sub_slide, f"Subtopic_{subtopiccounter}")
-#                 subtopic_elem.text = subtopic["Subtopic"]
-#                 subtopiccounter +=1
-#             slide_counter += 1
-
-#                 # Add bullets (4 per slide)
-
-#             for subtopic in details["Subtopics"]:
-#                 sub_slide = ET.SubElement(root, f"Slide{slide_counter}")
-#                 slideName = ET.SubElement(sub_slide, "Slide_Name")
-#                 slideName.text = "SubTopic"
-#                 Subtopicelement = ET.SubElement(sub_slide, "SubTopic")
-            
-#             # for subtopic in details["Subtopics"]:
-#                 Subtopicelement.text = subtopic["Subtopic"]
-#                 bullet_count = 1
-#                 bullets_slide = None
-#                 for i, bullet in enumerate(subtopic["Bullets"]):
-#                     if bullet_count % 4 == 0:
-#                         pass 
-#                         # bullets_slide = ET.SubElement(sub_slide, "BulletsSlide")
-#                     bullet_elem = ET.SubElement(sub_slide, f"Bullet_{bullet_count}")
-#                     bullet_elem.text = bullet
-#                     bullet_count += 1
-
-#                 vobullet_count = 1
-#                 bullets_VO_element = ET.SubElement(sub_slide, "VoiceOver")
-
-#                 for i, bullet in enumerate(subtopic["VoiceOverBullets"]):
-#                     if vobullet_count % 4 == 0:
-#                         pass
-#                     bullet_voiceover_elem = ET.SubElement(bullets_VO_element, f"VoiceOver_{vobullet_count}")
-#                     bullet_voiceover_elem.text = bullet
-#                     vobullet_count += 1
-#                 slide_counter += 1
-
-#         else:
-#             slideName = ET.SubElement(slide, "Slide_Name")
-#             slideName.text = "Topic_Summary"
-#             Topic_Name = ET.SubElement(slide, "Topic_Name")
-#             Topic_Name.text= topic
-#             Topic_Summary = ET.SubElement(slide, "Topic_Summary")
-#             Topic_Summary.text= details["Topic_Summary"].strip()
-#             topic_elem = ET.SubElement(slide, "VoiceOver")
-#             topic_elem.text = details["VoiceOver"].strip()
-
-#             slide_counter += 1
-
-#     slide = ET.SubElement(root, f"Slide{slide_counter}")
-#     slideName = ET.SubElement(slide, "Slide_Name")
-#     slideName.text = "Congratulations"
-#     messageel =  ET.SubElement(slide, "Message1")
-#     messageel.text = "Congratulations"
-#     messageel2 =  ET.SubElement(slide, "Message2")
-#     messageel2.text = "Congratulations on successful completion of the course."
-
-#     # Generate XML string
-#     xml_string = ET.tostring(root, encoding="utf-8", method="xml").decode("utf-8")
-#     return xml_string
-
 
 # import xml.etree.ElementTree as ET
 
-def generate_xml_structure(new_dict,coursedesctip,coursedescriptionvoiceover,cn):
-    root = ET.Element("Slides")
-
-    # First slide with topic names
-    slide = ET.SubElement(root, f"Slide1")
-    slideName = ET.SubElement(slide, "Slide_Name")
-    slideName.text = "Course_Name"
-    crsnmelement =  ET.SubElement(slide, "Course_Name")
-    crsnmelement.text = cn.strip()
-    cd =  ET.SubElement(slide, "Course_Description")
-    cd.text = coursedesctip.strip()
-    cdvo  =  ET.SubElement(slide, "VoiceOver")
-    cdvo1  =  ET.SubElement(cdvo, "VoiceOver_1")
-    cdvo1.text = coursedescriptionvoiceover.strip()
-
-    slide_counter = 2
-    slide = ET.SubElement(root, f"Slide{slide_counter}")
-
-    tpcount=1
-    slideName = ET.SubElement(slide, "Slide_Name")
-    slideName.text = "Topics"
-    # topic_list = ET.SubElement(slide, "Topics")
-
-    for topic in new_dict:
-        topic_name = ET.SubElement(slide, f"Topic_{tpcount}")
-        topic_name.text = topic
-        tpcount +=1
-    vocount=1
-    voiceovertopic_list = ET.SubElement(slide, "VoiceOver")
-    for topic in new_dict:
-        topic_voiceover = ET.SubElement(voiceovertopic_list, f"VoiceOver_{vocount}")
-        topic_voiceover.text = topic
-        vocount +=1
-
-    # Iterate through topics and subtopics
-    for topic, details in new_dict.items():
-        # Add subtopics if they exist
-        slide_counter += 1
-        slide = ET.SubElement(root, f"Slide{slide_counter}")
-        slideName = ET.SubElement(slide, "Slide_Name")
-        slideName.text = "Topic_Name"
-        tpname_element = ET.SubElement(slide, "Topic_Name")
-        tpname_element.text = topic
-
-        if details["Subtopics"]:
-            subtopiccounter=1
-            subtopiccounter_1=1
-            for subtopic in details["Subtopics"]:
-                sp_element = ET.SubElement(slide, f"SubTopic_{subtopiccounter_1}")
-                sp_element.text = subtopic["Subtopic"]  
-                subtopiccounter_1+=1 
-            tpname_vo_element = ET.SubElement(slide, "VoiceOver")
-            for subtopic in details["Subtopics"]:
-                vo_tag =  ET.SubElement(tpname_vo_element, f"VoiceOver_{subtopiccounter}")
-                vo_tag.text = subtopic["Subtopic"]  
-
-
-            # slide_counter += 1
-            for subtopic in details["Subtopics"]:
-                slide_counter += 1
-                slide = ET.SubElement(root, f"Slide{slide_counter}")
-                slideName = ET.SubElement(slide, "Slide_Name")
-                slideName.text = "SubTopic"
-                Subtopicelement = ET.SubElement(slide, "SubTopic")
-                Subtopicelement.text = subtopic["Subtopic"]
-                bullet_count = 1
-                bullets_slide = None
-                for i, bullet in enumerate(subtopic["Bullets"]):
-                    if bullet_count % 4 == 0:
-                        pass 
-                    bullet_elem = ET.SubElement(slide, f"Bullet_{bullet_count}")
-                    bullet_elem.text = bullet
-                    bullet_count += 1
-
-                vobullet_count = 1
-                bullets_VO_element = ET.SubElement(slide, "VoiceOver")
-
-                for i, bullet in enumerate(subtopic["VoiceOverBullets"]):
-                    if vobullet_count % 4 == 0:
-                        pass
-                    bullet_voiceover_elem = ET.SubElement(bullets_VO_element, f"VoiceOver_{vobullet_count}")
-                    bullet_voiceover_elem.text = bullet
-                    vobullet_count += 1
-            #topic summary for subtopic slides
-
-            slide_counter += 1
-            slide = ET.SubElement(root, f"Slide{slide_counter}")
-            slideName = ET.SubElement(slide, "Slide_Name")
-            slideName.text = "Topic_Summary"
-            Topic_Name = ET.SubElement(slide, "Topic_Name")
-            Topic_Name.text= topic
-            Topic_Summary = ET.SubElement(slide, "Topic_Summary")
-            Topic_Summary.text= details["Topic_Summary"].strip()
-            topic_elem = ET.SubElement(slide, "VoiceOver")
-            topic_elem.text = details["VoiceOver"].strip()
-
-
-
-
-        else:
-            slide_counter += 1
-            slide = ET.SubElement(root, f"Slide{slide_counter}")
-            slideName = ET.SubElement(slide, "Slide_Name")
-            slideName.text = "Topic_Summary"
-            Topic_Name = ET.SubElement(slide, "Topic_Name")
-            Topic_Name.text= topic
-            Topic_Summary = ET.SubElement(slide, "Topic_Summary")
-            Topic_Summary.text= details["Topic_Summary"].strip()
-            topic_elem = ET.SubElement(slide, "VoiceOver")
-            topic_elem.text = details["VoiceOver"].strip()
-
-    slide_counter += 1
-    slide = ET.SubElement(root, f"Slide{slide_counter}")
-    slideName = ET.SubElement(slide, "Slide_Name")
-    slideName.text = "Congratulations"
-    messageel =  ET.SubElement(slide, "Message1")
-    messageel.text = "Congratulations"
-    messageel2 =  ET.SubElement(slide, "Message2")
-    messageel2.text = "Congratulations on successful completion of the course."
-
-    # Generate XML string
-    xml_string = ET.tostring(root, encoding="utf-8", method="xml").decode("utf-8")
-    # xml_string = xml_string.replace('<?xml version="1.0" ?>', '')
-    # st.write(xml_string)
-    return xml_string
 # import xml.etree.ElementTree as ET
 def create_xml(dictionary):
     root = ET.Element("Slides")
@@ -514,8 +275,8 @@ if savnext:
     if "crsnm" not in st.session_state:
         st.session_state.crsnm = crsnm
 
-    descrip  = st.session_state.index.query(f"Generate a Course Description with word count of {course_description_limit}").response.strip()
-    cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of {course_description_voiceover_limit}").response.strip()
+    descrip  = st.session_state.index.query(f"Generate a Course Description with word count of 30").response.strip()
+    cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
     if "descrip" not in st.session_state:
         st.session_state.descrip = descrip
 
@@ -601,50 +362,7 @@ except json.JSONDecodeError as e:
 
 
 
-######################       extract content      ##########################################
 
-# try:
-        
-#     if "dictionary" not in st.session_state:
-#         st.session_state.dictionary = {
-#     "Course": {
-#         "Course_Name": "",
-#         "Course_Description": "",
-#         "VoiceOver": ""
-#     },
-#     "Topics": [],
-#     "Course_Objectives": [
-#         {
-#         "Objective": "",
-#         "VoiceOver": ""
-#         },
-#     ]
-#     }
-
-#     # if "table_of_contents" in st.session_state:
-#     # Convert topics to new forma
-#     for topic in st.session_state.table_of_contents["Topics"]:
-#         for topic_name, subtopics in topic.items():
-#             new_topic = {
-#             "Topic_Name": topic_name,
-#             "Subtopics": [],
-#             "Topic_Summary": "",
-#             "Topic_Summary_VoiceOver": ""
-#             }
-
-#             for subtopic in subtopics:
-#                 new_subtopic = {
-#                     "Subtopic_Name": subtopic,
-#                     "Bullets": [],
-#                     "VoiceOver": [],
-#                     "Image": ""
-#                 }
-#             new_topic["Subtopics"].append(new_subtopic)
-#         st.session_state.dictionary["Topics"].append(new_topic)
-
-
-# except (KeyError,NameError, AttributeError) as e:
-#     print(e)
 
 
 pagecol, ecol = extract_col.columns([2,5],gap="large")
@@ -672,17 +390,6 @@ course_description_voiceover_limit = pagecol.number_input("Course Description Vo
 
 
 
-
-# for topic in st.session_state.dictionary["Topics"]:
-#     with ecol.expander(topic["Topic_Name"]):
-#         for key, value in topic.items():
-#             if key == "Subtopics":
-#                 for subtopic in value:
-#                     with ecol.expander(subtopic["Subtopic_Name"]):
-#                         for sub_key, sub_value in subtopic.items():
-#                             ecol.write(f"{sub_key}: {sub_value}")
-#             else:
-#                 ecol.write(f"{key}: {value}")
 
 if "button_clicked" not in st.session_state:
     st.session_state.button_clicked = False
