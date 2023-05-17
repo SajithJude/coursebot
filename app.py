@@ -563,7 +563,7 @@ try:
         st.session_state.dictionary["Topics"].append(new_topic)
 
 
-except AttributeError:
+except (KeyError,NameError, AttributeError) as e:
     print(e)
 
 
