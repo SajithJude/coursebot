@@ -378,42 +378,58 @@ def generate_xml_structure(new_dict,coursedesctip,coursedescriptionvoiceover,cn)
     # st.write(xml_string)
     return xml_string
 # import xml.etree.ElementTree as ET
-
 def create_xml(dictionary):
-    root = ET.Element("slide")
+    root = ET.Element("Slide")
 
     # Slide 1: Course
-    course = dictionary["Course"]
-    ET.SubElement(root, "slide1", Course_Name=course["Course_Name"], 
-                  Course_Description=course["Course_Description"], 
-                  VoiceOver=course["VoiceOver"])
+    course = ET.SubElement(root, "Slide1")
+    ET.SubElement(course, "Course_Name").text = dictionary["Course"]["Course_Name"]
+    ET.SubElement(course, "Course_Description").text = dictionary["Course"]["Course_Description"]
+    ET.SubElement(course, "VoiceOver").text = dictionary["Course"]["VoiceOver"]
 
     # Slide 2: Topics
-    topic_names = ", ".join(topic["Topic_Name"] for topic in dictionary["Topics"])
-    ET.SubElement(root, "slide2", Topics=topic_names)
+    topics = ET.SubElement(root, "Slide2")
+    for topic in dictionary["Topics"]:
+        ET.SubElement(topics, "Topic").text = topic["Topic_Name"]
+
+    # Slide 3: Course Objectives
+    objectives = ET.SubElement(root, "Slide3")
+    for objective in dictionary["Course_Objectives"]:
+        ET.SubElement(objectives, "Objective").text = objective["Objective"]
+        ET.SubElement(objectives, "VoiceOver").text = objective["VoiceOver"]
 
     # Other slides: One per topic + subtopic
-    slide_num = 3
+    slide_num = 4
     for topic in dictionary["Topics"]:
         # Slide: Topic and its Subtopics
-        ET.SubElement(root, f"slide{slide_num}", Topic_Name=topic["Topic_Name"],
-                      Subtopics=", ".join(subtopic["Subtopic_Name"] for subtopic in topic["Subtopics"]))
+        topic_slide = ET.SubElement(root, f"Slide{slide_num}")
+        ET.SubElement(topic_slide, "Topic_Name").text = topic["Topic_Name"]
+        for subtopic in topic["Subtopics"]:
+            ET.SubElement(topic_slide, "Subtopic_Name").text = str(subtopic["Subtopic_Name"])
+
         slide_num += 1
 
         # Slides: One per Subtopic
         for subtopic in topic["Subtopics"]:
-            ET.SubElement(root, f"slide{slide_num}", Subtopic_Name=str(subtopic["Subtopic_Name"]),
-                          Bullets=", ".join(subtopic["Bullets"]),
-                          VoiceOver=", ".join(subtopic["VoiceOver"]))
+            subtopic_slide = ET.SubElement(root, f"Slide{slide_num}")
+            ET.SubElement(subtopic_slide, "Subtopic").text = str(subtopic["Subtopic_Name"])
+            for bullet in subtopic["Bullets"]:
+                ET.SubElement(subtopic_slide, "Bullet").text = bullet
+            for voiceover in subtopic["VoiceOver"]:
+                ET.SubElement(subtopic_slide, "VoiceOver").text = voiceover
+
             slide_num += 1
 
         # Slide: Topic Summary
-        ET.SubElement(root, f"slide{slide_num}", Topic_Summary=topic["Topic_Summary"], 
-                      Topic_Summary_VoiceOver=topic["Topic_Summary_VoiceOver"])
+        summary_slide = ET.SubElement(root, f"Slide{slide_num}")
+        ET.SubElement(summary_slide, "Topic_Summary").text = topic["Topic_Summary"]
+        ET.SubElement(summary_slide, "Topic_Summary_VoiceOver").text = topic["Topic_Summary_VoiceOver"]
+
         slide_num += 1
 
     # Final slide: Congratulations
-    ET.SubElement(root, f"slide{slide_num}", Message="Congratulations!")
+    final_slide = ET.SubElement(root, f"Slide{slide_num}")
+    ET.SubElement(final_slide, "Message").text = "Congratulations!"
 
     # Convert to XML string
     xml_str = ET.tostring(root, encoding='unicode')
@@ -709,6 +725,8 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
     st.session_state.button_clicked = False
     st.session_state.processed_all_items = True
 
+
+if ecol.button("Show XML"):
     xml = create_xml(st.session_state.dictionary)
     pretty_xml = minidom.parseString(xml).toprettyxml()
     
