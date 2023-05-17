@@ -669,7 +669,7 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
     st.session_state.button_clicked = False
     st.session_state.processed_all_items = True
 
-st.session_state.dictionary
+    st.session_state.dictionary
 
 
 
