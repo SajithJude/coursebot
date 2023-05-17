@@ -508,8 +508,9 @@ if uploaded_file is not None:
         with open(uploaded_file.name, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
-
-
+crsnm = upload_col.text_input("Enter Course Name")
+if "crsnm" not in st.session_state:
+    st.session_state.crsnm = crsnm
 
 
 
@@ -654,6 +655,12 @@ num_words_bullet = pagecol.number_input("Number of Words per Bullet", value=10, 
 # Bullet VoiceOver
 bullet_voiceover_limit = pagecol.number_input("VoiceOver per Bullet Word Count Limit", value=20, min_value=1)
 # # aaaa
+# Course Description
+course_description_limit = pagecol.number_input("Course Description Word Count Limit", value=30, min_value=1)
+
+# Course Description VoiceOver
+course_description_voiceover_limit = pagecol.number_input("Course Description VoiceOver Word Count Limit", value=50, min_value=1)
+
 
 
 
@@ -691,6 +698,9 @@ if ecol.button("Extract and Generate"):
         },
     ]
     }
+    st.session_state.dictionary["Course"]['Course_Name'] = st.session_state.crsnm
+    st.session_state.dictionary["Course"]['Course_Description'] = st.session_state.index.query(f"Generate a Course Description with word count of {course_description_limit}").response.strip()
+    st.session_state.dictionary["Course"]['VoiceOver'] = st.session_state.index.query(f"Generate a Course Description voice over script with word count of {course_description_voiceover_limit}").response.strip()
 
     # if "table_of_contents" in st.session_state:
     # Convert topics to new forma
@@ -743,12 +753,6 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
 
 # pagecol.write(st.session_state.dictionary)
 
-
-# # Course Description
-# course_description_limit = pagecol.number_input("Course Description Word Count Limit", value=30, min_value=1)
-
-# # Course Description VoiceOver
-# course_description_voiceover_limit = pagecol.number_input("Course Description VoiceOver Word Count Limit", value=50, min_value=1)
 
 
 
