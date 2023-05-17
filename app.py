@@ -585,16 +585,16 @@ bullet_voiceover_limit = pagecol.number_input("VoiceOver per Bullet Word Count L
 
 
 
-for topic in st.session_state.dictionary["Topics"]:
-    with ecol.expander(topic["Topic_Name"]):
-        for key, value in topic.items():
-            if key == "Subtopics":
-                for subtopic in value:
-                    with ecol.expander(subtopic["Subtopic_Name"]):
-                        for sub_key, sub_value in subtopic.items():
-                            ecol.write(f"{sub_key}: {sub_value}")
-            else:
-                ecol.write(f"{key}: {value}")
+# for topic in st.session_state.dictionary["Topics"]:
+#     with ecol.expander(topic["Topic_Name"]):
+#         for key, value in topic.items():
+#             if key == "Subtopics":
+#                 for subtopic in value:
+#                     with ecol.expander(subtopic["Subtopic_Name"]):
+#                         for sub_key, sub_value in subtopic.items():
+#                             ecol.write(f"{sub_key}: {sub_value}")
+#             else:
+#                 ecol.write(f"{key}: {value}")
 
 if ecol.button("Extract and Generate"):
     for topic in st.session_state.dictionary["Topics"]:
