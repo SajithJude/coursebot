@@ -563,7 +563,7 @@ try:
         st.session_state.dictionary["Topics"].append(new_topic)
 
 
-except json.JSONDecodeError as e:
+except AttributeError as e:
     st.write(e)
 
 
