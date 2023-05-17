@@ -438,14 +438,7 @@ if uploaded_file is not None:
         with open(uploaded_file.name, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
-hrs = upload_col.number_input("How many minutes is your video")
-lo_input = upload_col.text_area("Learning Objectives")
 
-if upload_col.button("Get Insights"):
-    count = st.session_state.index.query(f"How many words are there in this document").response
-    hours = st.session_state.index.query(f"Genereate a course structure with topics and subtopics if Im about to create a {hrs} minutes course for based on this document, for the following learning objectives {lo_input}").response
-    upload_col.write(count)
-    upload_col.write(hours)
 
 
 
@@ -455,10 +448,18 @@ if upload_col.button("Get Insights"):
 
 pastecol, copycol = toc_col.columns(2,gap="medium")
 
-copycol.write("AI Generated TOC for unstructured documents")
+copycol.write("AI Generated Structure for custom learning objectives")
+# hrs = upload_col.number_input("How many minutes is your video")
+
+# if upload_col.button("Get Insights"):
+#     hours = st.session_state.index.query(f"Genereate a course structure with topics and subtopics if Im about to create a {hrs} minutes course for based on this document, for the following learning objectives {lo_input}").response
+#     upload_col.write(hours)
+
+
+lo_input = copycol.text_area("Learning Objectives")
 sampletoc = copycol.button("AI Generated Table")
 if sampletoc:
-    sample_table = st.session_state.index.query("Generate a table of contents with only sections of topics and subtopics for this book")
+    sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ")
     copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
     copycol.code(sample_table.response)
 
@@ -467,10 +468,10 @@ try:
     
     toc_input = pastecol.text_area("Copy the Table of contents from your book and paste them here")
 
-    if pastecol.button("Process and Save"):
+    if pastecol.button("Generate Course Structure"):
         # try:
             # table_of_contents = json.loads(toc_input)
-        with st.spinner('Please wait, it might take a while to process the structure'):
+        with st.spinner('Please wait, it might take a while to process the Course structure'):
             toc_res = "Convert the following table of contents into a json string, use the JSON format given bellow:\n"+ "Table of contents:\n"+ toc_input.strip() + "\n JSON format:\n"+ str(forma) + ". Output should be a valid JSON string."
             str_toc = call_openai(toc_res)
             str_to = str(str_toc)
