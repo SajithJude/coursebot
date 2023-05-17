@@ -34,6 +34,28 @@ st.title("CourseBot")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
 
+sv = st.button("Save state")
+if sv:
+    with open(f"{st.session_state.crsnm}_db.json", "w") as f:
+        json.dump(dict(st.session_state), f)
+
+
+json_files = [f for f in os.listdir() if f.endswith("_db.json")]
+
+# Create a dropdown menu with the available JSON files
+selected_file = st.selectbox("Select a JSON file to load:", json_files)
+
+# Load the selected JSON file and update the session state
+if st.button("Load JSON"):
+    with open(selected_file, "r") as f:
+        loaded_data = json.load(f)
+
+    # Update the session state with the loaded data
+    for key, value in loaded_data.items():
+        st.session_state[key] = value
+
+
+
 PDFReader = download_loader("PDFReader")
 
 loader = PDFReader()
@@ -106,34 +128,6 @@ def clear_pages_folder():
             os.remove(os.path.join("pages", file))
 
 
-def update_json(topic_data):
-    with open("output.json", "w") as f:
-        st.session_state.toc = {"Topics": [{k: v} for k, v in topic_data.items()]}
-        json.dump({"Topics": [{k: v} for k, v in topic_data.items()]}, f)
-
-
-def load_db():
-    if not os.path.exists("db.json"):
-        with open("db.json", "w") as f:
-            json.dump({}, f)
-    
-    with open("db.json", "r") as f:
-        db = json.load(f)
-    
-    return db
-
-def delete_chapter(chapter_name):
-    db = load_db()
-    if chapter_name in db:
-        del db[chapter_name]
-        with open("db.json", "w") as f:
-            json.dump(db, f)
-        return True
-    return False
-
-def form_callback():
-    st.write(st.session_state.my_slider)
-    st.write(st.session_state.my_checkbox)
 
 
 # import xml.etree.ElementTree as ET
@@ -233,8 +227,6 @@ def process_pdf(uploaded_file):
 # upload_col, refine_toc,  extract_col, miss_col, edit_col,voice_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Refine_TOC__", "⚪ __Extract_Contents__","⚪ __missing_Contents__", "⚪ __Edit Contents__", "⚪ Voice Over__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
 upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Table Of Contents__", "⚪ __VoiceOver Bullets__", "⚪ __XML__", "⚪ __Images__"])
 
-if "toc" not in st.session_state:
-    st.session_state.toc = {}
 
 
 
@@ -293,19 +285,7 @@ toc_col.info("Choose Customize if you want AI to suggest a course structure, mod
 
 try:
 
-    # hrs = upload_col.number_input("How many minutes is your video")
-
-    # if upload_col.button("Get Insights"):
-    #     hours = st.session_state.index.query(f"Genereate a course structure with topics and subtopics if Im about to create a {hrs} minutes course for based on this document, for the following learning objectives {lo_input}").response
-    #     upload_col.write(hours)
     if toc_option == "Documents Table of Content":
-        
-        # lo_input = copycol.text_area("Enter Learning Objectives (comma-separated)")
-        # sampletoc = copycol.button("Sample Structure")
-        # if sampletoc:
-        #     sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ")
-        #     copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
-        #     copycol.code(sample_table.response)
 
         toc_input = toc_col.text_area("Copy Paste TOC from document")
 
@@ -469,54 +449,9 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
 
 
 
-# pagecol.write(st.session_state.dictionary)
-
-
-
-
-
-# quer = ecol.button("Extract Contents")
-# if quer:
-#     progress_bar = ecol.progress(0)
-#     total_items = sum(len(subtopics_dict['Subtopics']) for _, subtopics_dict in st.session_state.new_dict.items()) + len(st.session_state.new_dict)
-#     items_processed = 0
-#     for topic, subtopics_dict in st.session_state.new_dict.items():
-#         for subtopic_dict in subtopics_dict['Subtopics']:
-#             subtopic_name = subtopic_dict['Subtopic']
-#             subtopicres = st.session_state.index.query("extract all the information under the subtopic  "+str(subtopic_name)+ ", in 4 paragraphs where each paragraph has minimum 40 words.")
-#             subtopic_dict['content'] = subtopicres.response
-#             items_processed += 1
-#             progress_bar.progress(items_processed / total_items)
-#             ecol.info(f"Extracted {subtopic_name}")
-        
-#         topicres = st.session_state.index.query("extract all the information belonging to following section into a paragraph "+str(topic))
-#         subtopics_dict['content'] = topicres.response
-#         items_processed += 1
-#         progress_bar.progress(items_processed / total_items)
-
-
-# st.session_state.new_dict = data['data']
-# for topic_key, topic_value in st.session_state.new_dict.items():
-#     expander = ecol.expander(f"{topic_key}")
-#     expander.write(topic_value["content"])
-#     for subtopic in topic_value["Subtopics"]:
-#         expander.markdown(f"**{subtopic['Subtopic']}**")
-#         expander.write(subtopic["content"])
-
-
-       
-
-
-
-
-
 ######################       voice over      ##########################################
 
 
-
-
-# try:
-# edcol, excol = voice_col.columns([1,3])
 
 if voice_col.button("Show XML"):
     xml = create_xml(st.session_state.dictionary)
@@ -524,112 +459,6 @@ if voice_col.button("Show XML"):
     
 
     voice_col.code(pretty_xml)
-
-
-# Course Description
-# course_description_limit = edcol.number_input("Course Description Word Count Limit", value=30, min_value=1)
-
-# # Course Description VoiceOver
-# course_description_voiceover_limit = edcol.number_input("Course Description VoiceOver Word Count Limit", value=50, min_value=1)
-
-# # Topic Summary
-# topic_summary_limit = edcol.number_input("Topic Summary Word Count Limit", value=30, min_value=1)
-
-# # Topic Summary VoiceOver
-# topic_summary_voiceover_limit = edcol.number_input("Topic Summary VoiceOver Word Count Limit", value=50, min_value=1)
-
-# # Number of Bullets per Slide
-# num_bullets_per_slide = edcol.number_input("Number of Bullets per Slide", value=4, min_value=1)
-
-# # Number of Words per Bullet
-# num_words_bullet = edcol.number_input("Number of Words per Bullet", value=10, min_value=1)
-
-# # Bullet VoiceOver
-# bullet_voiceover_limit = edcol.number_input("VoiceOver per Bullet Word Count Limit", value=20, min_value=1)
-
-# Paraphrasing Percentage Range
-# paraphrasing_range = edcol.slider("Paraphrasing % Range", min_value=25, max_value=35, value=(25, 35))
-
-# saved_courses = [file for file in os.listdir('.') if file.endswith('.json')]
-
-# # Create a select box for saved courses
-# selectcol,loadcol = excol.columns(2)
-# cn = excol.text_input("Enter a Course Name")
-
-# selected_course = selectcol.selectbox("Select a saved course", saved_courses)
-# loadcol.write("")
-# loadcol.write("")
-
-# if loadcol.button("Load Project"):
-#     st.session_state.new_dict = load_saved_course(selected_course)
-#     excol.success("Project loaded,, you can now continue with Generate XML")
-#     voice_col.write(st.session_state.new_dict)
-
-# gencol, savecol = excol.columns(2)
-# ex = gencol.button("Generate Voice Over")
-# # voice_col.write(st.session_state.new_dict)
-# if ex:
-#     for topic_key, topic_value in st.session_state.new_dict.items():
-#         # Add "VoiceOver" key to the main topic
-#         topic = st.session_state.new_dict[topic_key]
-#         topic_content = topic['content']
-#         topic_voiceover_prompt = f"generate a voice over for the following paragraph in {topic_summary_voiceover_limit} words: {topic_content}"
-#         st.session_state.new_dict[topic_key]["VoiceOver"] = str(call_openai3(topic_voiceover_prompt))
-        
-#         topic_summary_prompt = f"generate a voice over for the following paragraph in {topic_summary_limit} words: {topic_content}"
-#         st.session_state.new_dict[topic_key]["Topic_Summary"] = str(call_openai3(topic_summary_prompt))
-        
-#         # Check if the topic has subtopics
-#         # if "Subtopics" in topic_value:
-#             # Iterate through the subtopics
-#         for subtopic in topic_value["Subtopics"]:
-#             subtopic_content = subtopic['content']
-#             subtopic_content
-#             subtopic_bullet_prompt = f"Divide the following content :\n {subtopic_content.strip()} \n into {num_bullets_per_slide} unordered bullet points , where each bullet point should have exactly {num_words_bullet} words, The response should be a valid json list of strings."
-#             bullets = call_openai3(subtopic_bullet_prompt)
-#             # st.write(bullets)
-#             bullets
-#             listbul = ast.literal_eval(bullets.strip())
-#             subtopic['Bullets'] = listbul
-#             subtopic_voiceover_prompt = f"By dividing the following content :\n {subtopic_content.strip()} \n Generate {num_bullets_per_slide} voiceover bullet scripts ,where each voiceover bullet script should consist of exactly {bullet_voiceover_limit} words, The response should be a valid json list of strings."
-#             BulletVoiceOver = call_openai3(subtopic_voiceover_prompt)
-#             listvoice = ast.literal_eval(BulletVoiceOver.strip())
-#             subtopic['VoiceOverBullets'] = listvoice
-
-
-# sv_voice = savecol.button("Save voiceover")
-
-# if sv_voice:
-#     json_filename = f"{cn}.json"
-#     with open(json_filename, 'w') as outfile:
-#         json.dump(st.session_state.new_dict, outfile)
-#     # excol.write(st.session_state.new_dict)
-# if excol.button("generate xml"):
-#     lsttopics=[]
-#     for topic in st.session_state.new_dict.keys():
-#         lsttopics.append(topic)
-
-#     course_descriptioninput= f"Generate a course description in exactly {course_description_limit} words for a course containing the following topics:\n"+str(lsttopics)
-#     coursedesctip = call_openai3(course_descriptioninput)
-#     course_descriptionvoin= f"Generate a voice over in exactly {course_description_voiceover_limit} words for a course description containing the following topics:\n"+str(lsttopics) +"\n Exclude objectives in the voice over"
-#     coursedesctipvo = call_openai3(course_descriptionvoin)
-#     # coursedesctipvo
-#     # coursedesctip
-#     # st.session_state.new_dict
-#     edcol.write(st.session_state.new_dict)
-#     xml_output = generate_xml_structure(st.session_state.new_dict,coursedesctip,coursedesctipvo,cn)
-#     pretty_xml = minidom.parseString(xml_output).toprettyxml()
-    
-#     file_name = f"{cn}.xml"
-#     b64_xml = base64.b64encode(xml_output.encode("utf-8")).decode("utf-8")
-#     download_button = f'<a href="data:application/xml;base64,{b64_xml}" download="{file_name}">Download XML file</a>'
-
-#     # Add the download button
-#     excol.markdown(download_button, unsafe_allow_html=True)
-
-#     excol.code(pretty_xml)
-
-
 
 
 
