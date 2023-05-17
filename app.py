@@ -596,15 +596,26 @@ bullet_voiceover_limit = pagecol.number_input("VoiceOver per Bullet Word Count L
 #             else:
 #                 ecol.write(f"{key}: {value}")
 
-if ecol.button("Extract and Generate"):
+
+if "processed_all_items" not in st.session_state:
+    st.session_state.processed_all_items = False
+
+
+gen = ecol.button("Extract and Generate")
+
+if gen and not st.session_state.processed_all_items:
+
     for topic in st.session_state.dictionary["Topics"]:
+
         topic_sum = st.session_state.index.query(f"Generate Topic Summary description of {topic_summary_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
         extract_col.info(topic_sum)
         Voice_topic_sum = st.session_state.index.query(f"Generate Topic Summary voice over script of {topic_summary_voiceover_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
         extract_col.info(Voice_topic_sum)
         topic["Topic_Summary"] = topic_sum
         topic["Topic_Summary_VoiceOver"] = Voice_topic_sum
+
         for subtopic in topic["Subtopics"]:
+
             bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points that are seperated by a /(forward slash) for the section named {subtopic['Subtopic_Name']}\n, word count per Bullet is {num_words_bullet}.").response.strip()
             subtopic["Bullets"] = bullets.split("/")  # assume bullets are comma-separated
             extract_col.write(subtopic["Bullets"])
@@ -612,7 +623,8 @@ if ecol.button("Extract and Generate"):
             voiceovers = st.session_state.index.query(f"Generate {num_bullets_per_slide} comma-seperated voice over scripts that are seperated by /(forward slash) for the section named {subtopic['Subtopic_Name']}\n, Word count per voice over is {bullet_voiceover_limit}.").response.strip()
             subtopic["VoiceOver"] = voiceovers.split("/")  # assume voice overs are comma-separated
             extract_col.write(subtopic["VoiceOver"])
-    pass
+    st.session_state.processed_all_items = True
+
 
 
 # pagecol.write(st.session_state.dictionary)
