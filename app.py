@@ -488,7 +488,7 @@ try:
         pastecol, copycol = toc_col.columns(2,gap="medium")
         # copycol.write("AI Generated Structure")
         lo_input = copycol.text_area("Enter Learning Objectives (comma-separated)")
-        sampletoc = copycol.button("AI's Recomendation")
+        sampletoc = copycol.button("Get AI's Recomendation")
         if sampletoc:
             sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ")
             copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
