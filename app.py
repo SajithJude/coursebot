@@ -413,10 +413,16 @@ def create_xml(dictionary):
         for subtopic in topic["Subtopics"]:
             subtopic_slide = ET.SubElement(root, f"Slide{slide_num}")
             ET.SubElement(subtopic_slide, "Subtopic").text = str(subtopic["Subtopic_Name"])
+            bcount = 1
             for bullet in subtopic["Bullets"]:
-                ET.SubElement(subtopic_slide, "Bullet").text = bullet
+                ET.SubElement(subtopic_slide, f"Bullet_{bcount}").text = bullet
+                bcount+=1
+            voc =1
+            voel = ET.SubElement(subtopic_slide, "VoiceOver")
             for voiceover in subtopic["VoiceOver"]:
-                ET.SubElement(subtopic_slide, "VoiceOver").text = voiceover
+                ET.SubElement(voel, f"VoiceOver_{voc}").text = voiceover
+                voc+=1
+
 
             slide_num += 1
 
