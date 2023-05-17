@@ -446,7 +446,7 @@ if uploaded_file is not None:
 
 ###################### tab 2 ################
 toc_option = toc_col.radio("How do you want to base your course structure", ("Documents Table of Content", "Customize"), horizontal=True)
-toc_col.info("Choose Customize if you want AI to suggest a course structure, modify (it if needed) after pasting it on the left and click process")
+toc_col.info("Choose Customize if you want AI to suggest a course structure, modify (it if needed) after pasting it on the right and click process")
 # pastecol, copycol = toc_col.columns(2,gap="medium")
 
 
