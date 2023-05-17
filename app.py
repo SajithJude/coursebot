@@ -445,10 +445,10 @@ if uploaded_file is not None:
 
 
 ###################### tab 2 ################
+toc_option = toc_col.radio("How do you want to base your course structure", ("Documents Table of Content", "Customize"))
 
 pastecol, copycol = toc_col.columns(2,gap="medium")
 
-toc_option = toc_col.radio("How do you want to base your course structure", ("Documents Table of Content", "Customize"))
 
 try:
 
