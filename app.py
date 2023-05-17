@@ -539,7 +539,7 @@ if "dictionary" not in st.session_state:
   ]
 }
 
-if "table_of_contents" is in st.session_state:
+if "table_of_contents" in st.session_state:
 # Convert topics to new forma
     for topic in st.session_state.table_of_contents["Topics"]:
         for topic_name, subtopics in topic.items():
