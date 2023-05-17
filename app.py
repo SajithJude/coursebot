@@ -523,48 +523,48 @@ except json.JSONDecodeError as e:
 
 ######################       extract content      ##########################################
 
-try:
+# try:
         
-    if "dictionary" not in st.session_state:
-        st.session_state.dictionary = {
-    "Course": {
-        "Course_Name": "",
-        "Course_Description": "",
-        "VoiceOver": ""
-    },
-    "Topics": [],
-    "Course_Objectives": [
-        {
-        "Objective": "",
-        "VoiceOver": ""
-        },
-    ]
-    }
+#     if "dictionary" not in st.session_state:
+#         st.session_state.dictionary = {
+#     "Course": {
+#         "Course_Name": "",
+#         "Course_Description": "",
+#         "VoiceOver": ""
+#     },
+#     "Topics": [],
+#     "Course_Objectives": [
+#         {
+#         "Objective": "",
+#         "VoiceOver": ""
+#         },
+#     ]
+#     }
 
-    # if "table_of_contents" in st.session_state:
-    # Convert topics to new forma
-    for topic in st.session_state.table_of_contents["Topics"]:
-        for topic_name, subtopics in topic.items():
-            new_topic = {
-            "Topic_Name": topic_name,
-            "Subtopics": [],
-            "Topic_Summary": "",
-            "Topic_Summary_VoiceOver": ""
-            }
+#     # if "table_of_contents" in st.session_state:
+#     # Convert topics to new forma
+#     for topic in st.session_state.table_of_contents["Topics"]:
+#         for topic_name, subtopics in topic.items():
+#             new_topic = {
+#             "Topic_Name": topic_name,
+#             "Subtopics": [],
+#             "Topic_Summary": "",
+#             "Topic_Summary_VoiceOver": ""
+#             }
 
-            for subtopic in subtopics:
-                new_subtopic = {
-                    "Subtopic_Name": subtopic,
-                    "Bullets": [],
-                    "VoiceOver": [],
-                    "Image": ""
-                }
-            new_topic["Subtopics"].append(new_subtopic)
-        st.session_state.dictionary["Topics"].append(new_topic)
+#             for subtopic in subtopics:
+#                 new_subtopic = {
+#                     "Subtopic_Name": subtopic,
+#                     "Bullets": [],
+#                     "VoiceOver": [],
+#                     "Image": ""
+#                 }
+#             new_topic["Subtopics"].append(new_subtopic)
+#         st.session_state.dictionary["Topics"].append(new_topic)
 
 
-except (KeyError,NameError, AttributeError) as e:
-    print(e)
+# except (KeyError,NameError, AttributeError) as e:
+#     print(e)
 
 
 pagecol, ecol = extract_col.columns([2,5],gap="large")
@@ -609,6 +609,43 @@ if ecol.button("Extract and Generate"):
 # gen = ecol.button("Extract and Generate")
 ecol.write(st.session_state.dictionary)
 if st.session_state.button_clicked and not st.session_state.processed_all_items:
+            
+    if "dictionary" not in st.session_state:
+        st.session_state.dictionary = {
+    "Course": {
+        "Course_Name": "",
+        "Course_Description": "",
+        "VoiceOver": ""
+    },
+    "Topics": [],
+    "Course_Objectives": [
+        {
+        "Objective": "",
+        "VoiceOver": ""
+        },
+    ]
+    }
+
+    # if "table_of_contents" in st.session_state:
+    # Convert topics to new forma
+    for topic in st.session_state.table_of_contents["Topics"]:
+        for topic_name, subtopics in topic.items():
+            new_topic = {
+            "Topic_Name": topic_name,
+            "Subtopics": [],
+            "Topic_Summary": "",
+            "Topic_Summary_VoiceOver": ""
+            }
+
+            for subtopic in subtopics:
+                new_subtopic = {
+                    "Subtopic_Name": subtopic,
+                    "Bullets": [],
+                    "VoiceOver": [],
+                    "Image": ""
+                }
+            new_topic["Subtopics"].append(new_subtopic)
+        st.session_state.dictionary["Topics"].append(new_topic)
 
     for topic in st.session_state.dictionary["Topics"]:
 
