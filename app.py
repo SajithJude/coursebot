@@ -509,9 +509,18 @@ if uploaded_file is not None:
             f.write(uploaded_file.getbuffer())
 
 crsnm = upload_col.text_input("Enter Course Name")
-if "crsnm" not in st.session_state:
-    st.session_state.crsnm = crsnm
+savnext = upload_col.button("Save Project")
+if savnext:
+    if "crsnm" not in st.session_state:
+        st.session_state.crsnm = crsnm
 
+    descrip  = st.session_state.index.query(f"Generate a Course Description with word count of {course_description_limit}").response.strip()
+    cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of {course_description_voiceover_limit}").response.strip()
+    if "descrip" not in st.session_state:
+        st.session_state.descrip = descrip
+
+    if "cvo" not in st.session_state:
+        st.session_state.cvo = cvo
 
 
 
