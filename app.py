@@ -595,8 +595,8 @@ for topic in st.session_state.dictionary["Topics"]:
                             ecol.write(f"{sub_key}: {sub_value}")
             else:
                 ecol.write(f"{key}: {value}")
-                
-if extract_col.button("Extract and Generate"):
+
+if ecol.button("Extract and Generate"):
     for topic in st.session_state.dictionary["Topics"]:
         topic_sum = st.session_state.index.query(f"Generate Topic Summary description of {topic_summary_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
         extract_col.info(topic_sum)
@@ -627,24 +627,24 @@ if extract_col.button("Extract and Generate"):
 
 
 
-quer = ecol.button("Extract Contents")
-if quer:
-    progress_bar = ecol.progress(0)
-    total_items = sum(len(subtopics_dict['Subtopics']) for _, subtopics_dict in st.session_state.new_dict.items()) + len(st.session_state.new_dict)
-    items_processed = 0
-    for topic, subtopics_dict in st.session_state.new_dict.items():
-        for subtopic_dict in subtopics_dict['Subtopics']:
-            subtopic_name = subtopic_dict['Subtopic']
-            subtopicres = st.session_state.index.query("extract all the information under the subtopic  "+str(subtopic_name)+ ", in 4 paragraphs where each paragraph has minimum 40 words.")
-            subtopic_dict['content'] = subtopicres.response
-            items_processed += 1
-            progress_bar.progress(items_processed / total_items)
-            ecol.info(f"Extracted {subtopic_name}")
+# quer = ecol.button("Extract Contents")
+# if quer:
+#     progress_bar = ecol.progress(0)
+#     total_items = sum(len(subtopics_dict['Subtopics']) for _, subtopics_dict in st.session_state.new_dict.items()) + len(st.session_state.new_dict)
+#     items_processed = 0
+#     for topic, subtopics_dict in st.session_state.new_dict.items():
+#         for subtopic_dict in subtopics_dict['Subtopics']:
+#             subtopic_name = subtopic_dict['Subtopic']
+#             subtopicres = st.session_state.index.query("extract all the information under the subtopic  "+str(subtopic_name)+ ", in 4 paragraphs where each paragraph has minimum 40 words.")
+#             subtopic_dict['content'] = subtopicres.response
+#             items_processed += 1
+#             progress_bar.progress(items_processed / total_items)
+#             ecol.info(f"Extracted {subtopic_name}")
         
-        topicres = st.session_state.index.query("extract all the information belonging to following section into a paragraph "+str(topic))
-        subtopics_dict['content'] = topicres.response
-        items_processed += 1
-        progress_bar.progress(items_processed / total_items)
+#         topicres = st.session_state.index.query("extract all the information belonging to following section into a paragraph "+str(topic))
+#         subtopics_dict['content'] = topicres.response
+#         items_processed += 1
+#         progress_bar.progress(items_processed / total_items)
 
 
 # st.session_state.new_dict = data['data']
