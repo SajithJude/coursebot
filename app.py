@@ -466,7 +466,7 @@ if sampletoc:
 # elif toc_option == "Copy Paste TOC":
 try:
     
-    toc_input = pastecol.text_area("Copy the Table of contents from your book and paste them here")
+    toc_input = pastecol.text_area("Paste TOC / AI generated Structure")
 
     if pastecol.button("Generate Course Structure"):
         # try:
