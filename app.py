@@ -485,7 +485,7 @@ try:
 
 
     elif toc_option == "Customize":
-        pastecol, copycol = toc_col.columns(2,gap="medium")
+        copycol,pastecol  = toc_col.columns(2,gap="medium")
         # copycol.write("AI Generated Structure")
         lo_input = copycol.text_area("Enter Learning Objectives (comma-separated)")
         sampletoc = copycol.button("Get AI's Recomendation")
