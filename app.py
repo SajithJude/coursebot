@@ -36,8 +36,9 @@ DATA_DIR = "data"
 
 sv = st.button("Save state")
 if sv:
-    with open(f"{st.session_state.crsnm}_db.json", "w") as f:
-        json.dump(st.session_state, f)
+    st.write(st.session_state)
+    # with open(f"{st.session_state.crsnm}_db.json", "w") as f:
+    #     json.dump(st.session_state, f)
 
 
 json_files = [f for f in os.listdir() if f.endswith("_db.json")]
