@@ -448,7 +448,7 @@ if uploaded_file is not None:
 
 pastecol, copycol = toc_col.columns(2,gap="medium")
 
-copycol.write("AI Generated Structure for custom learning objectives")
+copycol.write("AI Generated Structure")
 # hrs = upload_col.number_input("How many minutes is your video")
 
 # if upload_col.button("Get Insights"):
