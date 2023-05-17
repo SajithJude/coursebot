@@ -452,56 +452,62 @@ toc_option = toc_col.radio("How do you want to base your course structure", ("Do
 
 try:
 
-    copycol.write("AI Generated Structure")
-    # hrs = upload_col.number_input("How many minutes is your video")
+copycol.write("AI Generated Structure")
+# hrs = upload_col.number_input("How many minutes is your video")
 
-    # if upload_col.button("Get Insights"):
-    #     hours = st.session_state.index.query(f"Genereate a course structure with topics and subtopics if Im about to create a {hrs} minutes course for based on this document, for the following learning objectives {lo_input}").response
-    #     upload_col.write(hours)
-    if toc_option == "Documents Table of Content":
-        
-        toc_input = pastecol.text_area("Paste TOC / AI generated Structure")
+# if upload_col.button("Get Insights"):
+#     hours = st.session_state.index.query(f"Genereate a course structure with topics and subtopics if Im about to create a {hrs} minutes course for based on this document, for the following learning objectives {lo_input}").response
+#     upload_col.write(hours)
+if toc_option == "Documents Table of Content":
+    lo_input = copycol.text_area("Enter Learning Objectives (comma-separated)")
+    sampletoc = copycol.button("Sample Structure")
+    if sampletoc:
+        sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ")
+        copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
+        copycol.code(sample_table.response)
 
-        if pastecol.button("Generate Course Structure"):
-            # try:
-                # table_of_contents = json.loads(toc_input)
-            with st.spinner('Please wait, it might take a while to process the Course structure'):
-                toc_res = "Convert the following table of contents into a json string, use the JSON format given bellow:\n"+ "Table of contents:\n"+ toc_input.strip() + "\n JSON format:\n"+ str(forma) + ". Output should be a valid JSON string."
-                str_toc = call_openai(toc_res)
-                str_to = str(str_toc)
-            # st.write(str_to)
-            table_of_contents = json.loads(str_to.strip())
-            st.session_state.table_of_contents = table_of_contents
+    toc_input = pastecol.text_area("Paste TOC / AI generated Structure")
 
-            # if "table_of_contents" not in st.session_state:
-            pastecol.success("TOC loaded, Go to the next tab")
-            pastecol.write(st.session_state.table_of_contents)
+    if pastecol.button("Generate Course Structure"):
+        # try:
+            # table_of_contents = json.loads(toc_input)
+        with st.spinner('Please wait, it might take a while to process the Course structure'):
+            toc_res = "Convert the following table of contents into a json string, use the JSON format given bellow:\n"+ "Table of contents:\n"+ toc_input.strip() + "\n JSON format:\n"+ str(forma) + ". Output should be a valid JSON string."
+            str_toc = call_openai(toc_res)
+            str_to = str(str_toc)
+        # st.write(str_to)
+        table_of_contents = json.loads(str_to.strip())
+        st.session_state.table_of_contents = table_of_contents
+
+        # if "table_of_contents" not in st.session_state:
+        pastecol.success("TOC loaded, Go to the next tab")
+        pastecol.write(st.session_state.table_of_contents)
 
 
-    elif toc_option == "Customize":
-        lo_input = copycol.text_area("Enter Learning Objectives (comma-separated)")
-        sampletoc = copycol.button("Sample Structure")
-        if sampletoc:
-            sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ")
-            copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
-            copycol.code(sample_table.response)
+elif toc_option == "Customize":
+    lo_input = copycol.text_area("Enter Learning Objectives (comma-separated)")
+    sampletoc = copycol.button("Sample Structure")
+    if sampletoc:
+        sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ")
+        copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
+        copycol.code(sample_table.response)
 
-        toc_input = pastecol.text_area("Paste TOC / AI generated Structure")
+    toc_input = pastecol.text_area("Paste TOC / AI generated Structure")
 
-        if pastecol.button("Generate Course Structure"):
-            # try:
-                # table_of_contents = json.loads(toc_input)
-            with st.spinner('Please wait, it might take a while to process the Course structure'):
-                toc_res = "Convert the following table of contents into a json string, use the JSON format given bellow:\n"+ "Table of contents:\n"+ toc_input.strip() + "\n JSON format:\n"+ str(forma) + ". Output should be a valid JSON string."
-                str_toc = call_openai(toc_res)
-                str_to = str(str_toc)
-            # st.write(str_to)
-            table_of_contents = json.loads(str_to.strip())
-            st.session_state.table_of_contents = table_of_contents
+    if pastecol.button("Generate Course Structure"):
+        # try:
+            # table_of_contents = json.loads(toc_input)
+        with st.spinner('Please wait, it might take a while to process the Course structure'):
+            toc_res = "Convert the following table of contents into a json string, use the JSON format given bellow:\n"+ "Table of contents:\n"+ toc_input.strip() + "\n JSON format:\n"+ str(forma) + ". Output should be a valid JSON string."
+            str_toc = call_openai(toc_res)
+            str_to = str(str_toc)
+        # st.write(str_to)
+        table_of_contents = json.loads(str_to.strip())
+        st.session_state.table_of_contents = table_of_contents
 
-            # if "table_of_contents" not in st.session_state:
-            pastecol.success("TOC loaded, Go to the next tab")
-            pastecol.write(st.session_state.table_of_contents)
+        # if "table_of_contents" not in st.session_state:
+        pastecol.success("TOC loaded, Go to the next tab")
+        pastecol.write(st.session_state.table_of_contents)
 
 except json.JSONDecodeError as e:
     str_toc = call_openai(toc_res)
@@ -533,26 +539,25 @@ if "dictionary" not in st.session_state:
 }
 
 if st.session_state.table_of_contents:
-
-    # Convert topics to new format
-
+# Convert topics to new forma
     for topic in st.session_state.table_of_contents["Topics"]:
-    for topic_name, subtopics in topic.items():
-        new_topic = {
-        "Topic_Name": topic_name,
-        "Subtopics": [],
-        "Topic_Summary": "",
-        "Topic_Summary_VoiceOver": ""
-        }
-        for subtopic in subtopics:
-        new_subtopic = {
-            "Subtopic_Name": subtopic,
-            "Bullets": [],
-            "VoiceOver": [],
-            "Image": ""
-        }
-        new_topic["Subtopics"].append(new_subtopic)
-        st.session_state.dictionary["Topics"].append(new_topic)
+        for topic_name, subtopics in topic.items():
+            new_topic = {
+            "Topic_Name": topic_name,
+            "Subtopics": [],
+            "Topic_Summary": "",
+            "Topic_Summary_VoiceOver": ""
+            }
+
+            for subtopic in subtopics:
+                new_subtopic = {
+                    "Subtopic_Name": subtopic,
+                    "Bullets": [],
+                    "VoiceOver": [],
+                    "Image": ""
+                }
+                new_topic["Subtopics"].append(new_subtopic)
+            st.session_state.dictionary["Topics"].append(new_topic)
 
 
 
