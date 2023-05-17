@@ -379,7 +379,7 @@ def generate_xml_structure(new_dict,coursedesctip,coursedescriptionvoiceover,cn)
     return xml_string
 # import xml.etree.ElementTree as ET
 def create_xml(dictionary):
-    root = ET.Element("Slide")
+    root = ET.Element("Slides")
 
     # Slide 1: Course
     course = ET.SubElement(root, "Slide1")
@@ -429,7 +429,7 @@ def create_xml(dictionary):
         # Slide: Topic Summary
         summary_slide = ET.SubElement(root, f"Slide{slide_num}")
         ET.SubElement(summary_slide, "Topic_Summary").text = topic["Topic_Summary"]
-        ET.SubElement(summary_slide, "Topic_Summary_VoiceOver").text = topic["Topic_Summary_VoiceOver"]
+        ET.SubElement(summary_slide, "VoiceOver").text = topic["Topic_Summary_VoiceOver"]
 
         slide_num += 1
 
