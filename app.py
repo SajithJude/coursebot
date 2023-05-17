@@ -605,10 +605,6 @@ if "processed_all_items" not in st.session_state:
     st.session_state.processed_all_items = False
 if ecol.button("Extract and Generate"):
     st.session_state.button_clicked = True
-
-# gen = ecol.button("Extract and Generate")
-ecol.write(st.session_state.dictionary)
-if st.session_state.button_clicked and not st.session_state.processed_all_items:
             
     if "dictionary" not in st.session_state:
         st.session_state.dictionary = {
@@ -647,6 +643,11 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
             new_topic["Subtopics"].append(new_subtopic)
         st.session_state.dictionary["Topics"].append(new_topic)
 
+
+# gen = ecol.button("Extract and Generate")
+ecol.write(st.session_state.dictionary)
+if st.session_state.button_clicked and not st.session_state.processed_all_items:
+    
     for topic in st.session_state.dictionary["Topics"]:
 
         topic_sum = st.session_state.index.query(f"Generate Topic Summary description of {topic_summary_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
