@@ -383,17 +383,20 @@ def create_xml(dictionary):
 
     # Slide 1: Course
     course = ET.SubElement(root, "Slide1")
+    ET.SubElement(course, "Slide_Name").text = "Course_Name"
     ET.SubElement(course, "Course_Name").text = dictionary["Course"]["Course_Name"]
     ET.SubElement(course, "Course_Description").text = dictionary["Course"]["Course_Description"]
     ET.SubElement(course, "VoiceOver").text = dictionary["Course"]["VoiceOver"]
 
     # Slide 2: Topics
     topics = ET.SubElement(root, "Slide2")
+    ET.SubElement(topics, "Slide_Name").text = "Topics"
     for topic in dictionary["Topics"]:
         ET.SubElement(topics, "Topic").text = topic["Topic_Name"]
 
     # Slide 3: Course Objectives
     objectives = ET.SubElement(root, "Slide3")
+    ET.SubElement(objectives, "Slide_Name").text = "Course_Objectives"
     for objective in dictionary["Course_Objectives"]:
         ET.SubElement(objectives, "Objective").text = objective["Objective"]
         ET.SubElement(objectives, "VoiceOver").text = objective["VoiceOver"]
@@ -403,6 +406,7 @@ def create_xml(dictionary):
     for topic in dictionary["Topics"]:
         # Slide: Topic and its Subtopics
         topic_slide = ET.SubElement(root, f"Slide{slide_num}")
+        ET.SubElement(topic_slide, "Slide_Name").text = "Topic_Name"
         ET.SubElement(topic_slide, "Topic_Name").text = topic["Topic_Name"]
         for subtopic in topic["Subtopics"]:
             ET.SubElement(topic_slide, "Subtopic_Name").text = str(subtopic["Subtopic_Name"])
@@ -412,6 +416,7 @@ def create_xml(dictionary):
         # Slides: One per Subtopic
         for subtopic in topic["Subtopics"]:
             subtopic_slide = ET.SubElement(root, f"Slide{slide_num}")
+            ET.SubElement(subtopic_slide, "Slide_Name").text = "Subtopic"
             ET.SubElement(subtopic_slide, "Subtopic").text = str(subtopic["Subtopic_Name"])
             bcount = 1
             for bullet in subtopic["Bullets"]:
@@ -423,11 +428,11 @@ def create_xml(dictionary):
                 ET.SubElement(voel, f"VoiceOver_{voc}").text = voiceover
                 voc+=1
 
-
             slide_num += 1
 
         # Slide: Topic Summary
         summary_slide = ET.SubElement(root, f"Slide{slide_num}")
+        ET.SubElement(summary_slide, "Slide_Name").text = "Topic_Summary"
         ET.SubElement(summary_slide, "Topic_Summary").text = topic["Topic_Summary"]
         ET.SubElement(summary_slide, "VoiceOver").text = topic["Topic_Summary_VoiceOver"]
 
@@ -435,11 +440,13 @@ def create_xml(dictionary):
 
     # Final slide: Congratulations
     final_slide = ET.SubElement(root, f"Slide{slide_num}")
+    ET.SubElement(final_slide, "Slide_Name").text = "Congratulations"
     ET.SubElement(final_slide, "Message").text = "Congratulations!"
 
     # Convert to XML string
     xml_str = ET.tostring(root, encoding='unicode')
     return xml_str
+
 
 
 def process_pdf(uploaded_file):
