@@ -447,12 +447,11 @@ if uploaded_file is not None:
 ###################### tab 2 ################
 toc_option = toc_col.radio("How do you want to base your course structure", ("Documents Table of Content", "Customize"))
 
-pastecol, copycol = toc_col.columns(2,gap="medium")
+# pastecol, copycol = toc_col.columns(2,gap="medium")
 
 
 try:
 
-    copycol.write("AI Generated Structure")
     # hrs = upload_col.number_input("How many minutes is your video")
 
     # if upload_col.button("Get Insights"):
@@ -467,9 +466,9 @@ try:
         #     copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
         #     copycol.code(sample_table.response)
 
-        toc_input = pastecol.text_area("Paste TOC / AI generated Structure")
+        toc_input = toc_col.text_area("Paste TOC / AI generated Structure")
 
-        if pastecol.button("Generate Course Structure"):
+        if toc_col.button("Generate Course Structure"):
             # try:
                 # table_of_contents = json.loads(toc_input)
             with st.spinner('Please wait, it might take a while to process the Course structure'):
@@ -481,11 +480,13 @@ try:
             st.session_state.table_of_contents = table_of_contents
 
             # if "table_of_contents" not in st.session_state:
-            pastecol.success("TOC loaded, Go to the next tab")
-            pastecol.write(st.session_state.table_of_contents)
+            toc_col.success("TOC loaded, Go to the next tab")
+            toc_col.write(st.session_state.table_of_contents)
 
 
     elif toc_option == "Customize":
+        pastecol, copycol = toc_col.columns(2,gap="medium")
+        copycol.write("AI Generated Structure")
         lo_input = copycol.text_area("Enter Learning Objectives (comma-separated)")
         sampletoc = copycol.button("Sample Structure")
         if sampletoc:
