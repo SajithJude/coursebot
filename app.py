@@ -558,8 +558,8 @@ for topic in st.session_state.table_of_contents["Topics"]:
                 "VoiceOver": [],
                 "Image": ""
             }
-            new_topic["Subtopics"].append(new_subtopic)
-        st.session_state.dictionary["Topics"].append(new_topic)
+        new_topic["Subtopics"].append(new_subtopic)
+    st.session_state.dictionary["Topics"].append(new_topic)
 
 
 
