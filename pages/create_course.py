@@ -300,23 +300,23 @@ try:
     if toc_option == "Paste Table of Contents":
 
         toc_input = toc_col.text_area("Copy Paste TOC from document")
-        toc_col.write(toc_input == "")
-        toc_col.write(toc_input)
-        if toc_col.button("Process Structure"):
-            # try:
-                # table_of_contents = json.loads(toc_input)
-            with st.spinner('Please wait, it might take a while to process the Course structure'):
-                toc_res = "Convert the following table of contents into a json string, use the JSON format given bellow:\n"+ "Table of contents:\n"+ toc_input.strip() + "\n JSON format:\n"+ str(forma) + ". Output should be a valid JSON string."
-                str_toc = call_openai(toc_res)
-                str_to = str(str_toc)
-            # st.write(str_to)
-            table_of_contents = json.loads(str_to.strip())
-            st.session_state.table_of_contents = table_of_contents
+        if toc_input == "":
+            if toc_col.button("Process Structure"):
+                # try:
+                    # table_of_contents = json.loads(toc_input)
+                with st.spinner('Please wait, it might take a while to process the Course structure'):
+                    toc_res = "Convert the following table of contents into a json string, use the JSON format given bellow:\n"+ "Table of contents:\n"+ toc_input.strip() + "\n JSON format:\n"+ str(forma) + ". Output should be a valid JSON string."
+                    str_toc = call_openai(toc_res)
+                    str_to = str(str_toc)
+                # st.write(str_to)
+                table_of_contents = json.loads(str_to.strip())
+                st.session_state.table_of_contents = table_of_contents
 
-            # if "table_of_contents" not in st.session_state:
-            toc_col.success("TOC loaded, Go to the next tab")
-            toc_col.write(st.session_state.table_of_contents)
-
+                # if "table_of_contents" not in st.session_state:
+                toc_col.success("TOC loaded, Go to the next tab")
+                toc_col.write(st.session_state.table_of_contents)
+        else :
+            toc_col.write("please copy and paste the Table of content from document")
 
     elif toc_option == "AI Generated":
         # toc_col,pastecol  = toc_col.columns(2,gap="medium")
