@@ -145,7 +145,8 @@ for Name in saved_courses:
         delete_status = True
         delete_file = st.button("Delete", key=f"delete{Name}")
         if delete_file:
-            switch_page("delete_file")
+            os.delete(f"output/{st.session_state.selected_pptx}")
+            #switch_page("delete_file")
     st.markdown("""
     <div style="background-color:#560AE8;height:1px;margin-top:5px;margin-bottom:5px;"></div>
 """, unsafe_allow_html=True)

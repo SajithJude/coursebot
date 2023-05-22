@@ -408,7 +408,7 @@ if ecol.button("Extract and Generate"):
 if st.session_state.button_clicked and not st.session_state.processed_all_items:
     
     for topic in st.session_state.dictionary["Topics"]:
-
+        extract_col.write(topic)
         topic_sum = st.session_state.index.query(f"Generate Topic Summary description of {topic_summary_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
         extract_col.info(topic_sum)
         Voice_topic_sum = st.session_state.index.query(f"Generate Topic Summary voice over script of {topic_summary_voiceover_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
