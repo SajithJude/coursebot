@@ -229,7 +229,8 @@ def process_pdf(uploaded_file):
 upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Table Of Contents__", "⚪ __Extract Contents__", "⚪ __XML__", "⚪ __Images__"])
 
 
-
+st.write(upload_col)
+st.write(toc_col)
 
 ######################       Upload chapter column      ##########################################
 
