@@ -228,8 +228,13 @@ def process_pdf(uploaded_file):
 # upload_col, refine_toc,  extract_col, miss_col, edit_col,voice_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Refine_TOC__", "⚪ __Extract_Contents__","⚪ __missing_Contents__", "⚪ __Edit Contents__", "⚪ Voice Over__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
 upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Table Of Contents__", "⚪ __Extract Contents__", "⚪ __XML__", "⚪ __Images__"])
 
+
+
+
 ######################       Upload chapter column      ##########################################
 
+
+uploaded_file = upload_col.file_uploader("Upload a Chapter as a PDF file", type="pdf")
 # toc_option = upload_col.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
 forma = """"{
   "Topics": [
