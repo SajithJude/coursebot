@@ -300,8 +300,9 @@ try:
     if toc_option == "Paste Table of Contents":
 
         toc_input = toc_col.text_area("Copy Paste TOC from document")
-        if toc_input != "":
-            if toc_col.button("Process Structure"):
+        
+        if toc_col.button("Process Structure"):
+            if toc_input != "":
                 # try:
                     # table_of_contents = json.loads(toc_input)
                 with st.spinner('Please wait, it might take a while to process the Course structure'):
@@ -315,8 +316,8 @@ try:
                 # if "table_of_contents" not in st.session_state:
                 toc_col.success("TOC loaded, Go to the next tab")
                 toc_col.write(st.session_state.table_of_contents)
-        else :
-            toc_col.write("please copy and paste the Table of content from document")
+            else :
+                toc_col.write("please copy and paste the Table of content from document")
 
     elif toc_option == "AI Generated":
         # toc_col,pastecol  = toc_col.columns(2,gap="medium")
