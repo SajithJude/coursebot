@@ -320,9 +320,9 @@ try:
     elif toc_option == "AI Generated":
         # toc_col,pastecol  = toc_col.columns(2,gap="medium")
         # copycol.write("AI Generated Structure")
-        with st.spinner("Please wait till the A.I Generates the course structure "):
-            sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for this document")
-            if "sample_table" not in st.session_state:
+        if "sample_table" not in st.session_state:
+            with st.spinner("Please wait till the A.I Generates the course structure "):
+                sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for this document")
                 st.session_state.sample_table = sample_table
 
 
