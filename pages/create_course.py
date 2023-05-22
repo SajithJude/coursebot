@@ -291,7 +291,6 @@ if savnext:
             upload_col.write("Please enter a course name")
   
     else:
-        upload_col.write(crsnm == None)
         if crsnm == "":
             upload_col.write("Please upload a PDF & enter a course name")
 
