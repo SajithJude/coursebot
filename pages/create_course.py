@@ -300,7 +300,7 @@ try:
     if toc_option == "Paste Table of Contents":
 
         toc_input = toc_col.text_area("Copy Paste TOC from document")
-        toc_col.write(toc_input)
+        toc_col.write(toc_input==None)
         if toc_col.button("Process Structure"):
             # try:
                 # table_of_contents = json.loads(toc_input)
