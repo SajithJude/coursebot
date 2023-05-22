@@ -6,3 +6,4 @@ PyPDF2
 pyperclip
 fitz
 pymupdf
+streamlit-extras
