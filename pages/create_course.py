@@ -347,9 +347,9 @@ except json.JSONDecodeError as e:
     str_toc = call_openai(toc_res)
     table_of_contents = json.loads(str(str_toc))
     st.session_state.table_of_contents = table_of_contents
-    pastecol.write(st.session_state.table_of_contents)
-    # pastecol.error("Invalid JSON format. Please check your input.")
-    pastecol.error(e)
+    toc_col.write(st.session_state.table_of_contents)
+    # toc_col.error("Invalid JSON format. Please check your input.")
+    toc_col.error(e)
 
 
 
