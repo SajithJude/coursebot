@@ -221,48 +221,52 @@ upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload C
 
 ######################       Upload chapter column      ##########################################
 
-
-uploaded_file = upload_col.file_uploader("Upload a Chapter as a PDF file", type="pdf")
-# toc_option = upload_col.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
-forma = """"{
-  "Topics": [
-    {
-      "n.n Topic ": [
-        "n.n.n Subtopic ",
-        "n.n.n Subtopic ",
-      ]
+if upload_col :
+    uploaded_file = upload_col.file_uploader("Upload a Chapter as a PDF file", type="pdf")
+    # toc_option = upload_col.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
+    forma = """"{
+    "Topics": [
+        {
+        "n.n Topic ": [
+            "n.n.n Subtopic ",
+            "n.n.n Subtopic ",
+        ]
+        }
+    ]
     }
-  ]
-}
 
-"""
-if uploaded_file is not None:
-        # clear_all_json_files()
+    """
+    if uploaded_file is not None:
+            # clear_all_json_files()
 
-        # index = 
-        if "index" not in st.session_state:
-            st.session_state.index = process_pdf(uploaded_file)
+            # index = 
+            if "index" not in st.session_state:
+                st.session_state.index = process_pdf(uploaded_file)
 
-        upload_col.success("Index created successfully")
-        clear_images_folder()
-        clear_pages_folder()
-    # read PDF file
-        with open(uploaded_file.name, "wb") as f:
-            f.write(uploaded_file.getbuffer())
+            upload_col.success("Index created successfully")
+            clear_images_folder()
+            clear_pages_folder()
+        # read PDF file
+            with open(uploaded_file.name, "wb") as f:
+                f.write(uploaded_file.getbuffer())
 
-crsnm = upload_col.text_input("Enter Course Name")
-savnext = upload_col.button("Save Project")
-if savnext:
-    if "crsnm" not in st.session_state:
-        st.session_state.crsnm = crsnm
+    crsnm = upload_col.text_input("Enter Course Name")
+    savnext = upload_col.button("Save Project")
+    if savnext:
+        if "crsnm" not in st.session_state:
+            st.session_state.crsnm = crsnm
 
-    descrip  = st.session_state.index.query(f"Generate a Course Description with word count of 30").response.strip()
-    cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
-    if "descrip" not in st.session_state:
-        st.session_state.descrip = descrip
+        descrip  = st.session_state.index.query(f"Generate a Course Description with word count of 30").response.strip()
+        cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
+        if "descrip" not in st.session_state:
+            st.session_state.descrip = descrip
 
-    if "cvo" not in st.session_state:
-        st.session_state.cvo = cvo
+        if "cvo" not in st.session_state:
+            st.session_state.cvo = cvo
+
+        toc_col = True
+        upload_col = False
+        st.experimental_rerun()
 
 
 
@@ -272,7 +276,7 @@ if toc_col:
     if toc_option != "Customize":
         toc_col.info("Choose Customize if you want AI to suggest a course structure, modify (it if needed) after pasting it on the right and click process")
     # pastecol, copycol = toc_col.columns(2,gap="medium")
-    
+
     try:
 
         if toc_option == "Documents Table of Content":
