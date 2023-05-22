@@ -1,31 +1,27 @@
 import streamlit as st
-from llama_index import GPTVectorStoreIndex, Document, SimpleDirectoryReader, QuestionAnswerPrompt, LLMPredictor, ServiceContext
+from llama_index import (
+    GPTVectorStoreIndex, Document, SimpleDirectoryReader,
+    QuestionAnswerPrompt, LLMPredictor, ServiceContext
+)
 import json
 from langchain import OpenAI
 from llama_index import download_loader
 from tempfile import NamedTemporaryFile
 import base64
 import io
-# import fitz
 from PIL import Image
 import ast
 import os
 import glob
-PDFReader = download_loader("PDFReader")
-import os
-import openai 
-import json
+import openai
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from pathlib import Path
-from llama_index import download_loader
-from xml.etree.ElementTree import Element, SubElement, tostring
 import requests
 import zipfile
 from llama_index.retrievers import VectorIndexRetriever
 from llama_index.query_engine import RetrieverQueryEngine
 
-from langchain import OpenAI
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -33,28 +29,6 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 st.title("CourseBot for PDF's")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
-
-# sv = st.button("Save state")
-# if sv:
-#     st.write(st.session_state)
-#     with open(f"{st.session_state.crsnm}_db.json", "w") as f:
-#         json.dump(st.session_state, f)
-
-
-# json_files = [f for f in os.listdir() if f.endswith("_db.json")]
-
-# # Create a dropdown menu with the available JSON files
-# selected_file = st.selectbox("Select a JSON file to load:", json_files)
-
-# # Load the selected JSON file and update the session state
-# if st.button("Load JSON"):
-#     with open(selected_file, "r") as f:
-#         loaded_data = json.load(f)
-
-#     # Update the session state with the loaded data
-#     for key, value in loaded_data.items():
-#         st.session_state[key] = value
-
 
 
 PDFReader = download_loader("PDFReader")
@@ -65,15 +39,27 @@ loader = PDFReader()
 if not os.path.exists("images"):
     os.makedirs("images")
 
-# Create the "pages" folder if it doesn't exist
-if not os.path.exists("pages"):
-    os.makedirs("pages")
 
 
+if "dictionary" not in st.session_state:
+    st.session_state.dictionary = {}
 
-def load_saved_course(course_file):
-    with open(course_file, 'r') as infile:
-        return json.load(infile)
+# Function to save dictionary as JSON file
+def save_dictionary_as_json():
+    course_name = st.session_state.crsnm
+    json_data = json.dumps(st.session_state.dictionary, indent=4)
+
+    # Create a directory if it doesn't exist
+    if not os.path.exists("output"):
+        os.makedirs("output")
+
+    # Save the JSON file
+    filename = f"output/{course_name}.json"
+    with open(filename, "w") as file:
+        file.write(json_data)
+
+    st.sidebar.success(f"JSON file saved as: {filename}")
+
 
 
 def call_openai3(source):
@@ -101,33 +87,6 @@ def call_openai(source):
        
     )
     return response.choices[0].message.content
-
-def clear_all_json_files():
-    """Clear all JSON files in all directories under the current working directory"""
-    
-    root_directory = os.path.abspath(os.getcwd())
-    
-    # Iterate over all files and directories under the root directory
-    for dirpath, dirnames, filenames in os.walk(root_directory):
-        # Iterate over all files in the current directory
-        for filename in filenames:
-            # Check if the file has a .json extension
-            if filename.endswith('.json'):
-                # Open the JSON file, clear its contents, and save the empty file
-                file_path = os.path.join(dirpath, filename)
-                with open(file_path, 'w') as json_file:
-                    json.dump({}, json_file)
-
-def clear_images_folder():
-    for file in os.listdir("images"):
-        if file.endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
-            os.remove(os.path.join("images", file))
-
-def clear_pages_folder():
-    for file in os.listdir("pages"):
-        if file.endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
-            os.remove(os.path.join("pages", file))
-
 
 
 
@@ -256,8 +215,8 @@ if uploaded_file is not None:
             st.session_state.index = process_pdf(uploaded_file)
 
         upload_col.success("Index created successfully")
-        clear_images_folder()
-        clear_pages_folder()
+        # clear_images_folder()
+        # clear_pages_folder()
     # read PDF file
         with open(uploaded_file.name, "wb") as f:
             f.write(uploaded_file.getbuffer())
@@ -460,11 +419,13 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
 
 
 if voice_col.button("Show XML"):
+    
     xml = create_xml(st.session_state.dictionary)
     pretty_xml = minidom.parseString(xml).toprettyxml()
     
 
     voice_col.code(pretty_xml)
+    save_dictionary_as_json()
 
 
 
