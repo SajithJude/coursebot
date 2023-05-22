@@ -266,29 +266,36 @@ crsnm = upload_col.text_input("Enter Course Name")
 savnext = upload_col.button("Save Project")
 if savnext:
     try :
-        if "crsnm" not in st.session_state:
-            st.session_state.crsnm = crsnm
+        if crsnm != "":
+            if "crsnm" not in st.session_state:
+                st.session_state.crsnm = crsnm
 
-        lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book")
-        descrip  = st.session_state.index.query(f"Generate a Course Description with word count of 30").response.strip()
-        cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
-        lo_input = st.session_state.index.query(f"What are the learning objectives of this book ").response.strip()
-            
+            lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book")
+            descrip  = st.session_state.index.query(f"Generate a Course Description with word count of 30").response.strip()
+            cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
+            lo_input = st.session_state.index.query(f"What are the learning objectives of this book ").response.strip()
+                
 
-        if "descrip" not in st.session_state:
-            st.session_state.descrip = descrip
+            if "descrip" not in st.session_state:
+                st.session_state.descrip = descrip
 
-        if "cvo" not in st.session_state:
-            st.session_state.cvo = cvo
+            if "cvo" not in st.session_state:
+                st.session_state.cvo = cvo
 
-        if "lovo" not in st.session_state:
-            st.session_state.lovo = lovo
+            if "lovo" not in st.session_state:
+                st.session_state.lovo = lovo
 
-        if "lo_input" not in st.session_state:
-            st.session_state.lo_input = lo_input
-
+            if "lo_input" not in st.session_state:
+                st.session_state.lo_input = lo_input
+        else :
+            upload_col.write("Please enter a course name")
+  
     except:
-        upload_col.write("Please upload a PDF")
+        if crsnm == "":
+            upload_col.write("Please upload a PDF & enter a course name")
+
+        else :
+            upload_col.write("Please upload a PDF")
 
 
 
