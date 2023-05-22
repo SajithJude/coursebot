@@ -226,7 +226,7 @@ def process_pdf(uploaded_file):
 ######################       defining tabs      ##########################################
 
 # upload_col, refine_toc,  extract_col, miss_col, edit_col,voice_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Refine_TOC__", "⚪ __Extract_Contents__","⚪ __missing_Contents__", "⚪ __Edit Contents__", "⚪ Voice Over__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
-upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Table Of Contents__", "⚪ __Extract Contents__", "⚪ __XML__", "⚪ __Images__"])
+toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Table Of Contents__", "⚪ __Extract Contents__", "⚪ __XML__", "⚪ __Images__"])
 
 ######################       Upload chapter column      ##########################################
 
@@ -243,59 +243,6 @@ forma = """"{
 }
 
 """
-
-if uploaded_file is not None:
-        # clear_all_json_files()
-
-        # index = 
-        if "index" not in st.session_state:
-            st.session_state.index = process_pdf(uploaded_file)
-
-        upload_col.success("Index created successfully")
-        clear_images_folder()
-        clear_pages_folder()
-    # read PDF file
-        with open(uploaded_file.name, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-
-crsnm = upload_col.text_input("Enter Course Name")
-savnext = upload_col.button("Save Project")
-if savnext:
-    if "index" in st.session_state:
-        if crsnm != "":
-            if "crsnm" not in st.session_state:
-                st.session_state.crsnm = crsnm
-
-            lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book")
-            descrip  = st.session_state.index.query(f"Generate a Course Description with word count of 30").response.strip()
-            cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
-            lo_input = st.session_state.index.query(f"What are the learning objectives of this book ").response.strip()
-                
-
-            if "descrip" not in st.session_state:
-                st.session_state.descrip = descrip
-
-            if "cvo" not in st.session_state:
-                st.session_state.cvo = cvo
-
-            if "lovo" not in st.session_state:
-                st.session_state.lovo = lovo
-
-            if "lo_input" not in st.session_state:
-                st.session_state.lo_input = lo_input
-            upload_col.success("Project saved successfully.\nGo to Table of Content tab to create Table of content")
-        else :
-            upload_col.write("Please enter a course name")
-  
-    else:
-        if crsnm == "":
-            upload_col.write("Please upload a PDF & enter a course name")
-
-        else :
-            upload_col.write("Please upload a PDF")
-
-
-
 
 ###################### tab 2 ################
 toc_option = toc_col.radio("How do you want to base your course structure", ("Paste Table of Contents", "AI Generated"), horizontal=True)
