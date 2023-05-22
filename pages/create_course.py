@@ -41,8 +41,7 @@ if not os.path.exists("images"):
 
 
 
-if "dictionary" not in st.session_state:
-    st.session_state.dictionary = {}
+
 
 # Function to save dictionary as JSON file
 def save_dictionary_as_json():
