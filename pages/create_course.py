@@ -265,7 +265,7 @@ if uploaded_file is not None:
 crsnm = upload_col.text_input("Enter Course Name")
 savnext = upload_col.button("Save Project")
 if savnext:
-    if "index" not in st.session_state:
+    if "index" in st.session_state:
         if crsnm != "":
             if "crsnm" not in st.session_state:
                 st.session_state.crsnm = crsnm
