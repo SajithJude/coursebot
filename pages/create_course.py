@@ -34,25 +34,25 @@ st.title("CourseBot")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
 
-sv = st.button("Save state")
-if sv:
-    st.write(st.session_state)
-    with open(f"{st.session_state.crsnm}_db.json", "w") as f:
-        json.dump(st.session_state, f)
+# sv = st.button("Save state")
+# if sv:
+#     st.write(st.session_state)
+#     with open(f"{st.session_state.crsnm}_db.json", "w") as f:
+#         json.dump(st.session_state, f)
 
-json_files = [f for f in os.listdir() if f.endswith("_db.json")]
+# json_files = [f for f in os.listdir() if f.endswith("_db.json")]
 
-# Create a dropdown menu with the available JSON files
-selected_file = st.selectbox("Select a JSON file to load:", json_files)
+# # Create a dropdown menu with the available JSON files
+# selected_file = st.selectbox("Select a JSON file to load:", json_files)
 
-# Load the selected JSON file and update the session state
-if st.button("Load JSON"):
-    with open(selected_file, "r") as f:
-        loaded_data = json.load(f)
+# # Load the selected JSON file and update the session state
+# if st.button("Load JSON"):
+#     with open(selected_file, "r") as f:
+#         loaded_data = json.load(f)
 
-    # Update the session state with the loaded data
-    for key, value in loaded_data.items():
-        st.session_state[key] = value
+#     # Update the session state with the loaded data
+#     for key, value in loaded_data.items():
+#         st.session_state[key] = value
 
 
 
