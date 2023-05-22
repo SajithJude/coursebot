@@ -24,13 +24,13 @@ import requests
 import zipfile
 from llama_index.retrievers import VectorIndexRetriever
 from llama_index.query_engine import RetrieverQueryEngine
-from langchain import OpenAI
 
+from langchain import OpenAI
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-st.title("CourseBot")
+st.title("CourseBot for PDF's")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
 
@@ -39,6 +39,7 @@ DATA_DIR = "data"
 #     st.write(st.session_state)
 #     with open(f"{st.session_state.crsnm}_db.json", "w") as f:
 #         json.dump(st.session_state, f)
+
 
 # json_files = [f for f in os.listdir() if f.endswith("_db.json")]
 
@@ -60,6 +61,7 @@ PDFReader = download_loader("PDFReader")
 
 loader = PDFReader()
 
+
 if not os.path.exists("images"):
     os.makedirs("images")
 
@@ -67,9 +69,12 @@ if not os.path.exists("images"):
 if not os.path.exists("pages"):
     os.makedirs("pages")
 
+
+
 def load_saved_course(course_file):
     with open(course_file, 'r') as infile:
         return json.load(infile)
+
 
 def call_openai3(source):
     response = openai.Completion.create(
@@ -82,6 +87,8 @@ def call_openai3(source):
         presence_penalty=0
     )
     return response.choices[0].text
+
+
 
 def call_openai(source):
     messages=[{"role": "user", "content": source}]
@@ -120,6 +127,11 @@ def clear_pages_folder():
     for file in os.listdir("pages"):
         if file.endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
             os.remove(os.path.join("pages", file))
+
+
+
+
+# import xml.etree.ElementTree as ET
 
 # import xml.etree.ElementTree as ET
 def create_xml(dictionary):
@@ -214,7 +226,7 @@ def process_pdf(uploaded_file):
 ######################       defining tabs      ##########################################
 
 # upload_col, refine_toc,  extract_col, miss_col, edit_col,voice_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Refine_TOC__", "⚪ __Extract_Contents__","⚪ __missing_Contents__", "⚪ __Edit Contents__", "⚪ Voice Over__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
-upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Table Of Contents__", "⚪ __VoiceOver Bullets__", "⚪ __XML__", "⚪ __Images__"])
+upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Table Of Contents__", "⚪ __Extract Contents__", "⚪ __XML__", "⚪ __Images__"])
 
 
 
@@ -256,25 +268,36 @@ if savnext:
     if "crsnm" not in st.session_state:
         st.session_state.crsnm = crsnm
 
+    lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book")
     descrip  = st.session_state.index.query(f"Generate a Course Description with word count of 30").response.strip()
     cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
+    lo_input = st.session_state.index.query(f"What are the learning objectives of this book ").response.strip()
+        
+
     if "descrip" not in st.session_state:
         st.session_state.descrip = descrip
 
     if "cvo" not in st.session_state:
         st.session_state.cvo = cvo
 
+    if "lovo" not in st.session_state:
+        st.session_state.lovo = lovo
+
+    if "lo_input" not in st.session_state:
+        st.session_state.lo_input = lo_input
+
+
 
 
 ###################### tab 2 ################
-toc_option = toc_col.radio("How do you want to base your course structure", ("Documents Table of Content", "Customize"), horizontal=True)
-if toc_option != "Customize":
-    toc_col.info("Choose Customize if you want AI to suggest a course structure, modify (it if needed) after pasting it on the right and click process")
-# pastecol, copycol = toc_col.columns(2,gap="medium")
+toc_option = toc_col.radio("How do you want to base your course structure", ("Paste Table of Contents", "AI Generated"), horizontal=True)
+# toc_col.info("Choose AI Generated if you want AI to suggest a course structure, modify (it if needed) after pasting it on the right and click process")
+# pastecol, toc_col = toc_col.columns(2,gap="medium")
+
 
 try:
 
-    if toc_option == "Documents Table of Content":
+    if toc_option == "Paste Table of Contents":
 
         toc_input = toc_col.text_area("Copy Paste TOC from document")
 
@@ -294,24 +317,18 @@ try:
             toc_col.write(st.session_state.table_of_contents)
 
 
-    elif toc_option == "Customize":
-        copycol,pastecol  = toc_col.columns(2,gap="medium")
+    elif toc_option == "AI Generated":
+        # toc_col,pastecol  = toc_col.columns(2,gap="medium")
         # copycol.write("AI Generated Structure")
-        lo_input = copycol.text_area("Enter Learning Objectives (comma-separated)")
-        if "lo_input" not in st.session_state:
-            st.session_state.lo_input = lo_input
-        sampletoc = copycol.button("Get AI's Recomendation")
-        if sampletoc:
-            lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives {lo_input} ")
-            if "lovo" not in st.session_state:
-                st.session_state.lovo = lovo
-            sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for the following learning objectives {lo_input} ")
-            copycol.write("Click on the top right corner to copy, and Paste it on the left, make edits of nessecary and Save")
-            copycol.code(sample_table.response)
+        with st.spinner("Please wait till the A.I Generates the course structure "):
+            sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for this document")
+            if "sample_table" not in st.session_state:
+                st.session_state.sample_table = sample_table
 
-        toc_input = pastecol.text_area("Copy sPaste AI's recomendation")
 
-        if pastecol.button("Process Structure"):
+        toc_input = toc_col.text_area("Make Neccessary Edits to the AI generated structure and click Save Structure",value=str(st.session_state.sample_table))
+
+        if toc_col.button("Save Structure"):
             # try:
                 # table_of_contents = json.loads(toc_input)
             with st.spinner('Please wait, it might take a while to process the Course structure'):
@@ -452,6 +469,8 @@ if voice_col.button("Show XML"):
 
 
 ######################       export generated xml      ##########################################
+
+
 # try:
 #     # with 
 #     ondu, naduvan, rendu   = xml_col.columns([4,3,4],gap="large")
