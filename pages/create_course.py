@@ -338,7 +338,7 @@ try:
         with st.spinner("Please wait till the A.I Generates the course structure "):
             sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for this document")
             if "sample_table" not in st.session_state:
-                st.session_state.sample_table = sample_table
+                st.session_state.sample_table = str(sample_table).strip()
 
 
         toc_input = toc_col.text_area("Make Neccessary Edits to the AI generated structure and click Save Structure",value=str(st.session_state.sample_table))
