@@ -288,7 +288,7 @@ if savnext:
 
             if "lo_input" not in st.session_state:
                 st.session_state.lo_input = lo_input
-            upload_col.success("Project saved successfully\nGo to next tab to create Table of content")
+            upload_col.success("Project saved successfully.\nGo to Table of Content tab to create Table of content")
         else :
             upload_col.write("Please enter a course name")
   
