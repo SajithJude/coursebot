@@ -252,6 +252,7 @@ if uploaded_file is not None:
         # clear_all_json_files()
 
         # index = 
+        upload_col.write(uploaded_file.name)
         if "index" not in st.session_state:
             st.session_state.index = process_pdf(uploaded_file)
 
