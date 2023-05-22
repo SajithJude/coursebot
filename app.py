@@ -40,8 +40,6 @@ if sv:
     with open(f"{st.session_state.crsnm}_db.json", "w") as f:
         json.dump(st.session_state, f)
 
-#comment
-
 json_files = [f for f in os.listdir() if f.endswith("_db.json")]
 
 # Create a dropdown menu with the available JSON files
