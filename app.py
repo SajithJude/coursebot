@@ -101,7 +101,7 @@ st.write("")
 
 #######  PPTX Table   ##########
 
-saved_courses = [file for file in  if file.endswith('.json')]
+saved_courses = [file for file in  os.listdir('./pages/output') if file.endswith('.json')]
 if "saved_courses" not in st.session_state:
     st.session_state.saved_courses = saved_courses
 
