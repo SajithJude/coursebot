@@ -100,17 +100,9 @@ st.write("")
 
 
 #######  PPTX Table   ##########
-saved_courses = []
 
+saved_courses = [file for file in os.listdir('.') if file.endswith('.json')]
 if "saved_courses" not in st.session_state:
-
-    # Traverse the directory tree
-    for root, dirs, files in os.walk('.'):
-        for file in files:
-            if file.endswith('.json'):
-                file_path = os.path.join(root, file)
-                saved_courses.append(file_path)
-
     st.session_state.saved_courses = saved_courses
 
 def display_ppt():
