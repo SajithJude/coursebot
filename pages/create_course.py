@@ -268,7 +268,7 @@ if savnext:
     if "crsnm" not in st.session_state:
         st.session_state.crsnm = crsnm
 
-    lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book")
+    lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book").response.strip()
     descrip  = st.session_state.index.query(f"Generate a Course Description with word count of 30").response.strip()
     cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
     lo_input = st.session_state.index.query(f"What are the learning objectives of this book ").response.strip()
