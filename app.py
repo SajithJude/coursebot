@@ -100,9 +100,9 @@ st.write("")
 
 
 #######  PPTX Table   ##########
+saved_courses = []
 
 if "saved_courses" not in st.session_state:
-    saved_courses = []
 
     # Traverse the directory tree
     for root, dirs, files in os.walk('.'):
