@@ -139,7 +139,7 @@ for Name in saved_courses:
     with col3:
         edit_file = st.button("Edit", key=f"edit{Name}")
         if edit_file:
-            switch_page("edit_file")  
+            switch_page("edit_course")  
     
     with col4:
         delete_status = True
