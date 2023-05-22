@@ -266,7 +266,7 @@ if upload_col :
 
         toc_col = True
         upload_col = False
-        st.experimental_rerun()
+        # st.experimental_rerun()
 
 
 
