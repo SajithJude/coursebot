@@ -351,6 +351,9 @@ except json.JSONDecodeError as e:
     # pastecol.error("Invalid JSON format. Please check your input.")
     pastecol.error(e)
 
+except :
+    toc_col.write("Please upload a chapter")
+
 
 
 
