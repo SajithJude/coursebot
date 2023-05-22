@@ -71,7 +71,7 @@ st.markdown(custom_header(logo_base64), unsafe_allow_html=True)
 
 
 # Create a directory to store uploaded PPTX files
-upload_directory = "output"
+upload_directory = "data"
 os.makedirs(upload_directory, exist_ok=True)
 
 m = st.markdown("""
