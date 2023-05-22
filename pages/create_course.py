@@ -249,12 +249,10 @@ forma = """"{
 
 """
 
-fileName =""
 if uploaded_file is not None:
         # clear_all_json_files()
 
         # index = 
-        fileName = str(uploaded_file.name).replace(".pdf","") 
         if "index" not in st.session_state:
             st.session_state.index = process_pdf(uploaded_file)
 
@@ -265,7 +263,7 @@ if uploaded_file is not None:
         with open(uploaded_file.name, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
-crsnm = upload_col.text_input("Enter Course Name", fileName)
+crsnm = upload_col.text_input("Enter Course Name")
 savnext = upload_col.button("Save Project")
 if savnext:
     if "index" in st.session_state:
@@ -290,6 +288,7 @@ if savnext:
 
             if "lo_input" not in st.session_state:
                 st.session_state.lo_input = lo_input
+            upload_col.success("Project saved successfully\nGo to next tab to create Table of content")
         else :
             upload_col.write("Please enter a course name")
   
