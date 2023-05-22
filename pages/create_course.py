@@ -340,8 +340,8 @@ try:
             st.session_state.table_of_contents = table_of_contents
 
             # if "table_of_contents" not in st.session_state:
-            pastecol.success("TOC loaded, Go to the next tab")
-            pastecol.write(st.session_state.table_of_contents)
+            toc_col.success("TOC loaded, Go to the next tab")
+            toc_col.write(st.session_state.table_of_contents)
 
 except json.JSONDecodeError as e:
     str_toc = call_openai(toc_res)
