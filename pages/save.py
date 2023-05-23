@@ -74,7 +74,7 @@ cs_format = """
 }
 """
 def call_openai(source):
-    messages=[{"role": "user", "content": source}]
+    messages=[{"role": "system", "content": source}]
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
