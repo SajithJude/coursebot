@@ -77,9 +77,7 @@ def call_openai(source):
     messages=[{"role": "user", "content": source}]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4-0314",
-        max_tokens=7000,
-        temperature=0.1,
+        model="gpt-3.5-turbo",
         messages = messages
        
     )
