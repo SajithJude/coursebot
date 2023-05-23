@@ -174,8 +174,8 @@ def process_pdf(uploaded_file):
     
     if "index" not in st.session_state:
         index = GPTVectorStoreIndex.from_documents(documents,service_context=service_context)
-        retriever = index.as_retriever(retriever_mode='embedding')
-        index = RetrieverQueryEngine(retriever)
+        # retriever = index.as_retriever(retriever_mode='embedding')
+        # index = RetrieverQueryEngine(retriever)
         st.session_state.index = index
     # st.session_state.index = index
     return st.session_state.index
