@@ -139,8 +139,8 @@ if st.button("Get data"):
   for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
     for scene_name, scene_data in scene.items():
         opening_shot = scene_data["Title"]
-        overlay = st.session_state.index.query(f"Generate some text content to display in single scene of a video about {opening_shot}").response.strip()
-        voiceover = st.session_state.index.query(f"Generate some text content to display in single scene of a video about {overlay}").response.strip()
+        overlay = st.session_state.index.query(f"Generate some short text content to display in a slide titled as {opening_shot}").response.strip()
+        voiceover = st.session_state.index.query(f"Generate a voice over script to narrate in a slide Titled  {opening_shot}").response.strip()
         st.write(scene_name)
         st.info(overlay)
         st.info(voiceover)
