@@ -385,7 +385,9 @@ if ecol.button("Extract and Generate"):
     # if "table_of_contents" in st.session_state:
     # Convert topics to new forma
     for topic in st.session_state.table_of_contents["Topics"]:
+    
         for topic_name, subtopics in topic.items():
+            st.write(subtopics)
             new_topic = {
             "Topic_Name": topic_name,
             "Subtopics": [],
