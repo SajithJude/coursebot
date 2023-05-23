@@ -88,6 +88,7 @@ def call_openai(source):
 
 
 
+
 uploaded_file = st.file_uploader("Upload a Chapter as a PDF file", type="pdf")
 
 if uploaded_file is not None:
@@ -127,6 +128,12 @@ try:
       convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
       json_cs = call_openai(convert_prompt)
       st.write(json_cs)
+      cs_dictionary = json.loads(json_cs.strip())
+      if "cs_dictionary" not in st.session_state:
+        st.session_state.cs_dictionary = cs_dictionary
+      st.write(st.session_state.cs_dictionary)
+
+
 except:
   st.info("Upload a document to get started")
 
