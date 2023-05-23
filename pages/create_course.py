@@ -410,11 +410,11 @@ if ecol.button("Extract and Generate"):
 if st.session_state.button_clicked and not st.session_state.processed_all_items:
     st.write(st.session_state.dictionary)
     for topic in st.session_state.dictionary["Topics"]:
-        extract_col.write(topic)
+        #extract_col.write(topic)
         topic_sum = st.session_state.index.query(f"Generate Topic Summary description of {topic_summary_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
-        extract_col.info(topic_sum)
+        #extract_col.info(topic_sum)
         Voice_topic_sum = st.session_state.index.query(f"Generate Topic Summary voice over script of {topic_summary_voiceover_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
-        extract_col.info(Voice_topic_sum)
+        #extract_col.info(Voice_topic_sum)
         topic["Topic_Summary"] = topic_sum
         topic["Topic_Summary_VoiceOver"] = Voice_topic_sum
 
@@ -422,11 +422,11 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
 
             bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points (Each bullet should be a valid string) that are seperated by a '~' symbol in between, for the section named {subtopic['Subtopic_Name']}\n, word count per Bullet is {num_words_bullet}.").response.strip()
             subtopic["Bullets"] = bullets.split("~")  # assume bullets are comma-separated
-            extract_col.write(subtopic["Bullets"])
+            #extract_col.write(subtopic["Bullets"])
 
             voiceovers = st.session_state.index.query(f"Generate {num_bullets_per_slide} comma-seperated voice over's (each voice over should be a valid string) that are seperated by a '~' symbol in between, for the section named {subtopic['Subtopic_Name']}\n, Word count per voice over is {bullet_voiceover_limit}.").response.strip()
             subtopic["VoiceOver"] = voiceovers.split("~")  # assume voice overs are comma-separated
-            extract_col.write(subtopic["VoiceOver"])
+            #extract_col.write(subtopic["VoiceOver"])
 
     st.write(st.session_state.dictionary)
     st.session_state.button_clicked = False
