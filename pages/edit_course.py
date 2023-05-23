@@ -124,7 +124,7 @@ if tab_synthesia.button('Create Topic Slide Video'):
     # Define the data for the API request
     api_data = {
         "title": data["Course"]["Course_Name"],
-        "description": data["Course"]["Course_Description"],
+        "description": data["Course"]["Course_Name"],
         "visibility": "public",
         "templateId": template_id,
         "templateData": {
