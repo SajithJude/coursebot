@@ -80,8 +80,59 @@ with open(f"output/{st.session_state.selected_pptx}", "r") as f:
     json_data = json.load(f)
     #st.json(json_data)
 
+
+tab_xml, tab_synthesia = st.tabs(["XML","Synthesia"])
+
+
+############ XML tab ###############
+
 xml = create_xml(json_data)
 pretty_xml = minidom.parseString(xml).toprettyxml()
     
 
-st.code(pretty_xml)
+tab_xml.code(pretty_xml)
+
+
+############ Synthesia tab ###############
+
+
+data = json_data
+api_token = tab_synthesia.text_input('Enter your Synthesia API token')
+template_id = tab_synthesia.text_input('Enter your Synthesia template ID')
+
+# Button to start topic slide video creation process
+if tab_synthesia.button('Create Topic Slide Video'):
+    tab_synthesia.write('Starting topic slide video creation process...')
+    
+    # Define the headers for the API request
+    headers = {
+        'Authorization': api_token,
+    }
+
+    # Define the data for the API request
+    api_data = {
+        "title": data["Course"]["Course_Name"],
+        "description": data["Course"]["Course_Description"],
+        "visibility": "public",
+        "templateId": template_id,
+        "templateData": {
+            "script": data["Course"]["VoiceOver"],
+            "Course_Name": data["Course"]["Course_Name"],
+            "Course_Description": data["Course"]["Course_Description"],
+        },
+        "test": False,
+        "callbackId": "john@example.com"
+    }
+        
+    # Make the API request
+    response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+        
+    # Handle the response
+    if response.status_code == 200:
+        tab_synthesia.write('Topic slide video creation process started successfully.')
+        video_id = response.json()['id']
+        tab_synthesia.write(f'Video ID for Topic Slide: {video_id}')
+    else:
+        tab_synthesia.write('An error occurred during the video creation process for Topic Slide.')
+        tab_synthesia.write(f'Response status code: {response.status_code}')
+        tab_synthesia.write(f'Response content: {response.content}')
