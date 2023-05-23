@@ -114,7 +114,7 @@ if "index" in st.session_state:
 
 
 if st.button("Get Course structure"):
-  query = f"Generate an optimal video content structure with scenes, titles, textoverlay and voiceover, for a {st.session_state.video_type} video of duration {st.session_state.vid_duration} minutes fron this document"
+  query = f"Generate an optimal video content structure with scenes and titles for a {st.session_state.video_type} video of duration {st.session_state.vid_duration} minutes fron this document"
   course_structure = st.session_state.index.query(query).response
   if "course_structure" not in st.session_state:
     st.session_state.course_structure = course_structure
