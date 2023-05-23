@@ -1,19 +1,123 @@
-import requests
-import json
 import streamlit as st
+from llama_index import (
+    GPTVectorStoreIndex, Document, SimpleDirectoryReader,
+    QuestionAnswerPrompt, LLMPredictor, ServiceContext
+)
+import json
+from langchain import OpenAI
+from llama_index import download_loader
+from tempfile import NamedTemporaryFile
+import base64
+import io
+from PIL import Image
+import ast
+import os
+import glob
+import openai
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+from pathlib import Path
+import requests
+import zipfile
+from llama_index.retrievers import VectorIndexRetriever
+from llama_index.query_engine import RetrieverQueryEngine
 
-url = "https://coursebot2.flipick.com/couresbuilderapi/api/Course/ImportCourse"
 
-payload = json.dumps({
-  "ImportXML": "<Chapter><NoOfBullets>5</NoOfBullets><NoOfWordsPerBullet>5</NoOfWordsPerBullet><NoOfWordsForVOPerBullet>23</NoOfWordsForVOPerBullet><ChapterName>randon</ChapterName><Topics><Topic><TopicName>Case Information</TopicName><SubTopics><SubTopic><SubTopicName>Case Number</SubTopicName><SubTopicContent>\nThe Case Number is 12345.</SubTopicContent></SubTopic><SubTopic><SubTopicName>District Court</SubTopicName><SubTopicContent>\nThe District Court of XYZ County, State of ABC is the court that is hearing the case between John Doe (Plaintiff) and Jane Smith (Defendant).</SubTopicContent></SubTopic><SubTopic><SubTopicName>XYZ County</SubTopicName><SubTopicContent>\nXYZ County is the location of the District Court in which the case is being heard.</SubTopicContent></SubTopic><SubTopic><SubTopicName>State of ABC</SubTopicName><SubTopicContent>\nThe State of ABC is mentioned in the context information as the location of the District Court of XYZ County.</SubTopicContent></SubTopic></SubTopics></Topic><Topic><TopicName>Parties Involved</TopicName><SubTopics><SubTopic><SubTopicName>Plaintiff</SubTopicName><SubTopicContent>\nThe Plaintiff in this case is John Doe. He is alleging that the Defendant, Jane Smith, intentionally and recklessly caused him bodily harm during an altercation that occurred on June 1, 2022 at approximately 9:00 PM. The Plaintiff suffered bodily harm as a result of the assault, including a broken nose and several cuts and bruises.</SubTopicContent></SubTopic><SubTopic><SubTopicName>Defendant</SubTopicName><SubTopicContent>\nThe Defendant is Jane Smith and she is alleged to have intentionally and recklessly caused bodily harm to the Plaintiff during an altercation on June 1, 2022 at approximately 9:00 PM. The Court finds that the Defendant did commit assault against the Plaintiff and that her actions were intentional and reckless, and that she intended to cause harm to the Plaintiff. The Plaintiff suffered bodily harm as a result of the assault, including a broken nose and several cuts and bruises. The Defendant is therefore liable for the damages suffered by the Plaintiff.</SubTopicContent></SubTopic></SubTopics></Topic><Topic><TopicName>Decision</TopicName><SubTopics><SubTopic><SubTopicName>Overview</SubTopicName><SubTopicContent>\nThe plaintiff, John Doe, brought a claim of assault against the defendant, Jane Smith, alleging that she intentionally and recklessly caused him bodily harm during an altercation that occurred on June 1, 2022, at approximately 9:00 PM. After a review of the evidence presented at trial, including testimony from the plaintiff and the defendant, the court found that the defendant did commit assault against the plaintiff. The court found that the defendant's actions were intentional and reckless, and that she intended to cause harm to the plaintiff. The plaintiff suffered bodily harm as a result of the assault, including a broken nose and several cuts and bruises. The defendant's actions were not justified under any circumstances, and she is therefore liable for the damages suffered by the plaintiff.</SubTopicContent></SubTopic><SubTopic><SubTopicName>Evidence Review</SubTopicName><SubTopicContent>\nThe court reviewed evidence presented at trial, including testimony from the plaintiff and the defendant.</SubTopicContent></SubTopic><SubTopic><SubTopicName>Findings</SubTopicName><SubTopicContent>\nThe court finds that the defendant did commit assault against the plaintiff. The defendant's actions were intentional and reckless, and she intended to cause harm to the plaintiff. The plaintiff suffered bodily harm as a result of the assault, including a broken nose and several cuts and bruises. The defendant's actions were not justified under any circumstances, and she is therefore liable for the damages suffered by the plaintiff.</SubTopicContent></SubTopic><SubTopic><SubTopicName>Judgement</SubTopicName><SubTopicContent>\nThe court finds that the defendant did commit assault against the plaintiff. The court further finds that the plaintiff suffered bodily harm as a result of the assault, including a broken nose and several cuts and bruises. The defendant's actions were not justified under any circumstances, and she is therefore liable for the damages suffered by the plaintiff. Based on the foregoing, it is hereby ordered that judgement be entered in favor of the plaintiff and against the defendant in the amount of $10,000 in compensatory damages and $5,000 in punitive damages. The defendant is also ordered to pay all costs associated with this lawsuit.</SubTopicContent></SubTopic></SubTopics></Topic></Topics></Chapter>"
-})
-headers = {
-  'Content-Type': 'application/json'
+def process_pdf(uploaded_file):
+    loader = PDFReader()
+    with NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
+        temp_file.write(uploaded_file.getvalue())
+        documents = loader.load_data(file=Path(temp_file.name))
+    
+    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=3900))
+    service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
+    
+    if "index" not in st.session_state:
+        index = GPTVectorStoreIndex.from_documents(documents,service_context=service_context)
+        retriever = index.as_retriever(retriever_mode='embedding')
+        index = RetrieverQueryEngine(retriever)
+        st.session_state.index = index
+    # st.session_state.index = index
+    return st.session_state.index
+
+
+cs_format = """
+{
+  "CourseStructure": {
+    "Scenes": [
+      {
+        "Scene1": {
+          "OpeningShot": "description or URL of image",
+          "TextOverlay": "description or text to be shown",
+          "Voiceover": "description or script of voiceover"
+        },
+        "Scene2": {
+          "OpeningShot": "description or URL of image",
+          "TextOverlay": "description or text to be shown",
+          "Voiceover": "description or script of voiceover"
+        },
+        "Scene3": {
+          "OpeningShot": "description or URL of image",
+          "TextOverlay": "description or text to be shown",
+          "Voiceover": "description or script of voiceover"
+        }
+        // Add more scenes as needed
+      }
+    ]
+  }
 }
+"""
+def call_openai(source):
+    messages=[{"role": "user", "content": source}]
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4-0314",
+        max_tokens=7000,
+        temperature=0.1,
+        messages = messages
+       
+    )
+    return response.choices[0].message.content
 
 
-if st.button("Send"):
-    response = requests.request("POST", url, headers=headers, data=payload)
-    st.write(response)
-    # print(resp)
-    st.write(response.text)
+
+
+uploaded_file = st.file_uploader("Upload a Chapter as a PDF file", type="pdf")
+
+if uploaded_file is not None:
+        # clear_all_json_files()
+
+        # index = 
+        if "index" not in st.session_state:
+            st.session_state.index = process_pdf(uploaded_file)
+
+        upload_col.success("Index created successfully")
+
+
+if "index" in st.session_state:
+
+  vid_duration = st.slider("How long is the video ?")
+  if "vid_duration" not in st.session_state:
+    st.session_state.vid_duration = vid_duration
+
+  video_type = st.radio("Type of Video", ["casestudy", "elearning", "custom"])
+  if video_type == "custom":
+    video_type = st.text_input("What kind of video content would you like to make ?")
+  if "video_type" not in st.session_state:
+    st.session_state.video_type = video_type
+
+
+if st.button("Get Course structure"):
+  query = f"Generate an optimal course structure for a {st.session_state.video_type} video of duration {st.session_state.vid_duration} minutes fron this document"
+  course_structure = st.session_state.index.query(query).response
+  if "course_structure" not in st.session_state:
+    st.session_state.course_structure = course_structure
+  
+if st.session_state.course_structure is not None:
+  modify_cs = st.text_area("Modify the structure if needed", value=st.session_state.course_structure)
+  if st.button("Confirm Structure"):
+    convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
+    json_cs = call_openai(convert_prompt)
+    st.write(json_cs)
+
+
