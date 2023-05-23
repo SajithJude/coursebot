@@ -154,48 +154,53 @@ if st.button("Get data"):
 api_token = st.text_input('Enter your Synthesia API token')
 template_id = st.text_input('Enter your Synthesia template ID')
 
-for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
-    for scene_name, scene_data in scene.items():
-        # Display scene data
-        with st.expander(scene_name):
-            st.write(f"Opening Shot: {scene_data['Title']}")
-            st.write(f"Text Overlay: {scene_data['TextOverlay']}")
-            st.write(f"Voiceover: {scene_data['Voiceover']}")
 
-        # Button to start scene video creation process
-        if st.button(f'Create {scene_name} Video'):
-            st.write(f'Starting {scene_name} video creation process...')
+try:
+    
+  for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
+      for scene_name, scene_data in scene.items():
+          # Display scene data
+          with st.expander(scene_name):
+              st.write(f"Opening Shot: {scene_data['Title']}")
+              st.write(f"Text Overlay: {scene_data['TextOverlay']}")
+              st.write(f"Voiceover: {scene_data['Voiceover']}")
 
-            # Define the headers for the API request
-            headers = {
-                'Authorization': api_token,
-                'Content-Type': 'application/json'
-            }
+          # Button to start scene video creation process
+          if st.button(f'Create {scene_name} Video'):
+              st.write(f'Starting {scene_name} video creation process...')
 
-            # Define the data for the API request
-            api_data = {
-                "title": scene_name,
-                "description": scene_data['TextOverlay'],
-                "visibility": "public",
-                "templateId": template_id,
-                "templateData": {
-                    "script": scene_data['Voiceover'],
-                    "Scene_Name": scene_name,
-                    "Text_Overlay": scene_data['TextOverlay'],
-                },
-                "test": True,
-                "callbackId": "john@example.com"
-            }
+              # Define the headers for the API request
+              headers = {
+                  'Authorization': api_token,
+                  'Content-Type': 'application/json'
+              }
 
-            # Make the API request
-            response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+              # Define the data for the API request
+              api_data = {
+                  "title": scene_name,
+                  "description": scene_data['TextOverlay'],
+                  "visibility": "public",
+                  "templateId": template_id,
+                  "templateData": {
+                      "script": scene_data['Voiceover'],
+                      "Scene_Name": scene_name,
+                      "Text_Overlay": scene_data['TextOverlay'],
+                  },
+                  "test": True,
+                  "callbackId": "john@example.com"
+              }
 
-            # Handle the response
-            if response.status_code == 200:
-                st.write(f'{scene_name} video creation process started successfully.')
-                video_id = response.json()['id']
-                st.write(f'Video ID for {scene_name}: {video_id}')
-            else:
-                st.write(f'An error occurred during the video creation process for {scene_name}.')
-                st.write(f'Response status code: {response.status_code}')
-                st.write(f'Response content: {response.content}')
+              # Make the API request
+              response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+
+              # Handle the response
+              if response.status_code == 200:
+                  st.write(f'{scene_name} video creation process started successfully.')
+                  video_id = response.json()['id']
+                  st.write(f'Video ID for {scene_name}: {video_id}')
+              else:
+                  st.write(f'An error occurred during the video creation process for {scene_name}.')
+                  st.write(f'Response status code: {response.status_code}')
+                  st.write(f'Response content: {response.content}')
+except:
+  st.info("Get data before creating the video")
