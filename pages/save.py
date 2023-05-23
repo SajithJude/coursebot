@@ -131,8 +131,23 @@ try:
         st.session_state.cs_dictionary = cs_dictionary
       st.write(st.session_state.cs_dictionary)
 
-
 except:
   st.info("Upload a document to get started")
 
 
+if st.button("Get data"):
+  for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
+    for scene_name, scene_data in scene.items():
+        opening_shot = scene_data["OpeningShot"]
+        overlay = st.session_state.index.query(f"Generate some text content to display in single scene of a video about {opening_shot}").response.strip()
+        voiceover = st.session_state.index.query(f"Generate some text content to display in single scene of a video about {overlay}").response.strip()
+        st.write(scene_name)
+        st.info(overlay)
+        st.info(voiceover)
+
+        scene_data["TextOverlay"] = overlay
+        scene_data["Voiceover"] = voiceover
+  st.write(st.session_state.cs_dictionary)
+
+# # Convert to JSON
+# json_structure = json.dumps(course_structure)
