@@ -1,7 +1,7 @@
 streamlit
 openai
 llama-index
-langchain
+langchain==0.0.125
 PyPDF2
 pyperclip
 fitz
