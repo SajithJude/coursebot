@@ -118,12 +118,16 @@ if st.button("Get Course structure"):
   course_structure = st.session_state.index.query(query).response
   if "course_structure" not in st.session_state:
     st.session_state.course_structure = course_structure
-  
-if st.session_state.course_structure is not None:
-  modify_cs = st.text_area("Modify the structure if needed", value=st.session_state.course_structure)
-  if st.button("Confirm Structure"):
-    convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
-    json_cs = call_openai(convert_prompt)
-    st.write(json_cs)
+
+try:
+
+  if st.session_state.course_structure is not None:
+    modify_cs = st.text_area("Modify the structure if needed", value=st.session_state.course_structure)
+    if st.button("Confirm Structure"):
+      convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
+      json_cs = call_openai(convert_prompt)
+      st.write(json_cs)
+except:
+  st.info("Upload a document to get started")
 
 
