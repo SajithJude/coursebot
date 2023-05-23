@@ -53,17 +53,17 @@ cs_format = """
     "Scenes": [
       {
         "Scene1": {
-          "OpeningShot": "description or URL of image",
+          "Title": "description or URL of image",
           "TextOverlay": "description or text to be shown",
           "Voiceover": "description or script of voiceover"
         },
         "Scene2": {
-          "OpeningShot": "description or URL of image",
+          "Title": "description or URL of image",
           "TextOverlay": "description or text to be shown",
           "Voiceover": "description or script of voiceover"
         },
         "Scene3": {
-          "OpeningShot": "description or URL of image",
+          "Title": "description or URL of image",
           "TextOverlay": "description or text to be shown",
           "Voiceover": "description or script of voiceover"
         }
@@ -138,7 +138,7 @@ except:
 if st.button("Get data"):
   for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
     for scene_name, scene_data in scene.items():
-        opening_shot = scene_data["OpeningShot"]
+        opening_shot = scene_data["Title"]
         overlay = st.session_state.index.query(f"Generate some text content to display in single scene of a video about {opening_shot}").response.strip()
         voiceover = st.session_state.index.query(f"Generate some text content to display in single scene of a video about {overlay}").response.strip()
         st.write(scene_name)
