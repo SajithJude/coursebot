@@ -132,7 +132,7 @@ try:
       st.write(st.session_state.cs_dictionary)
 
 except:
-  st.info("Upload a document to get started")
+  print("Upload a document to get started")
 
 
 if st.button("Get data"):
