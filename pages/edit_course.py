@@ -78,7 +78,7 @@ def create_xml(dictionary):
         
 with open(f"output/{st.session_state.selected_pptx}", "r") as f:
     json_data = json.load(f)
-    st.json(json_data)
+    #st.json(json_data)
 
 xml = create_xml(json_data)
 pretty_xml = minidom.parseString(xml).toprettyxml()
