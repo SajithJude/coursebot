@@ -150,12 +150,12 @@ if tab_synthesia.button('Create Topic Slide Video'):
         tab_synthesia.write(f'Response content: {response.content}')
 
 
+video_id = st.text_input('Enter the Video ID to check its status')
 
 if st.button('Check Video Creation Status'):
     st.write('Checking video creation status...')
 
     # User input for Video ID
-    video_id = st.text_input('Enter the Video ID to check its status')
 
     # Define the headers for the API request
     headers = {
