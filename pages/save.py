@@ -23,6 +23,12 @@ from llama_index.retrievers import VectorIndexRetriever
 from llama_index.query_engine import RetrieverQueryEngine
 
 
+openai.api_key = os.getenv("OPENAI_API_KEY")
+PDFReader = download_loader("PDFReader")
+
+loader = PDFReader()
+
+
 def process_pdf(uploaded_file):
     loader = PDFReader()
     with NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
