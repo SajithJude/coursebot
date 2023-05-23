@@ -158,7 +158,7 @@ for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
     for scene_name, scene_data in scene.items():
         # Display scene data
         with st.expander(scene_name):
-            st.write(f"Opening Shot: {scene_data['OpeningShot']}")
+            st.write(f"Opening Shot: {scene_data['Title']}")
             st.write(f"Text Overlay: {scene_data['TextOverlay']}")
             st.write(f"Voiceover: {scene_data['Voiceover']}")
 
