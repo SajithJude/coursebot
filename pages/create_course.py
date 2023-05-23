@@ -19,8 +19,8 @@ from xml.dom import minidom
 from pathlib import Path
 import requests
 import zipfile
-# from llama_index.retrievers import VectorIndexRetriever
-# from llama_index.query_engine import RetrieverQueryEngine
+from llama_index.retrievers import VectorIndexRetriever
+from llama_index.query_engine import RetrieverQueryEngine
 
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -174,8 +174,8 @@ def process_pdf(uploaded_file):
     
     if "index" not in st.session_state:
         index = GPTVectorStoreIndex.from_documents(documents,service_context=service_context)
-        # retriever = index.as_retriever(retriever_mode='embedding')
-        # index = RetrieverQueryEngine(retriever)
+        retriever = index.as_retriever(retriever_mode='embedding')
+        index = RetrieverQueryEngine(retriever)
         st.session_state.index = index
     # st.session_state.index = index
     return st.session_state.index
