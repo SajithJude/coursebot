@@ -118,6 +118,7 @@ if tab_synthesia.button('Create Topic Slide Video'):
     # Define the headers for the API request
     headers = {
         'Authorization': api_token,
+         'Content-Type': 'application/json'
     }
 
     # Define the data for the API request
