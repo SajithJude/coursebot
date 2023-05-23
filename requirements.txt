@@ -1,6 +1,6 @@
 streamlit
 openai
-llama-index
+llama-index==0.6.9
 langchain
 PyPDF2
 pyperclip
