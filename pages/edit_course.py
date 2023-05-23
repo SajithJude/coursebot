@@ -102,10 +102,12 @@ data = json_data
 api_token = tab_synthesia.text_input('Enter your Synthesia API token')
 template_id = tab_synthesia.text_input('Enter your Synthesia template ID')
 
-with tab_synthesia.expander("Input Data"):
-    tab_synthesia.write(data["Course"]["Course_Name"])
-    tab_synthesia.write(data["Course"]["Course_Description"])
-    tab_synthesia.write(data["Course"]["VoiceOver"])
+exp = st.expander("Input data")
+
+# with tab_synthesia.expander("Input Data"):
+exp.write(data["Course"]["Course_Name"])
+exp.write(data["Course"]["Course_Description"])
+exp.write(data["Course"]["VoiceOver"])
 
 
 
