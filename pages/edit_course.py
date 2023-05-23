@@ -148,3 +148,32 @@ if tab_synthesia.button('Create Topic Slide Video'):
         tab_synthesia.write('An error occurred during the video creation process for Topic Slide.')
         tab_synthesia.write(f'Response status code: {response.status_code}')
         tab_synthesia.write(f'Response content: {response.content}')
+
+
+
+if st.button('Check Video Creation Status'):
+    st.write('Checking video creation status...')
+
+    # User input for Video ID
+    video_id = st.text_input('Enter the Video ID to check its status')
+
+    # Define the headers for the API request
+    headers = {
+        'Authorization': api_token,
+        'Content-Type': 'application/json'
+    }
+
+    # Make the API request
+    response = requests.get(f'https://api.synthesia.io/v2/videos/{video_id}', headers=headers)
+
+    # Handle the response
+    if response.status_code == 200:
+        video_data = response.json()
+        st.info(f'Video ID: {video_data["id"]}')
+        st.info(f'Video Title: {video_data["title"]}')
+        st.info(f'Video Description: {video_data["description"]}')
+        st.info(f'Video Status: {video_data["status"]}')
+    else:
+        st.error('An error occurred during the video status check.')
+        st.error(f'Response status code: {response.status_code}')
+        st.error(f'Response content: {response.content}')
