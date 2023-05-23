@@ -97,7 +97,7 @@ if uploaded_file is not None:
         if "index" not in st.session_state:
             st.session_state.index = process_pdf(uploaded_file)
 
-        upload_col.success("Index created successfully")
+        st.success("Index created successfully")
 
 
 if "index" in st.session_state:
