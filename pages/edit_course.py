@@ -6,6 +6,8 @@ import os
 from xml.dom import minidom
 import xml.etree.ElementTree as ET
 
+import requests
+
 # import xml.etree.ElementTree as ET
 def create_xml(dictionary):
     root = ET.Element("Slides")
@@ -99,6 +101,13 @@ tab_xml.code(pretty_xml)
 data = json_data
 api_token = tab_synthesia.text_input('Enter your Synthesia API token')
 template_id = tab_synthesia.text_input('Enter your Synthesia template ID')
+
+with tab_synthesia.expander("Input Data"):
+    tab_synthesia.write(data["Course"]["Course_Name"])
+    tab_synthesia.write(data["Course"]["Course_Description"])
+    tab_synthesia.write(data["Course"]["VoiceOver"])
+
+
 
 # Button to start topic slide video creation process
 if tab_synthesia.button('Create Topic Slide Video'):
