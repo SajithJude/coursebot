@@ -442,8 +442,45 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
 
 
 if voice_col.button("Show XML"):
-    st.session_state.dictionary
-    
+    # st.session_state.dictionary
+
+    template1 = {
+        "Course": st.session_state.dictionary["Course"],
+        "Topics": [st.session_state.dictionary["Topics"][0]],
+        "Course_Objectives": st.session_state.dictionary["Course_Objectives"]
+    }
+
+    other_templates = []
+    for i in range(1, len(st.session_state.dictionary["Topics"])):
+        other_templates.append({
+            "Course": st.session_state.dictionary["Course"],
+            "Topics": [st.session_state.dictionary["Topics"][i]],
+            "Course_Objectives": st.session_state.dictionary["Course_Objectives"]
+        })
+
+    # Adding congratulations message to the final template
+    final_template = other_templates[-1]
+    final_template["Topics"][0]["Subtopics"].append({
+        "Subtopic_Name": "Congratulations",
+        "Bullets": "",
+        "VoiceOver": "Congratulations on completing the course! We hope you found the content valuable and gained new insights.",
+        "Image": ""
+    })
+
+    # Printing the results
+    st.write("Template 1:")
+    st.write(template1)
+    st.write("")
+
+    st.write("Other Templates:")
+    for i, template in enumerate(other_templates):
+        st.write(f"Template {i+2}:")
+        st.write(template)
+        st.write("")
+
+    st.write("Final Template:")
+    st.write(final_template)
+        
     # xml = create_xml(st.session_state.dictionary)
     # pretty_xml = minidom.parseString(xml).toprettyxml()
     
