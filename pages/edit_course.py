@@ -169,28 +169,37 @@ if tab_synthesia.button("Template 1"):
             "Course_Name": st.session_state.template1["Course"]["Course_Name"],
             "Course_Description": st.session_state.template1["Course"]["Course_Description"],
 
-            "Objectives_1": st.session_state.template1["Course_Objectives"][0]["Objective"],
-            "Objectives_2": "", # Please replace it with the real data if exists
-            "Objectives_3": "", # Please replace it with the real data if exists
-            "Objectives_4": "", # Please replace it with the real data if exists
-            "Objectives_5": "", # Please replace it with the real data if exists
+            "objectives_1": st.session_state.template1["Course_Objectives"][0]["Objective"],
+            "objectives_2": "", # Please replace it with the real data if exists
+            "objectives_3": "", # Please replace it with the real data if exists
+            "objectives_4": "", # Please replace it with the real data if exists
+            "objectives_5": "", # Please replace it with the real data if exists
 
             "Topic_Name": st.session_state.template1["Topics"][0]["Topic_Name"],
            
             "SubTopic_1": st.session_state.template1["Topics"][0]["Subtopics"][0]["Subtopic_Name"],
             "Copy_1": st.session_state.template1["Topics"][0]["Subtopics"][0]["Bullets"],
+            "copy_1_vo":st.session_state.template1["Topics"][0]["Subtopics"][0]["VoiceOver"],
 
-            "SubTopic_2": st.session_state.template1["Topics"][0]["Subtopics"][1]["Subtopic_Name"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 1 else "",
-            "Copy_2": st.session_state.template1["Topics"][0]["Subtopics"][1]["Bullets"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 1 else "",
+            "SubTopic_2": st.session_state.template1["Topics"][0]["Subtopics"][1]["Subtopic_Name"] ,
+            "Copy_2": st.session_state.template1["Topics"][0]["Subtopics"][1]["Bullets"] ,
+            "copy_2_vo":st.session_state.template1["Topics"][0]["Subtopics"][1]["VoiceOver"],
+
             # Continue with this pattern for remaining Subtopics and Copy fields
-            "SubTopic_3": st.session_state.template1["Topics"][0]["Subtopics"][2]["Subtopic_Name"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 2 else "",
-            "Copy_3": st.session_state.template1["Topics"][0]["Subtopics"][2]["Bullets"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 2 else "",
+            "SubTopic_3": st.session_state.template1["Topics"][0]["Subtopics"][2]["Subtopic_Name"] ,
+            "Copy_3": st.session_state.template1["Topics"][0]["Subtopics"][2]["Bullets"] ,
+            "copy_3_vo":st.session_state.template1["Topics"][0]["Subtopics"][2]["VoiceOver"],
+
             
-            "SubTopic_4": st.session_state.template1["Topics"][0]["Subtopics"][3]["Subtopic_Name"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 3 else "",
-            "Copy_4": st.session_state.template1["Topics"][0]["Subtopics"][3]["Bullets"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 3 else "",
+            "SubTopic_4": st.session_state.template1["Topics"][0]["Subtopics"][3]["Subtopic_Name"] ,
+            "Copy_4": st.session_state.template1["Topics"][0]["Subtopics"][3]["Bullets"] ,
+            "copy_4_vo":st.session_state.template1["Topics"][0]["Subtopics"][3]["VoiceOver"],
+
             
-            "SubTopic_5": st.session_state.template1["Topics"][0]["Subtopics"][4]["Subtopic_Name"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 4 else "",
-            "Copy_5": st.session_state.template1["Topics"][0]["Subtopics"][4]["Bullets"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 4 else "",
+            "SubTopic_5": st.session_state.template1["Topics"][0]["Subtopics"][4]["Subtopic_Name"] ,
+            "Copy_5": st.session_state.template1["Topics"][0]["Subtopics"][4]["Bullets"] ,
+            "copy_5_vo":st.session_state.template1["Topics"][0]["Subtopics"][4]["VoiceOver"],
+
 
         },
         "test": True,
