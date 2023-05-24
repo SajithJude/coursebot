@@ -5,6 +5,7 @@ import json
 import os
 from xml.dom import minidom
 import xml.etree.ElementTree as ET
+import streamlit.components.v1 as components
 
 import requests
 
@@ -217,6 +218,14 @@ if tab_synthesia.button("Template 1"):
         video_id = response.json()['id']
         tab_synthesia.write(f'Video ID for Sample scene: {video_id}')
         tab_synthesia.code(video_id)
+        url = f"https://share.synthesia.io/embeds/videos/{video_id}"
+        tab_synthesia.write(url)
+        iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
+        components.html(iframe_html,height=600)
+        # frame = f"<div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src=" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"
+
+
+
     else:
         tab_synthesia.write('An error occurred during the video creation process for Sample scene.')
         tab_synthesia.write(f'Response status code: {response.status_code}')
