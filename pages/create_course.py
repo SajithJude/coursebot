@@ -452,14 +452,18 @@ if voice_col.button("Show XML"):
 
     other_templates = []
     for i in range(1, len(st.session_state.dictionary["Topics"])):
-        other_templates.append({
+        other_template= {
             # "Course": st.session_state.dictionary["Course"],
             "Topics": [st.session_state.dictionary["Topics"][i]],
             # "Course_Objectives": st.session_state.dictionary["Course_Objectives"]
-        })
+        }
+        if i != len(st.session_state.dictionary["Topics"]) - 1:
+            other_templates.append(other_template)
+        else:
+            final_template = other_template
 
     # Adding congratulations message to the final template
-    final_template = other_templates[-1]
+    # final_template = other_templates[-1]
     final_template["Topics"][0]["Subtopics"].append({
         "Subtopic_Name": "Congratulations",
         "Message1": "Congratulations on completing the course! We hope you found the content valuable and gained new insights.",
