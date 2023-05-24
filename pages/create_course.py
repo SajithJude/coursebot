@@ -442,12 +442,13 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
 
 
 if voice_col.button("Show XML"):
+    st.session_state.dictionary
     
-    xml = create_xml(st.session_state.dictionary)
-    pretty_xml = minidom.parseString(xml).toprettyxml()
+    # xml = create_xml(st.session_state.dictionary)
+    # pretty_xml = minidom.parseString(xml).toprettyxml()
     
 
-    voice_col.code(pretty_xml)
+    # voice_col.code(pretty_xml)
     save_dictionary_as_json()
 
 
