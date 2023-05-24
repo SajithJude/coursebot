@@ -295,7 +295,7 @@ try:
         # copycol.write("AI Generated Structure")
         if "sample_table" not in st.session_state:
             with st.spinner("Please wait till the A.I Generates the course structure "):
-                sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for this document").response.strip()
+                sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for this document, where each topic should have exactly 5 subtopics").response.strip()
                 st.session_state.sample_table = sample_table
 
 
