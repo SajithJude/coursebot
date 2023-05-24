@@ -80,100 +80,224 @@ def create_xml(dictionary):
         
 with open(f"output/{st.session_state.selected_pptx}", "r") as f:
     json_data = json.load(f)
-    #st.json(json_data)
+    if "dictionary" not in st.session_state:
+        st.session_state.dictionary = json_data
+        #st.json(json_data)
 
 
-tab_xml, tab_synthesia = st.tabs(["XML","Synthesia"])
+tab_xml, tab_synthesia = st.tabs(["Split Templates","Synthesia"])
+
 
 
 ############ XML tab ###############
 
-xml = create_xml(json_data)
-pretty_xml = minidom.parseString(xml).toprettyxml()
+
+
+if tab_xml.button("Show XML"):
+    # st.session_state.dictionary
+
+    template1 = {
+        "Course": st.session_state.dictionary["Course"],
+        "Topics": [st.session_state.dictionary["Topics"][0]],
+        "Course_Objectives": st.session_state.dictionary["Course_Objectives"]
+    }
+
+    other_templates = []
+    for i in range(1, len(st.session_state.dictionary["Topics"])):
+        other_template= {
+            # "Course": st.session_state.dictionary["Course"],
+            "Topics": [st.session_state.dictionary["Topics"][i]],
+            # "Course_Objectives": st.session_state.dictionary["Course_Objectives"]
+        }
+        if i != len(st.session_state.dictionary["Topics"]) - 1:
+            other_templates.append(other_template)
+        else:
+            final_template = other_template
+
+    # Adding congratulations message to the final template
+    # final_template = other_templates[-1]
+    final_template["Topics"][0]["Subtopics"].append({
+        "Subtopic_Name": "Congratulations",
+        "Message1": "Congratulations on completing the course! We hope you found the content valuable and gained new insights.",
+        "VoiceOver": "Congratulations on completing the course! We hope you found the content valuable and gained new insights.",
+        "Image": ""
+    })
+
+    # Printing the results
+    st.write("Template 1:")
+    st.write(template1)
+    st.write("")
+
+    st.write("Other Templates:")
+    for i, template in enumerate(other_templates):
+        st.write(f"Template {i+2}:")
+        st.write(template)
+        st.write("")
+
+    st.write("Final Template:")
+    st.write(final_template)
+        
+    # xml = create_xml(st.session_state.dictionary)
+    # pretty_xml = minidom.parseString(xml).toprettyxml()
     
 
-tab_xml.code(pretty_xml)
+    # tab_xml.code(pretty_xml)
+    save_dictionary_as_json()
+
+
+
+
+
+
+if tab_synthesia.button("Template 1"):
+
+    headers = {
+                    'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
+                    'Content-Type': 'application/json'
+                }
+
+                # Define the data for the API request
+    api_data = {
+        "title": "CB Template-1",
+        "description": "First part with lo cn cd and top 1",
+        "visibility": "public",
+        "templateId": "fa673de8-f4c5-413c-9e43-39ff7cdc1937",
+       "templateData": {
+            "Course_Name": template1["Course"]["Course_Name"],
+            "Course_Description": template1["Course"]["Course_Description"],
+
+            "Objectives_1": template1["Course_Objectives"][0]["Objective"],
+            "Objectives_2": "", # Please replace it with the real data if exists
+            "Objectives_3": "", # Please replace it with the real data if exists
+            "Objectives_4": "", # Please replace it with the real data if exists
+            "Objectives_5": "", # Please replace it with the real data if exists
+
+            "Topic_Name": template1["Topics"][0]["Topic_Name"],
+           
+            "SubTopic_1": template1["Topics"][0]["Subtopics"][0]["Subtopic_Name"],
+            "Copy_1": template1["Topics"][0]["Subtopics"][0]["Bullets"],
+
+            "SubTopic_2": template1["Topics"][0]["Subtopics"][1]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 1 else "",
+            "Copy_2": template1["Topics"][0]["Subtopics"][1]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 1 else "",
+            # Continue with this pattern for remaining Subtopics and Copy fields
+            "SubTopic_3": template1["Topics"][0]["Subtopics"][2]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 2 else "",
+            "Copy_3": template1["Topics"][0]["Subtopics"][2]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 2 else "",
+            
+            "SubTopic_4": template1["Topics"][0]["Subtopics"][3]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 3 else "",
+            "Copy_4": template1["Topics"][0]["Subtopics"][3]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 3 else "",
+            
+            "SubTopic_5": template1["Topics"][0]["Subtopics"][4]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 4 else "",
+            "Copy_5": template1["Topics"][0]["Subtopics"][4]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 4 else "",
+
+        },
+        "test": True,
+        "callbackId": "john@example.com"
+    }
+
+    tab_synthesia.write(api_data)
+
+    # Make the API request
+    response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+    if response.status_code == 201:
+        tab_synthesia.info('Sample scene video creation process started successfully.')
+        video_id = response.json()['id']
+        tab_synthesia.write(f'Video ID for Sample scene: {video_id}')
+        tab_synthesia.code(video_id)
+    else:
+        tab_synthesia.write('An error occurred during the video creation process for Sample scene.')
+        tab_synthesia.write(f'Response status code: {response.status_code}')
+        tab_synthesia.write(f'Response content: {response.content}')
+
+
+
+
+
+# xml = create_xml(json_data)
+# pretty_xml = minidom.parseString(xml).toprettyxml()
+    
+
+# tab_xml.code(pretty_xml)
 
 
 ############ Synthesia tab ###############
 
 
-data = json_data
-api_token = tab_synthesia.text_input('Enter your Synthesia API token')
-template_id = tab_synthesia.text_input('Enter your Synthesia template ID')
+# data = json_data
+# api_token = tab_synthesia.text_input('Enter your Synthesia API token')
+# template_id = tab_synthesia.text_input('Enter your Synthesia template ID')
 
-exp = st.expander("Input data")
+# exp = st.expander("Input data")
 
-# with tab_synthesia.expander("Input Data"):
-exp.write(data["Course"]["Course_Name"])
-exp.write(data["Course"]["Course_Description"])
-exp.write(data["Course"]["VoiceOver"])
+# # with tab_synthesia.expander("Input Data"):
+# exp.write(data["Course"]["Course_Name"])
+# exp.write(data["Course"]["Course_Description"])
+# exp.write(data["Course"]["VoiceOver"])
 
 
 
-# Button to start topic slide video creation process
-if tab_synthesia.button('Create Topic Slide Video'):
-    tab_synthesia.write('Starting topic slide video creation process...')
+# # Button to start topic slide video creation process
+# if tab_synthesia.button('Create Topic Slide Video'):
+#     tab_synthesia.write('Starting topic slide video creation process...')
     
-    # Define the headers for the API request
-    headers = {
-        'Authorization': api_token,
-         'Content-Type': 'application/json'
-    }
+#     # Define the headers for the API request
+#     headers = {
+#         'Authorization': api_token,
+#          'Content-Type': 'application/json'
+#     }
 
-    # Define the data for the API request
-    api_data = {
-        "title": data["Course"]["Course_Name"],
-        "description": data["Course"]["Course_Name"],
-        "visibility": "public",
-        "templateId": template_id,
-        "templateData": {
-            "script": data["Course"]["VoiceOver"],
-            "Course_Name": data["Course"]["Course_Name"],
-            "Course_Description": data["Course"]["Course_Description"],
-        },
-        "test": False,
-        "callbackId": "john@example.com"
-    }
+#     # Define the data for the API request
+#     api_data = {
+#         "title": data["Course"]["Course_Name"],
+#         "description": data["Course"]["Course_Name"],
+#         "visibility": "public",
+#         "templateId": template_id,
+#         "templateData": {
+#             "script": data["Course"]["VoiceOver"],
+#             "Course_Name": data["Course"]["Course_Name"],
+#             "Course_Description": data["Course"]["Course_Description"],
+#         },
+#         "test": False,
+#         "callbackId": "john@example.com"
+#     }
         
-    # Make the API request
-    response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+#     # Make the API request
+#     response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
         
-    # Handle the response
-    if response.status_code == 200:
-        tab_synthesia.write('Topic slide video creation process started successfully.')
-        video_id = response.json()['id']
-        tab_synthesia.write(f'Video ID for Topic Slide: {video_id}')
-    else:
-        tab_synthesia.write('An error occurred during the video creation process for Topic Slide.')
-        tab_synthesia.write(f'Response status code: {response.status_code}')
-        tab_synthesia.write(f'Response content: {response.content}')
+#     # Handle the response
+#     if response.status_code == 200:
+#         tab_synthesia.write('Topic slide video creation process started successfully.')
+#         video_id = response.json()['id']
+#         tab_synthesia.write(f'Video ID for Topic Slide: {video_id}')
+#     else:
+#         tab_synthesia.write('An error occurred during the video creation process for Topic Slide.')
+#         tab_synthesia.write(f'Response status code: {response.status_code}')
+#         tab_synthesia.write(f'Response content: {response.content}')
 
 
-video_id = st.text_input('Enter the Video ID to check its status')
+# video_id = st.text_input('Enter the Video ID to check its status')
 
-if st.button('Check Video Creation Status'):
-    st.write('Checking video creation status...')
+# if st.button('Check Video Creation Status'):
+#     st.write('Checking video creation status...')
 
-    # User input for Video ID
+#     # User input for Video ID
 
-    # Define the headers for the API request
-    headers = {
-        'Authorization': api_token,
-        'Content-Type': 'application/json'
-    }
+#     # Define the headers for the API request
+#     headers = {
+#         'Authorization': api_token,
+#         'Content-Type': 'application/json'
+#     }
 
-    # Make the API request
-    response = requests.get(f'https://api.synthesia.io/v2/videos/{video_id}', headers=headers)
+#     # Make the API request
+#     response = requests.get(f'https://api.synthesia.io/v2/videos/{video_id}', headers=headers)
 
-    # Handle the response
-    if response.status_code == 200:
-        video_data = response.json()
-        st.info(f'Video ID: {video_data["id"]}')
-        st.info(f'Video Title: {video_data["title"]}')
-        st.info(f'Video Description: {video_data["description"]}')
-        st.info(f'Video Status: {video_data["status"]}')
-    else:
-        st.error('An error occurred during the video status check.')
-        st.error(f'Response status code: {response.status_code}')
-        st.error(f'Response content: {response.content}')
+#     # Handle the response
+#     if response.status_code == 200:
+#         video_data = response.json()
+#         st.info(f'Video ID: {video_data["id"]}')
+#         st.info(f'Video Title: {video_data["title"]}')
+#         st.info(f'Video Description: {video_data["description"]}')
+#         st.info(f'Video Status: {video_data["status"]}')
+#     else:
+#         st.error('An error occurred during the video status check.')
+#         st.error(f'Response status code: {response.status_code}')
+#         st.error(f'Response content: {response.content}')

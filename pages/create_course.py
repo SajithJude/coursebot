@@ -542,6 +542,8 @@ if st.button("Template 1"):
         "callbackId": "john@example.com"
     }
 
+    st.write(api_data)
+
     # Make the API request
     response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
     if response.status_code == 201:
