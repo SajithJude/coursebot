@@ -420,12 +420,12 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
 
         for subtopic in topic["Subtopics"]:
 
-            bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points (Each bullet should be a valid string) that are seperated by a '~' symbol in between, for the section named {subtopic['Subtopic_Name']}\n, word count per Bullet is {num_words_bullet}.").response.strip()
+            bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points as a whole string for the section named {subtopic['Subtopic_Name']}\n, word count per Bullet is {num_words_bullet}.").response.strip()
             # subtopic["Bullets"] = bullets.split("~")[:num_bullets_per_slide]  # assume bullets are comma-separated
             subtopic["Bullets"] = bullets
             extract_col.write(subtopic["Bullets"])
 
-            voiceovers = st.session_state.index.query(f"Generate {num_bullets_per_slide} comma-seperated voice over's (each voice over should be a valid string) that are seperated by a '~' symbol in between, for the section named {subtopic['Subtopic_Name']}\n, Word count per voice over is {bullet_voiceover_limit}.").response.strip()
+            voiceovers = st.session_state.index.query(f"Generate a voice over script as a single string for the section named {subtopic['Subtopic_Name']} .").response.strip()
             # subtopic["VoiceOver"] = voiceovers.split("~")[:num_bullets_per_slide]  # assume voice overs are comma-separated
             subtopic["VoiceOver"] = voiceovers
             extract_col.write(subtopic["VoiceOver"])
