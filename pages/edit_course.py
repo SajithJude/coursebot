@@ -102,6 +102,9 @@ if tab_xml.button("Show XML"):
         "Course_Objectives": st.session_state.dictionary["Course_Objectives"]
     }
 
+    if "template1" not in st.session_state:
+        st.session_state.template1 = template1
+
     other_templates = []
     for i in range(1, len(st.session_state.dictionary["Topics"])):
         other_template= {
@@ -125,7 +128,7 @@ if tab_xml.button("Show XML"):
 
     # Printing the results
     st.write("Template 1:")
-    st.write(template1)
+    st.write(st.session_state.template1)
     st.write("")
 
     st.write("Other Templates:")
@@ -163,31 +166,31 @@ if tab_synthesia.button("Template 1"):
         "visibility": "public",
         "templateId": "fa673de8-f4c5-413c-9e43-39ff7cdc1937",
        "templateData": {
-            "Course_Name": template1["Course"]["Course_Name"],
-            "Course_Description": template1["Course"]["Course_Description"],
+            "Course_Name": st.session_state.template1["Course"]["Course_Name"],
+            "Course_Description": st.session_state.template1["Course"]["Course_Description"],
 
-            "Objectives_1": template1["Course_Objectives"][0]["Objective"],
+            "Objectives_1": st.session_state.template1["Course_Objectives"][0]["Objective"],
             "Objectives_2": "", # Please replace it with the real data if exists
             "Objectives_3": "", # Please replace it with the real data if exists
             "Objectives_4": "", # Please replace it with the real data if exists
             "Objectives_5": "", # Please replace it with the real data if exists
 
-            "Topic_Name": template1["Topics"][0]["Topic_Name"],
+            "Topic_Name": st.session_state.template1["Topics"][0]["Topic_Name"],
            
-            "SubTopic_1": template1["Topics"][0]["Subtopics"][0]["Subtopic_Name"],
-            "Copy_1": template1["Topics"][0]["Subtopics"][0]["Bullets"],
+            "SubTopic_1": st.session_state.template1["Topics"][0]["Subtopics"][0]["Subtopic_Name"],
+            "Copy_1": st.session_state.template1["Topics"][0]["Subtopics"][0]["Bullets"],
 
-            "SubTopic_2": template1["Topics"][0]["Subtopics"][1]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 1 else "",
-            "Copy_2": template1["Topics"][0]["Subtopics"][1]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 1 else "",
+            "SubTopic_2": st.session_state.template1["Topics"][0]["Subtopics"][1]["Subtopic_Name"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 1 else "",
+            "Copy_2": st.session_state.template1["Topics"][0]["Subtopics"][1]["Bullets"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 1 else "",
             # Continue with this pattern for remaining Subtopics and Copy fields
-            "SubTopic_3": template1["Topics"][0]["Subtopics"][2]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 2 else "",
-            "Copy_3": template1["Topics"][0]["Subtopics"][2]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 2 else "",
+            "SubTopic_3": st.session_state.template1["Topics"][0]["Subtopics"][2]["Subtopic_Name"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 2 else "",
+            "Copy_3": st.session_state.template1["Topics"][0]["Subtopics"][2]["Bullets"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 2 else "",
             
-            "SubTopic_4": template1["Topics"][0]["Subtopics"][3]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 3 else "",
-            "Copy_4": template1["Topics"][0]["Subtopics"][3]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 3 else "",
+            "SubTopic_4": st.session_state.template1["Topics"][0]["Subtopics"][3]["Subtopic_Name"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 3 else "",
+            "Copy_4": st.session_state.template1["Topics"][0]["Subtopics"][3]["Bullets"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 3 else "",
             
-            "SubTopic_5": template1["Topics"][0]["Subtopics"][4]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 4 else "",
-            "Copy_5": template1["Topics"][0]["Subtopics"][4]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 4 else "",
+            "SubTopic_5": st.session_state.template1["Topics"][0]["Subtopics"][4]["Subtopic_Name"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 4 else "",
+            "Copy_5": st.session_state.template1["Topics"][0]["Subtopics"][4]["Bullets"] if len(st.session_state.template1["Topics"][0]["Subtopics"]) > 4 else "",
 
         },
         "test": True,
