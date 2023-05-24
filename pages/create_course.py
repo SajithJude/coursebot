@@ -462,7 +462,7 @@ if voice_col.button("Show XML"):
     final_template = other_templates[-1]
     final_template["Topics"][0]["Subtopics"].append({
         "Subtopic_Name": "Congratulations",
-        "Bullets": "",
+        "Message1": "Congratulations on completing the course! We hope you found the content valuable and gained new insights.",
         "VoiceOver": "Congratulations on completing the course! We hope you found the content valuable and gained new insights.",
         "Image": ""
     })
