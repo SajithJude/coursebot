@@ -171,13 +171,13 @@ if tab_synthesia.button("Template 1"):
             "Course_Description": st.session_state.template1["Course"]["Course_Description"],
             "course_description_vo": st.session_state.template1["Course"]["VoiceOver"],
 
-            "objectives_1": st.session_state.template1["Course_Objectives"][0]["Objective"],
+            "objectives_1": st.session_state.template1["Course_Objectives"][0]["Objective"][0][0],
             "lo_voiceover": st.session_state.template1["Course_Objectives"][0]["VoiceOver"],
 
-            "objectives_2": "", # Please replace it with the real data if exists
-            "objectives_3": "", # Please replace it with the real data if exists
-            "objectives_4": "", # Please replace it with the real data if exists
-            "objectives_5": "", # Please replace it with the real data if exists
+            "objectives_2": st.session_state.template1["Course_Objectives"][0]["Objective"][0][1], # Please replace it with the real data if exists
+            "objectives_3": st.session_state.template1["Course_Objectives"][0]["Objective"][0][2], # Please replace it with the real data if exists
+            "objectives_4": st.session_state.template1["Course_Objectives"][0]["Objective"][0][3], # Please replace it with the real data if exists
+            "objectives_5": st.session_state.template1["Course_Objectives"][0]["Objective"][0][4], # Please replace it with the real data if exists
 
             "Topic_Name": st.session_state.template1["Topics"][0]["Topic_Name"],
            
