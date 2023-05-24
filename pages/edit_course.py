@@ -128,18 +128,18 @@ if tab_xml.button("Show XML"):
     })
 
     # Printing the results
-    st.write("Template 1:")
-    st.write(st.session_state.template1)
-    st.write("")
+    with tab_xml.expander("Template 1:"):
+        st.write(st.session_state.template1)
+    # tab_xml.write("")
 
-    st.write("Other Templates:")
-    for i, template in enumerate(other_templates):
-        st.write(f"Template {i+2}:")
-        st.write(template)
-        st.write("")
+    with tab_xml.expander("Other Templates:"):
+        for i, template in enumerate(other_templates):
+            st.write(f"Template {i+2}:")
+            st.write(template)
+            st.write("")
 
-    st.write("Final Template:")
-    st.write(final_template)
+    with tab_xml.expander("Final Template:"):
+        st.write(final_template)
         
     # xml = create_xml(st.session_state.dictionary)
     # pretty_xml = minidom.parseString(xml).toprettyxml()
@@ -169,6 +169,7 @@ if tab_synthesia.button("Template 1"):
        "templateData": {
             "Course_Name": st.session_state.template1["Course"]["Course_Name"],
             "Course_Description": st.session_state.template1["Course"]["Course_Description"],
+            "course_description_vo": st.session_state.template1["Course"]["VoiceOver"],
 
             "objectives_1": st.session_state.template1["Course_Objectives"][0]["Objective"],
             "lo_voiceover": st.session_state.template1["Course_Objectives"][0]["VoiceOver"],
@@ -209,7 +210,8 @@ if tab_synthesia.button("Template 1"):
         "callbackId": "john@example.com"
     }
 
-    tab_synthesia.write(api_data)
+    with tab_synthesia.expander("api_data"):
+        st.write(api_data)
 
     # Make the API request
     response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
@@ -234,7 +236,7 @@ if tab_synthesia.button("Template 1"):
         tab_synthesia.write(f'Response content: {response.content}')
 
 
-if tab_xml.button("show video"):
+if tab_synthesia.button("show video"):
     url = f"https://share.synthesia.io/embeds/videos/{st.session_state.video_id}"
     tab_synthesia.write(url)
     iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
