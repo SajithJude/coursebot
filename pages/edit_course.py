@@ -218,6 +218,8 @@ if tab_synthesia.button("Template 1"):
         video_id = response.json()['id']
         tab_synthesia.write(f'Video ID for Sample scene: {video_id}')
         tab_synthesia.code(video_id)
+        if "video_id" not in st.session_state:
+            st.session_state.video_id = video_id
         url = f"https://share.synthesia.io/embeds/videos/{video_id}"
         tab_synthesia.write(url)
         iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
@@ -232,6 +234,11 @@ if tab_synthesia.button("Template 1"):
         tab_synthesia.write(f'Response content: {response.content}')
 
 
+if tab_xml.button("show video"):
+    url = f"https://share.synthesia.io/embeds/videos/{st.session_state.video_id}"
+    tab_synthesia.write(url)
+    iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
+    components.html(iframe_html,height=600)
 
 
 
