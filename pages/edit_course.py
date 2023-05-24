@@ -151,7 +151,7 @@ if tab_xml.button("Show XML"):
 
 
 
-
+name_vid =tab_synthesia.text_input("Name of video")
 
 if tab_synthesia.button("Template 1"):
 
@@ -162,7 +162,7 @@ if tab_synthesia.button("Template 1"):
 
                 # Define the data for the API request
     api_data = {
-        "title": "CB Template-1",
+        "title":name_vid,
         "description": "First part with lo cn cd and top 1",
         "visibility": "public",
         "templateId": "fa673de8-f4c5-413c-9e43-39ff7cdc1937",
