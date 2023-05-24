@@ -453,9 +453,9 @@ if voice_col.button("Show XML"):
     other_templates = []
     for i in range(1, len(st.session_state.dictionary["Topics"])):
         other_templates.append({
-            "Course": st.session_state.dictionary["Course"],
+            # "Course": st.session_state.dictionary["Course"],
             "Topics": [st.session_state.dictionary["Topics"][i]],
-            "Course_Objectives": st.session_state.dictionary["Course_Objectives"]
+            # "Course_Objectives": st.session_state.dictionary["Course_Objectives"]
         })
 
     # Adding congratulations message to the final template
