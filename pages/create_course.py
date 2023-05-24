@@ -494,6 +494,70 @@ if voice_col.button("Show XML"):
 
 
 
+
+
+
+if st.button("Template 1"):
+
+    headers = {
+                    'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
+                    'Content-Type': 'application/json'
+                }
+
+                # Define the data for the API request
+    api_data = {
+        "title": "CB Template-1",
+        "description": "First part with lo cn cd and top 1",
+        "visibility": "public",
+        "templateId": "fa673de8-f4c5-413c-9e43-39ff7cdc1937",
+       "templateData": {
+            "Course_Name": template1["Course"]["Course_Name"],
+            "Course_Description": template1["Course"]["Course_Description"],
+
+            "Objectives_1": template1["Course_Objectives"][0]["Objective"],
+            "Objectives_2": "", # Please replace it with the real data if exists
+            "Objectives_3": "", # Please replace it with the real data if exists
+            "Objectives_4": "", # Please replace it with the real data if exists
+            "Objectives_5": "", # Please replace it with the real data if exists
+
+            "Topic_Name": template1["Topics"][0]["Topic_Name"],
+           
+            "SubTopic_1": template1["Topics"][0]["Subtopics"][0]["Subtopic_Name"],
+            "Copy_1": template1["Topics"][0]["Subtopics"][0]["Bullets"],
+
+            "SubTopic_2": template1["Topics"][0]["Subtopics"][1]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 1 else "",
+            "Copy_2": template1["Topics"][0]["Subtopics"][1]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 1 else "",
+            # Continue with this pattern for remaining Subtopics and Copy fields
+            "SubTopic_3": template1["Topics"][0]["Subtopics"][2]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 2 else "",
+            "Copy_3": template1["Topics"][0]["Subtopics"][2]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 2 else "",
+            
+            "SubTopic_4": template1["Topics"][0]["Subtopics"][3]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 3 else "",
+            "Copy_4": template1["Topics"][0]["Subtopics"][3]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 3 else "",
+            
+            "SubTopic_5": template1["Topics"][0]["Subtopics"][4]["Subtopic_Name"] if len(template1["Topics"][0]["Subtopics"]) > 4 else "",
+            "Copy_5": template1["Topics"][0]["Subtopics"][4]["Bullets"] if len(template1["Topics"][0]["Subtopics"]) > 4 else "",
+
+        },
+        "test": True,
+        "callbackId": "john@example.com"
+    }
+
+    # Make the API request
+    response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+    if response.status_code == 201:
+                  st.info('Sample scene video creation process started successfully.')
+                  video_id = response.json()['id']
+                  st.write(f'Video ID for Sample scene: {video_id}')
+                  st.code(video_id)
+    else:
+                  st.write('An error occurred during the video creation process for Sample scene.')
+                  st.write(f'Response status code: {response.status_code}')
+                  st.write(f'Response content: {response.content}')
+
+
+
+
+
 ######################       export generated xml      ##########################################
 
 
