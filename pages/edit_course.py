@@ -153,7 +153,7 @@ if tab_xml.button("Show splitted structure"):
 
 name_vid =tab_synthesia.text_input("Name of video")
 
-if tab_synthesia.button("Template 1"):
+if tab_synthesia.button("Create Video Part 1"):
 
     headers = {
                     'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
