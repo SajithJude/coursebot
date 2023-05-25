@@ -94,7 +94,7 @@ tab_xml, tab_synthesia = st.tabs(["Split Templates","Synthesia"])
 
 
 
-if tab_xml.button("Show XML"):
+if tab_xml.button("Show splitted structure"):
     # st.session_state.dictionary
 
     template1 = {
