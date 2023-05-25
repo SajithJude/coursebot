@@ -230,9 +230,9 @@ if savnext:
                 st.session_state.crsnm = crsnm
 
             lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book").response.strip()
-            descrip  = st.session_state.index.query(f"Generate a Course Description with word count of 30").response.strip()
+            descrip  = st.session_state.index.query(f"Generate a Course Description with word count of minimum 20 words and maximum 25 words (Do not exceed more than 25 words)").response.strip()
             cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
-            lo = st.session_state.index.query(f"Generate 5 learning objectives seperated by a ~ symbol between each objective for this book ").response.strip()
+            lo = st.session_state.index.query(f"Generate 5 learning objectives seperated by a ~ symbol between each objective for this book, the word count should be minimum-6 words and maximum-12 words, do not add numbers to the objectives ").response.strip()
             lo_input = [lo.split("~")]
 
             if "descrip" not in st.session_state:
@@ -425,7 +425,7 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
             subtopic["VoiceOver"] = voiceovers
             extract_col.write(subtopic["VoiceOver"])
 
-            bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points separated by Carraige returns as a whole string, for the content in the following script {voiceovers}\n, word count per Bullet is {num_words_bullet}.").response.strip()
+            bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points as a single string, for the content in the following script {voiceovers}\n, the total word count should be within 30-40 words and should not exceed the limit").response.strip()
             # subtopic["Bullets"] = bullets.split("~")[:num_bullets_per_slide]  # assume bullets are comma-separated
             subtopic["Bullets"] = bullets
             extract_col.write(subtopic["Bullets"])
