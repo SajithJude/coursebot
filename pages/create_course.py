@@ -604,9 +604,6 @@ if synthesiaTab.button("Create Video Part 1"):
             "script1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
 
 
-
-
-            ""
             # Add similar mappings for other fields as needed.
         },
         "test": True,
