@@ -497,8 +497,8 @@ else:
 
     if "index" in st.session_state:
         vid_duration = toctab.slider("How long is the video ?")
-        if "vid_duration" not in st.session_state:
-            st.session_state.vid_duration = vid_duration
+        # if "vid_duration" not in st.session_state:
+        #     st.session_state.vid_duration = vid_duration
 
         # video_type = st.radio("Type of Video", ["casestudy", "elearning", "custom"])
         # if video_type == "custom":
@@ -506,7 +506,7 @@ else:
         
 
     if toctab.button("Get Video structure"):
-        query = f"Generate an optimal video content structure with scenes and titles for a case study video of duration {st.session_state.vid_duration} minutes fron this document"
+        query = f"Generate an optimal video content structure with scenes and titles for a case study video of duration {vid_duration} minutes fron this document"
         course_structure = st.session_state.index.query(query).response
         if "course_structure" not in st.session_state:
             st.session_state.course_structure = course_structure
