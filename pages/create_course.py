@@ -425,7 +425,7 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
             subtopic["VoiceOver"] = voiceovers
             extract_col.write(subtopic["VoiceOver"])
 
-            bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points enclosed within list html tags as a whole string, for the content in the following script {voiceovers}\n, word count per Bullet is {num_words_bullet}.").response.strip()
+            bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points separated by Carraige returns as a whole string, for the content in the following script {voiceovers}\n, word count per Bullet is {num_words_bullet}.").response.strip()
             # subtopic["Bullets"] = bullets.split("~")[:num_bullets_per_slide]  # assume bullets are comma-separated
             subtopic["Bullets"] = bullets
             extract_col.write(subtopic["Bullets"])
