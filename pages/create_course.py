@@ -479,68 +479,36 @@ else:
 
     uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
     # toc_option = Uploadtab.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
-    forma = """"{
-    "Topics": [
-        {
-        "n.n Topic ": [
-            "n.n.n Subtopic ",
-            "n.n.n Subtopic ",
-        ]
-        }
-    ]
-    }
-
-    """
 
     if uploaded_file is not None:
-            # clear_all_json_files()
 
             # index = 
             if "index" not in st.session_state:
                 st.session_state.index = process_pdf(uploaded_file)
 
             Uploadtab.success("Index created successfully")
-            # clear_images_folder()
-            # clear_pages_folder()
-        # read PDF file
+
             with open(uploaded_file.name, "wb") as f:
                 f.write(uploaded_file.getbuffer())
 
-    crsnm = Uploadtab.text_input("Enter Case Study Name")
-    savnext = Uploadtab.button("Save Case Study")
-    if savnext:
-        if "index" in st.session_state:
-            if crsnm != "":
-                if "crsnm" not in st.session_state:
-                    st.session_state.crsnm = crsnm
-
-                lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book").response.strip()
-                descrip  = st.session_state.index.query(f"Generate a Course Description with word count of minimum 20 words and maximum 25 words (Do not exceed more than 25 words)").response.strip()
-                cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
-                lo = st.session_state.index.query(f"Generate 5 learning objectives seperated by a ~ symbol between each objective for this book, the word count should be minimum-6 words and maximum-12 words, do not add numbers to the objectives ").response.strip()
-                lo_input = [lo.split("~")]
-
-                if "descrip" not in st.session_state:
-                    st.session_state.descrip = descrip
-
-                if "cvo" not in st.session_state:
-                    st.session_state.cvo = cvo
-
-                if "lovo" not in st.session_state:
-                    st.session_state.lovo = lovo
-
-                if "lo_input" not in st.session_state:
-                    st.session_state.lo_input = lo_input
-                Uploadtab.success("Project saved successfully.\nGo to Table of Content tab to create Table of content")
-            else :
-                Uploadtab.write("Please enter a course name")
     
-        else:
-            if crsnm == "":
-                Uploadtab.write("Please upload a PDF & enter a course name")
-
-            else :
-                Uploadtab.write("Please upload a PDF")
+###################### video structure ##########################
 
 
+    if "index" in st.session_state:
+        vid_duration = toctab.slider("How long is the video ?")
+        if "vid_duration" not in st.session_state:
+            st.session_state.vid_duration = vid_duration
 
+        # video_type = st.radio("Type of Video", ["casestudy", "elearning", "custom"])
+        # if video_type == "custom":
+        #     video_type = st.text_input("What kind of video content would you like to make ?")
+        
+
+        if st.button("Get Video structure"):
+        query = f"Generate an optimal video content structure with scenes and titles for a case study video of duration {st.session_state.vid_duration} minutes fron this document"
+        course_structure = st.session_state.index.query(query).response
+        if "course_structure" not in st.session_state:
+            st.session_state.course_structure = course_structure
+
+        toctab.write(st.session_state.course_structure)
