@@ -517,10 +517,10 @@ else:
         if st.session_state.course_structure is not None:
             modify_cs = st.text_area("Modify the structure if needed", value=st.session_state.course_structure)
             if st.button("Confirm Structure"):
-            convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
-            json_cs = call_openai(convert_prompt)
-            toctab.write(json_cs)
-            cs_dictionary = json.loads(json_cs.strip())
+                convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
+                json_cs = call_openai(convert_prompt)
+                toctab.write(json_cs)
+                cs_dictionary = json.loads(json_cs.strip())
             if "cs_dictionary" not in st.session_state:
                 st.session_state.cs_dictionary = cs_dictionary
             toctab.write(st.session_state.cs_dictionary)
