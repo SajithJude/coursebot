@@ -21,6 +21,10 @@ import requests
 import zipfile
 from llama_index.retrievers import VectorIndexRetriever
 from llama_index.query_engine import RetrieverQueryEngine
+import streamlit.components.v1 as components
+
+
+
 
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("OPENAI_API_KEY")
