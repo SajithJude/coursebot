@@ -182,26 +182,26 @@ if tab_synthesia.button("Create Video Part 1"):
             "Topic_Name": st.session_state.template1["Topics"][0]["Topic_Name"],
            
             "SubTopic_1": st.session_state.template1["Topics"][0]["Subtopics"][0]["Subtopic_Name"],
-            "Copy_1": st.session_state.template1["Topics"][0]["Subtopics"][0]["Bullets"].replace("\n", ""),
+            "Copy_1": st.session_state.template1["Topics"][0]["Subtopics"][0]["Bullets"],
             "copy_1_vo":st.session_state.template1["Topics"][0]["Subtopics"][0]["VoiceOver"],
 
             "SubTopic_2": st.session_state.template1["Topics"][0]["Subtopics"][1]["Subtopic_Name"] ,
-            "Copy_2": st.session_state.template1["Topics"][0]["Subtopics"][1]["Bullets"].replace("\n", "") ,
+            "Copy_2": st.session_state.template1["Topics"][0]["Subtopics"][1]["Bullets"] ,
             "copy_2_vo":st.session_state.template1["Topics"][0]["Subtopics"][1]["VoiceOver"],
 
             # Continue with this pattern for remaining Subtopics and Copy fields
             "SubTopic_3": st.session_state.template1["Topics"][0]["Subtopics"][2]["Subtopic_Name"] ,
-            "Copy_3": st.session_state.template1["Topics"][0]["Subtopics"][2]["Bullets"].replace("\n", "") ,
+            "Copy_3": st.session_state.template1["Topics"][0]["Subtopics"][2]["Bullets"] ,
             "copy_3_vo":st.session_state.template1["Topics"][0]["Subtopics"][2]["VoiceOver"],
 
             
             "SubTopic_4": st.session_state.template1["Topics"][0]["Subtopics"][3]["Subtopic_Name"] ,
-            "Copy_4": st.session_state.template1["Topics"][0]["Subtopics"][3]["Bullets"].replace("\n", "") ,
+            "Copy_4": st.session_state.template1["Topics"][0]["Subtopics"][3]["Bullets"] ,
             "copy_4_vo":st.session_state.template1["Topics"][0]["Subtopics"][3]["VoiceOver"],
 
             
             "SubTopic_5": st.session_state.template1["Topics"][0]["Subtopics"][4]["Subtopic_Name"] ,
-            "Copy_5": st.session_state.template1["Topics"][0]["Subtopics"][4]["Bullets"].replace("\n", "") ,
+            "Copy_5": st.session_state.template1["Topics"][0]["Subtopics"][4]["Bullets"] ,
             "copy_5_vo":st.session_state.template1["Topics"][0]["Subtopics"][4]["VoiceOver"],
 
 
