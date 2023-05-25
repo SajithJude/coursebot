@@ -26,7 +26,7 @@ st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sideb
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-st.title("CourseBot for PDF's")
+st.title("CourseBOT for PDF's")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
 
