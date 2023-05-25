@@ -182,7 +182,7 @@ def process_pdf(uploaded_file):
 
 
 
-video_type = st.radio("Type of Video", ["casestudy", "elearning"])
+video_type = st.radio("Type of Video", ["casestudy", "elearning"], horizontal= True)
 
 
 if video_type == "elearning":
