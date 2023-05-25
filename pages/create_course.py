@@ -439,6 +439,22 @@ if st.session_state.button_clicked and not st.session_state.processed_all_items:
 
 ######################       voice over      ##########################################
 
+course_name = voice_col.text_input('Course Name', st.session_state.dictionary['Course']['Course_Name'])
+course_description = voice_col.text_input('Course Description', st.session_state.dictionary['Course']['Course_Description'])
+
+objectives = st.session_state.dictionary['Course_Objectives'][0]['Objective'][0]
+for i, obj in enumerate(objectives):
+    objectives[i] = voice_col.text_input(f'Objective {i+1}', obj)
+
+topics = st.session_state.dictionary['Topics'][0]['Subtopics']
+for i, topic in enumerate(topics):
+    with st.expander(f'Topic {i+1}'):
+        topic_name = voice_col.text_input('Topic Name', topic['Subtopic_Name'])
+        topic_bullets = voice_col.text_input('Topic Bullets', topic['Bullets'])
+        topic_voiceover = voice_col.text_input('Topic Voiceover', topic['VoiceOver'])
+        topic_image = voice_col.text_input('Topic Image', topic['Image'])
+
+
 
 
 if voice_col.button("Save Changes"):
@@ -506,7 +522,7 @@ if voice_col.button("Save Changes"):
 #                     'Content-Type': 'application/json'
 #                 }
 
-#                 # Define the data for the API request
+#                 # Define the st.session_state.dictionary for the API request
 #     api_data = {
 #         "title": "CB Template-1",
 #         "description": "First part with lo cn cd and top 1",
