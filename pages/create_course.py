@@ -505,10 +505,10 @@ else:
         #     video_type = st.text_input("What kind of video content would you like to make ?")
         
 
-        if st.button("Get Video structure"):
+    if st.button("Get Video structure"):
         query = f"Generate an optimal video content structure with scenes and titles for a case study video of duration {st.session_state.vid_duration} minutes fron this document"
         course_structure = st.session_state.index.query(query).response
         if "course_structure" not in st.session_state:
             st.session_state.course_structure = course_structure
 
-        toctab.write(st.session_state.course_structure)
+    toctab.write(st.session_state.course_structure)
