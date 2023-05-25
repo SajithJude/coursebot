@@ -513,46 +513,46 @@ else:
 
         # toctab.write(st.session_state.course_structure)
     
-    # try:
-    if st.session_state.course_structure is not None:    
-        cs_format = """
-        {
-        "CourseStructure": {
-            "Scenes": [
+    try:
+        if st.session_state.course_structure is not None:    
+            cs_format = """
             {
-                "Scene1": {
-                "Title": "description or URL of image",
-                "TextOverlay": "description or text to be shown",
-                "Voiceover": "description or script of voiceover"
-                },
-                "Scene2": {
-                "Title": "description or URL of image",
-                "TextOverlay": "description or text to be shown",
-                "Voiceover": "description or script of voiceover"
-                },
-                "Scene3": {
-                "Title": "description or URL of image",
-                "TextOverlay": "description or text to be shown",
-                "Voiceover": "description or script of voiceover"
+            "CourseStructure": {
+                "Scenes": [
+                {
+                    "Scene1": {
+                    "Title": "description or URL of image",
+                    "TextOverlay": "description or text to be shown",
+                    "Voiceover": "description or script of voiceover"
+                    },
+                    "Scene2": {
+                    "Title": "description or URL of image",
+                    "TextOverlay": "description or text to be shown",
+                    "Voiceover": "description or script of voiceover"
+                    },
+                    "Scene3": {
+                    "Title": "description or URL of image",
+                    "TextOverlay": "description or text to be shown",
+                    "Voiceover": "description or script of voiceover"
+                    }
+                    // Add more scenes as needed
                 }
-                // Add more scenes as needed
+                ]
             }
-            ]
-        }
-        }
-        """
-        modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
-        if toctab.button("Confirm Structure"):
-            convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
-            json_cs = call_openai(convert_prompt)
-            toctab.write(json_cs)
-            cs_dictionary = json.loads(json_cs.strip())
-            if "cs_dictionary" not in st.session_state:
-                st.session_state.cs_dictionary = cs_dictionary
-            toctab.write(st.session_state.cs_dictionary)
+            }
+            """
+            modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
+            if toctab.button("Confirm Structure"):
+                convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
+                json_cs = call_openai(convert_prompt)
+                toctab.write(json_cs)
+                cs_dictionary = json.loads(json_cs.strip())
+                if "cs_dictionary" not in st.session_state:
+                    st.session_state.cs_dictionary = cs_dictionary
+                toctab.write(st.session_state.cs_dictionary)
 
-    # except:
-    #     print("Upload a document to get started")
+    except:
+        print("Upload a document to get started")
 
 
 
