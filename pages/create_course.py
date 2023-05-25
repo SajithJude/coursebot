@@ -511,4 +511,4 @@ else:
         if "course_structure" not in st.session_state:
             st.session_state.course_structure = course_structure
 
-    toctab.write(st.session_state.course_structure)
+        octab.write(st.session_state.course_structure)
