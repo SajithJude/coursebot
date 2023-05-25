@@ -563,7 +563,7 @@ if extractTab.button("Get data"):
     for scene_name, scene_data in scene.items():
         opening_shot = scene_data["Title"]
         overlay = st.session_state.index.query(f"Generate some short text content to display in a slide titled as {opening_shot}").response.strip()
-        voiceover = st.session_state.index.query(f"Generate a voice over script to narrate in a slide Titled  {opening_shot}").response.strip()
+        voiceover = st.session_state.index.query(f"Generate a voice over script as a single string to narrate in a slide Titled  {opening_shot}").response.strip()
         extractTab.write(scene_name)
         extractTab.info(overlay)
         extractTab.info(voiceover)
@@ -571,4 +571,60 @@ if extractTab.button("Get data"):
         scene_data["TextOverlay"] = overlay
         scene_data["Voiceover"] = voiceover
   extractTab.write(st.session_state.cs_dictionary)
+
+
+
+
+#################### synthesia tab ###############################################
+
+name_vid =synthesiaTab.text_input("Name of video")
+
+if synthesiaTab.button("Create Video Part 1"):
+
+    headers = {
+                    'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
+                    'Content-Type': 'application/json'
+                }
+
+
+
+
+    api_data = {
+        "title": new_data["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+        "description": "First part with lo cn cd and top 1",
+        "visibility": "public",
+        "templateId": "1419387f-2154-4fff-a7f1-b2d6c9c2fca8",
+        "templateData": {
+            "Course_Name": new_data["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+            "Course_Description": new_data["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
+            "course_description_vo": new_data["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+            # Add similar mappings for other fields as needed.
+        },
+        "test": True,
+        "callbackId": "john@example.com"
+    }
+    with synthesiaTab.expander("api_data"):
+        st.write(api_data)
+
+    # Make the API request
+    response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+    if response.status_code == 201:
+        synthesiaTab.info('Sample scene video creation process started successfully.')
+        video_id = response.json()['id']
+        synthesiaTab.write(f'Video ID for Sample scene: {video_id}')
+        synthesiaTab.code(video_id)
+        if "video_id" not in st.session_state:
+            st.session_state.video_id = video_id
+        url = f"https://share.synthesia.io/embeds/videos/{video_id}"
+        synthesiaTab.write(url)
+        iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
+        components.html(iframe_html,height=600)
+        # frame = f"<div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src=" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"
+
+
+
+    else:
+        synthesiaTab.write('An error occurred during the video creation process for Sample scene.')
+        synthesiaTab.write(f'Response status code: {response.status_code}')
+        synthesiaTab.write(f'Response content: {response.content}')
 
