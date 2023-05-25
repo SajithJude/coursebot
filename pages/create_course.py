@@ -597,7 +597,16 @@ if synthesiaTab.button("Create Video Part 1"):
         "templateData": {
             "Course_Name": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
             "Course_Description": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
-            "course_description_vo": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+            "intovo": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+
+            "Subtopic_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+            "Copy_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
+            "script1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+
+
+
+
+            ""
             # Add similar mappings for other fields as needed.
         },
         "test": True,
