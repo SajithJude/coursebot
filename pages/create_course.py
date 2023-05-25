@@ -179,101 +179,135 @@ def process_pdf(uploaded_file):
         st.session_state.index = index
     # st.session_state.index = index
     return st.session_state.index
-        
-
-######################       defining tabs      ##########################################
-
-# upload_col, refine_toc,  extract_col, miss_col, edit_col,voice_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Refine_TOC__", "⚪ __Extract_Contents__","⚪ __missing_Contents__", "⚪ __Edit Contents__", "⚪ Voice Over__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
-upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Edit__", "⚪ __Images__"])
 
 
 
+video_type = st.radio("Type of Video", ["casestudy", "elearning"])
 
-######################       Upload chapter column      ##########################################
+
+if video_type == "elearning":
+
+    ######################       defining tabs      ##########################################
+
+    # upload_col, refine_toc,  extract_col, miss_col, edit_col,voice_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Refine_TOC__", "⚪ __Extract_Contents__","⚪ __missing_Contents__", "⚪ __Edit Contents__", "⚪ Voice Over__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
+    upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Edit__", "⚪ __Images__"])
 
 
-uploaded_file = upload_col.file_uploader("Upload a PDF file", type="pdf")
-# toc_option = upload_col.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
-forma = """"{
-  "Topics": [
-    {
-      "n.n Topic ": [
-        "n.n.n Subtopic ",
-        "n.n.n Subtopic ",
-      ]
+
+
+    ######################       Upload chapter column      ##########################################
+
+
+    uploaded_file = upload_col.file_uploader("Upload a PDF file", type="pdf")
+    # toc_option = upload_col.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
+    forma = """"{
+    "Topics": [
+        {
+        "n.n Topic ": [
+            "n.n.n Subtopic ",
+            "n.n.n Subtopic ",
+        ]
+        }
+    ]
     }
-  ]
-}
 
-"""
+    """
 
-if uploaded_file is not None:
-        # clear_all_json_files()
+    if uploaded_file is not None:
+            # clear_all_json_files()
 
-        # index = 
-        if "index" not in st.session_state:
-            st.session_state.index = process_pdf(uploaded_file)
+            # index = 
+            if "index" not in st.session_state:
+                st.session_state.index = process_pdf(uploaded_file)
 
-        upload_col.success("Index created successfully")
-        # clear_images_folder()
-        # clear_pages_folder()
-    # read PDF file
-        with open(uploaded_file.name, "wb") as f:
-            f.write(uploaded_file.getbuffer())
+            upload_col.success("Index created successfully")
+            # clear_images_folder()
+            # clear_pages_folder()
+        # read PDF file
+            with open(uploaded_file.name, "wb") as f:
+                f.write(uploaded_file.getbuffer())
 
-crsnm = upload_col.text_input("Enter Course Name")
-savnext = upload_col.button("Save Project")
-if savnext:
-    if "index" in st.session_state:
-        if crsnm != "":
-            if "crsnm" not in st.session_state:
-                st.session_state.crsnm = crsnm
+    crsnm = upload_col.text_input("Enter Course Name")
+    savnext = upload_col.button("Save Project")
+    if savnext:
+        if "index" in st.session_state:
+            if crsnm != "":
+                if "crsnm" not in st.session_state:
+                    st.session_state.crsnm = crsnm
 
-            lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book").response.strip()
-            descrip  = st.session_state.index.query(f"Generate a Course Description with word count of minimum 20 words and maximum 25 words (Do not exceed more than 25 words)").response.strip()
-            cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
-            lo = st.session_state.index.query(f"Generate 5 learning objectives seperated by a ~ symbol between each objective for this book, the word count should be minimum-6 words and maximum-12 words, do not add numbers to the objectives ").response.strip()
-            lo_input = [lo.split("~")]
+                lovo = st.session_state.index.query(f"Generate a voice over script for the following learning objectives for this book").response.strip()
+                descrip  = st.session_state.index.query(f"Generate a Course Description with word count of minimum 20 words and maximum 25 words (Do not exceed more than 25 words)").response.strip()
+                cvo  = st.session_state.index.query(f"Generate a Course Description voice over script with word count of 50").response.strip()
+                lo = st.session_state.index.query(f"Generate 5 learning objectives seperated by a ~ symbol between each objective for this book, the word count should be minimum-6 words and maximum-12 words, do not add numbers to the objectives ").response.strip()
+                lo_input = [lo.split("~")]
 
-            if "descrip" not in st.session_state:
-                st.session_state.descrip = descrip
+                if "descrip" not in st.session_state:
+                    st.session_state.descrip = descrip
 
-            if "cvo" not in st.session_state:
-                st.session_state.cvo = cvo
+                if "cvo" not in st.session_state:
+                    st.session_state.cvo = cvo
 
-            if "lovo" not in st.session_state:
-                st.session_state.lovo = lovo
+                if "lovo" not in st.session_state:
+                    st.session_state.lovo = lovo
 
-            if "lo_input" not in st.session_state:
-                st.session_state.lo_input = lo_input
-            upload_col.success("Project saved successfully.\nGo to Table of Content tab to create Table of content")
-        else :
-            upload_col.write("Please enter a course name")
-  
-    else:
-        if crsnm == "":
-            upload_col.write("Please upload a PDF & enter a course name")
+                if "lo_input" not in st.session_state:
+                    st.session_state.lo_input = lo_input
+                upload_col.success("Project saved successfully.\nGo to Table of Content tab to create Table of content")
+            else :
+                upload_col.write("Please enter a course name")
+    
+        else:
+            if crsnm == "":
+                upload_col.write("Please upload a PDF & enter a course name")
 
-        else :
-            upload_col.write("Please upload a PDF")
+            else :
+                upload_col.write("Please upload a PDF")
 
 
 
 
-###################### tab 2 ################
-toc_option = toc_col.radio("How do you want to base your course structure", ("Paste Table of Contents", "AI Generated"), horizontal=True)
-# toc_col.info("Choose AI Generated if you want AI to suggest a course structure, modify (it if needed) after pasting it on the right and click process")
-# pastecol, toc_col = toc_col.columns(2,gap="medium")
+    ###################### tab 2 ################
+    toc_option = toc_col.radio("How do you want to base your course structure", ("Paste Table of Contents", "AI Generated"), horizontal=True)
+    # toc_col.info("Choose AI Generated if you want AI to suggest a course structure, modify (it if needed) after pasting it on the right and click process")
+    # pastecol, toc_col = toc_col.columns(2,gap="medium")
 
 
-try:
+    try:
 
-    if toc_option == "Paste Table of Contents":
+        if toc_option == "Paste Table of Contents":
 
-        toc_input = toc_col.text_area("Copy Paste TOC from document")
-        
-        if toc_col.button("Process Structure"):
-            if toc_input != "":
+            toc_input = toc_col.text_area("Copy Paste TOC from document")
+            
+            if toc_col.button("Process Structure"):
+                if toc_input != "":
+                    # try:
+                        # table_of_contents = json.loads(toc_input)
+                    with st.spinner('Please wait, it might take a while to process the Course structure'):
+                        toc_res = "Convert the following table of contents into a json string, use the JSON format given bellow:\n"+ "Table of contents:\n"+ toc_input.strip() + "\n JSON format:\n"+ str(forma) + ". Output should be a valid JSON string."
+                        str_toc = call_openai(toc_res)
+                        str_to = str(str_toc)
+                    # st.write(str_to)
+                    table_of_contents = json.loads(str_to.strip())
+                    st.session_state.table_of_contents = table_of_contents
+
+                    # if "table_of_contents" not in st.session_state:
+                    toc_col.success("TOC loaded, Go to the next tab")
+                    toc_col.write(st.session_state.table_of_contents)
+                else :
+                    toc_col.write("please copy and paste the Table of content from document")
+
+        elif toc_option == "AI Generated":
+            # toc_col,pastecol  = toc_col.columns(2,gap="medium")
+            # copycol.write("AI Generated Structure")
+            if "sample_table" not in st.session_state:
+                with st.spinner("Please wait till the A.I Generates the course structure "):
+                    sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for this document, where each topic should have exactly 5 subtopics").response.strip()
+                    st.session_state.sample_table = sample_table
+
+
+            toc_input = toc_col.text_area("Make Neccessary Edits to the AI generated structure and click Save Structure",value=str(st.session_state.sample_table))
+
+            if toc_col.button("Save Structure"):
                 # try:
                     # table_of_contents = json.loads(toc_input)
                 with st.spinner('Please wait, it might take a while to process the Course structure'):
@@ -287,181 +321,157 @@ try:
                 # if "table_of_contents" not in st.session_state:
                 toc_col.success("TOC loaded, Go to the next tab")
                 toc_col.write(st.session_state.table_of_contents)
-            else :
-                toc_col.write("please copy and paste the Table of content from document")
 
-    elif toc_option == "AI Generated":
-        # toc_col,pastecol  = toc_col.columns(2,gap="medium")
-        # copycol.write("AI Generated Structure")
-        if "sample_table" not in st.session_state:
-            with st.spinner("Please wait till the A.I Generates the course structure "):
-                sample_table = st.session_state.index.query(f"Generate a course structure/Table of contents with only sections of topics and subtopics for this document, where each topic should have exactly 5 subtopics").response.strip()
-                st.session_state.sample_table = sample_table
+    except json.JSONDecodeError as e:
+        str_toc =    (toc_res)
+        table_of_contents = json.loads(str(str_toc))
+        st.session_state.table_of_contents = table_of_contents
+        toc_col.write(st.session_state.table_of_contents)
+        # toc_col.error("Invalid JSON format. Please check your input.")
+        toc_col.error(e)
 
-
-        toc_input = toc_col.text_area("Make Neccessary Edits to the AI generated structure and click Save Structure",value=str(st.session_state.sample_table))
-
-        if toc_col.button("Save Structure"):
-            # try:
-                # table_of_contents = json.loads(toc_input)
-            with st.spinner('Please wait, it might take a while to process the Course structure'):
-                toc_res = "Convert the following table of contents into a json string, use the JSON format given bellow:\n"+ "Table of contents:\n"+ toc_input.strip() + "\n JSON format:\n"+ str(forma) + ". Output should be a valid JSON string."
-                str_toc = call_openai(toc_res)
-                str_to = str(str_toc)
-            # st.write(str_to)
-            table_of_contents = json.loads(str_to.strip())
-            st.session_state.table_of_contents = table_of_contents
-
-            # if "table_of_contents" not in st.session_state:
-            toc_col.success("TOC loaded, Go to the next tab")
-            toc_col.write(st.session_state.table_of_contents)
-
-except json.JSONDecodeError as e:
-    str_toc = call_openai(toc_res)
-    table_of_contents = json.loads(str(str_toc))
-    st.session_state.table_of_contents = table_of_contents
-    toc_col.write(st.session_state.table_of_contents)
-    # toc_col.error("Invalid JSON format. Please check your input.")
-    toc_col.error(e)
-
-except :
-    toc_col.write("Please upload a chapter")
+    except :
+        toc_col.write("Please upload a chapter")
 
 
 
 
 
 
-pagecol, ecol = extract_col.columns([2,5],gap="large")
+    pagecol, ecol = extract_col.columns([2,5],gap="large")
 
-# # Topic Summary
-topic_summary_limit = pagecol.number_input("Topic Summary Word Count Limit", value=30, min_value=1)
+    # # Topic Summary
+    topic_summary_limit = pagecol.number_input("Topic Summary Word Count Limit", value=30, min_value=1)
 
-# Topic Summary VoiceOver
-topic_summary_voiceover_limit = pagecol.number_input("Topic Summary VoiceOver Word Count Limit", value=50, min_value=1)
+    # Topic Summary VoiceOver
+    topic_summary_voiceover_limit = pagecol.number_input("Topic Summary VoiceOver Word Count Limit", value=50, min_value=1)
 
-# Number of Bullets per Slide
-num_bullets_per_slide = pagecol.number_input("Number of Bullets per Slide", value=4, min_value=1)
+    # Number of Bullets per Slide
+    num_bullets_per_slide = pagecol.number_input("Number of Bullets per Slide", value=4, min_value=1)
 
-# Number of Words per Bullet
-num_words_bullet = pagecol.number_input("Number of Words per Bullet", value=10, min_value=1)
+    # Number of Words per Bullet
+    num_words_bullet = pagecol.number_input("Number of Words per Bullet", value=10, min_value=1)
 
-# Bullet VoiceOver
-bullet_voiceover_limit = pagecol.number_input("VoiceOver per Bullet Word Count Limit", value=20, min_value=1)
-# # aaaa
-# Course Description
-course_description_limit = pagecol.number_input("Course Description Word Count Limit", value=30, min_value=1)
+    # Bullet VoiceOver
+    bullet_voiceover_limit = pagecol.number_input("VoiceOver per Bullet Word Count Limit", value=20, min_value=1)
+    # # aaaa
+    # Course Description
+    course_description_limit = pagecol.number_input("Course Description Word Count Limit", value=30, min_value=1)
 
-# Course Description VoiceOver
-course_description_voiceover_limit = pagecol.number_input("Course Description VoiceOver Word Count Limit", value=50, min_value=1)
-
-
+    # Course Description VoiceOver
+    course_description_voiceover_limit = pagecol.number_input("Course Description VoiceOver Word Count Limit", value=50, min_value=1)
 
 
-if "button_clicked" not in st.session_state:
-    st.session_state.button_clicked = False
 
-if "processed_all_items" not in st.session_state:
-    st.session_state.processed_all_items = False
-if ecol.button("Extract and Generate"):
-    st.session_state.button_clicked = True
-            
-    if "dictionary" not in st.session_state:
-        st.session_state.dictionary = {
-    "Course": {
-        "Course_Name": st.session_state.crsnm,
-        "Course_Description": st.session_state.descrip,
-        "VoiceOver": st.session_state.cvo
-    },
-    "Topics": [],
-    "Course_Objectives": [
-        {
-        "Objective": st.session_state.lo_input,
-        "VoiceOver": st.session_state.lovo
-        },
-    ]
-    }
-    
-    # if "table_of_contents" in st.session_state:
-    # Convert topics to new forma
-        for topic in st.session_state.table_of_contents["Topics"]:
-        
-            for topic_name, subtopics in topic.items():
+
+    if "button_clicked" not in st.session_state:
+        st.session_state.button_clicked = False
+
+    if "processed_all_items" not in st.session_state:
+        st.session_state.processed_all_items = False
+    if ecol.button("Extract and Generate"):
+        st.session_state.button_clicked = True
                 
-                new_topic = {
-                "Topic_Name": topic_name,
-                "Subtopics": [],
-                "Topic_Summary": "",
-                "Topic_Summary_VoiceOver": ""
-                }
-
-                for subtopic in subtopics:
-                    new_subtopic = {
-                        "Subtopic_Name": subtopic,
-                        "Bullets": [],
-                        "VoiceOver": [],
-                        "Image": ""
-                    }
-                    new_topic["Subtopics"].append(new_subtopic)
-            st.session_state.dictionary["Topics"].append(new_topic)
-
-
-# gen = ecol.button("Extract and Generate")
-if st.session_state.button_clicked and not st.session_state.processed_all_items:
-    #st.write(st.session_state.dictionary)
-    for topic in st.session_state.dictionary["Topics"]:
-        # extract_col.write(topic)
-        # topic_sum = st.session_state.index.query(f"Generate Topic Summary description of {topic_summary_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
-        # extract_col.info(topic_sum)
-        # Voice_topic_sum = st.session_state.index.query(f"Generate Topic Summary voice over script of {topic_summary_voiceover_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
-        # extract_col.info(Voice_topic_sum)
-        # topic["Topic_Summary"] = topic_sum
-        # topic["Topic_Summary_VoiceOver"] = Voice_topic_sum
-
-        for subtopic in topic["Subtopics"]:
-
-            voiceovers = st.session_state.index.query(f"Generate a voice over script as a single string for the section named {subtopic['Subtopic_Name']} .").response.strip()
-            # subtopic["VoiceOver"] = voiceovers.split("~")[:num_bullets_per_slide]  # assume voice overs are comma-separated
-            subtopic["VoiceOver"] = voiceovers
-            extract_col.write(subtopic["VoiceOver"])
-
-            bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points as a single string, for the content in the following script {voiceovers}\n, the total word count should be within 30-40 words and should not exceed the limit").response.strip()
-            # subtopic["Bullets"] = bullets.split("~")[:num_bullets_per_slide]  # assume bullets are comma-separated
-            subtopic["Bullets"] = bullets
-            extract_col.write(subtopic["Bullets"])
-
+        if "dictionary" not in st.session_state:
+            st.session_state.dictionary = {
+        "Course": {
+            "Course_Name": st.session_state.crsnm,
+            "Course_Description": st.session_state.descrip,
+            "VoiceOver": st.session_state.cvo
+        },
+        "Topics": [],
+        "Course_Objectives": [
+            {
+            "Objective": st.session_state.lo_input,
+            "VoiceOver": st.session_state.lovo
+            },
+        ]
+        }
+        
+        # if "table_of_contents" in st.session_state:
+        # Convert topics to new forma
+            for topic in st.session_state.table_of_contents["Topics"]:
             
-    #st.write(st.session_state.dictionary)
-    st.session_state.button_clicked = False
-    st.session_state.processed_all_items = True
+                for topic_name, subtopics in topic.items():
+                    
+                    new_topic = {
+                    "Topic_Name": topic_name,
+                    "Subtopics": [],
+                    "Topic_Summary": "",
+                    "Topic_Summary_VoiceOver": ""
+                    }
+
+                    for subtopic in subtopics:
+                        new_subtopic = {
+                            "Subtopic_Name": subtopic,
+                            "Bullets": [],
+                            "VoiceOver": [],
+                            "Image": ""
+                        }
+                        new_topic["Subtopics"].append(new_subtopic)
+                st.session_state.dictionary["Topics"].append(new_topic)
+
+
+    # gen = ecol.button("Extract and Generate")
+    if st.session_state.button_clicked and not st.session_state.processed_all_items:
+        #st.write(st.session_state.dictionary)
+        for topic in st.session_state.dictionary["Topics"]:
+            # extract_col.write(topic)
+            # topic_sum = st.session_state.index.query(f"Generate Topic Summary description of {topic_summary_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
+            # extract_col.info(topic_sum)
+            # Voice_topic_sum = st.session_state.index.query(f"Generate Topic Summary voice over script of {topic_summary_voiceover_limit} words by summarizing the information beloning to the following section {topic['Topic_Name']}").response.strip()
+            # extract_col.info(Voice_topic_sum)
+            # topic["Topic_Summary"] = topic_sum
+            # topic["Topic_Summary_VoiceOver"] = Voice_topic_sum
+
+            for subtopic in topic["Subtopics"]:
+
+                voiceovers = st.session_state.index.query(f"Generate a voice over script as a single string for the section named {subtopic['Subtopic_Name']} .").response.strip()
+                # subtopic["VoiceOver"] = voiceovers.split("~")[:num_bullets_per_slide]  # assume voice overs are comma-separated
+                subtopic["VoiceOver"] = voiceovers
+                extract_col.write(subtopic["VoiceOver"])
+
+                bullets = st.session_state.index.query(f"Generate {num_bullets_per_slide} Bullet points as a single string, for the content in the following script {voiceovers}\n, the total word count should be within 30-40 words and should not exceed the limit").response.strip()
+                # subtopic["Bullets"] = bullets.split("~")[:num_bullets_per_slide]  # assume bullets are comma-separated
+                subtopic["Bullets"] = bullets
+                extract_col.write(subtopic["Bullets"])
+
+                
+        #st.write(st.session_state.dictionary)
+        st.session_state.button_clicked = False
+        st.session_state.processed_all_items = True
 
 
 
 
-######################       voice over      ##########################################
+    ######################       voice over      ##########################################
 
-try:
+    try:
 
-    course_name = voice_col.text_input('Course Name', st.session_state.dictionary['Course']['Course_Name'])
-    course_description = voice_col.text_input('Course Description', st.session_state.dictionary['Course']['Course_Description'])
+        course_name = voice_col.text_input('Course Name', st.session_state.dictionary['Course']['Course_Name'])
+        course_description = voice_col.text_input('Course Description', st.session_state.dictionary['Course']['Course_Description'])
 
-    objectives = st.session_state.dictionary['Course_Objectives'][0]['Objective'][0]
-    for i, obj in enumerate(objectives):
-        objectives[i] = voice_col.text_input(f'Objective {i+1}', obj)
+        objectives = st.session_state.dictionary['Course_Objectives'][0]['Objective'][0]
+        for i, obj in enumerate(objectives):
+            objectives[i] = voice_col.text_input(f'Objective {i+1}', obj)
 
-    topics = st.session_state.dictionary['Topics'][0]['Subtopics']
-    for i, topic in enumerate(topics):
-        with st.expander(f'Topic {i+1}'):
-            topic_name = voice_col.text_input('Topic Name', topic['Subtopic_Name'])
-            topic_bullets = voice_col.text_input('Topic Bullets', topic['Bullets'])
-            topic_voiceover = voice_col.text_input('Topic Voiceover', topic['VoiceOver'])
-            topic_image = voice_col.text_input('Topic Image', topic['Image'])
+        topics = st.session_state.dictionary['Topics'][0]['Subtopics']
+        for i, topic in enumerate(topics):
+            with st.expander(f'Topic {i+1}'):
+                topic_name = voice_col.text_input('Topic Name', topic['Subtopic_Name'])
+                topic_bullets = voice_col.text_input('Topic Bullets', topic['Bullets'])
+                topic_voiceover = voice_col.text_input('Topic Voiceover', topic['VoiceOver'])
+                topic_image = voice_col.text_input('Topic Image', topic['Image'])
 
-except:
-    print("Error in edit tabs")
+    except:
+        print("Error in edit tabs")
 
 
-if voice_col.button("Save Changes"):
-    save_dictionary_as_json()
+    if voice_col.button("Save Changes"):
+        save_dictionary_as_json()
 
-    st.session_state.dictionary
+        st.session_state.dictionary
+
+else:
+
+    Uploadtab, toctab,  extractTab, synthesiaTab = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Synthesia__"])
