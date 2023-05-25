@@ -526,5 +526,5 @@ else:
             toctab.write(st.session_state.cs_dictionary)
 
     except:
-    print("Upload a document to get started")
+        print("Upload a document to get started")
 
