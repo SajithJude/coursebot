@@ -521,9 +521,9 @@ else:
             json_cs = call_openai(convert_prompt)
             toctab.write(json_cs)
             cs_dictionary = json.loads(json_cs.strip())
-        if "cs_dictionary" not in st.session_state:
-            st.session_state.cs_dictionary = cs_dictionary
-        toctab.write(st.session_state.cs_dictionary)
+            if "cs_dictionary" not in st.session_state:
+                st.session_state.cs_dictionary = cs_dictionary
+            toctab.write(st.session_state.cs_dictionary)
 
     # except:
     #     print("Upload a document to get started")
