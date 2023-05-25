@@ -514,7 +514,33 @@ else:
         # toctab.write(st.session_state.course_structure)
     
     # try:
-    if st.session_state.course_structure is not None:
+    if st.session_state.course_structure is not None:    
+        cs_format = """
+        {
+        "CourseStructure": {
+            "Scenes": [
+            {
+                "Scene1": {
+                "Title": "description or URL of image",
+                "TextOverlay": "description or text to be shown",
+                "Voiceover": "description or script of voiceover"
+                },
+                "Scene2": {
+                "Title": "description or URL of image",
+                "TextOverlay": "description or text to be shown",
+                "Voiceover": "description or script of voiceover"
+                },
+                "Scene3": {
+                "Title": "description or URL of image",
+                "TextOverlay": "description or text to be shown",
+                "Voiceover": "description or script of voiceover"
+                }
+                // Add more scenes as needed
+            }
+            ]
+        }
+        }
+        """
         modify_cs = st.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
         if st.button("Confirm Structure"):
             convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
