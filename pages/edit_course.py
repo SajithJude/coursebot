@@ -236,9 +236,9 @@ if tab_synthesia.button("Create Video Part 1"):
         tab_synthesia.write(f'Response content: {response.content}')
 
 
-if tab_synthesia.button("show video"):
-    url = f"https://share.synthesia.io/embeds/videos/{st.session_state.video_id}"
-    tab_synthesia.write(url)
-    iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
-    components.html(iframe_html,height=600)
+# if tab_synthesia.button("show video"):
+#     url = f"https://share.synthesia.io/embeds/videos/{st.session_state.video_id}"
+#     tab_synthesia.write(url)
+#     iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
+#     components.html(iframe_html,height=600)
 
