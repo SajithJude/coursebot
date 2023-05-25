@@ -541,8 +541,8 @@ else:
         }
         }
         """
-        modify_cs = st.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
-        if st.button("Confirm Structure"):
+        modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
+        if toctab.button("Confirm Structure"):
             convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
             json_cs = call_openai(convert_prompt)
             toctab.write(json_cs)
