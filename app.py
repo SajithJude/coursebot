@@ -117,7 +117,7 @@ def delete_file():
 if "selected_json" not in st.session_state:
     st.session_state.selected_json = ''
 
-colms = st.columns((4, 1, 1,1,1,1,1))
+colms = st.columns((3, 1, 1,1,1,1,1))
 
 fields = ["Project Name", 'Status', '', '', 'Actions', '','' ]
 for col, field_name in zip(colms, fields):
@@ -130,7 +130,7 @@ st.markdown("""
 i = 1
 for Name in saved_courses:
     i += 1
-    col1, col2, col3, col4, col5, col6, col7 = st.columns((4, 1, 1,1,1,1,1),gap="small")
+    col1, col2, col3, col4, col5, col6, col7 = st.columns((3, 1, 1,1,1,1,1),gap="small")
     with col1:
         st.write(Name)
    
