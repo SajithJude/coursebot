@@ -81,6 +81,7 @@ div.stButton > button:first-child {
     font-size:25px;border-radius:6px;
     box-shadow: 1px 1px 5px grey;
     margin-top:1px;
+    width: 30px
 }
 </style>""", unsafe_allow_html=True)
 
