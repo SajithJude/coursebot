@@ -77,8 +77,9 @@ os.makedirs(upload_directory, exist_ok=True)
 m = st.markdown("""
 <style>
 div.stButton > button:first-child {
-    background-color: #FFFFFF;
+    background-color: #5007D9;
     font-size:25px;border-radius:6px;
+    font-color: #ffffff;
     box-shadow: 1px 1px 5px grey;
     margin-top:1px;
     width: 140px
