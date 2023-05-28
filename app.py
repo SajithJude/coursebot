@@ -80,6 +80,7 @@ div.stButton > button:first-child {
     background-color: #5007D9;
     font-size:25px;border-radius:6px;
     font-color: #ffffff;
+    color: #ffffff;
     box-shadow: 1px 1px 5px grey;
     margin-top:1px;
     width: 140px
