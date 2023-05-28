@@ -87,7 +87,7 @@ div.stButton > button:first-child {
 
 
 st.write("")
-col1, col2= st.columns((7, 3))
+col1, col2= st.columns((10,2))
 with col1:
     st.write("")
 
