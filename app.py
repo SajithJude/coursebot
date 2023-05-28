@@ -116,37 +116,51 @@ def delete_file():
 if "selected_json" not in st.session_state:
     st.session_state.selected_json = ''
 
-colms = st.columns((7, 1, 1,1))
+colms = st.columns((4, 1, 1,1,1,1,1))
 
-fields = ["Chapter Name", 'Status', 'Action', 'Delete' ]
+fields = ["Project Name", 'Status', '', '', 'Actions', '','' ]
 for col, field_name in zip(colms, fields):
     # header
-    col.subheader(field_name)
+    col.write(f"##### {field_name}")
 st.markdown("""
-        <div style="background-color:#560AE8;height:2px;margin-top:2px;margin-bottom:10px;"></div>
+        <div style="background-color:#560AE8;height:1px;margin-top:2px;margin-bottom:10px;"></div>
     """, unsafe_allow_html=True)
 
 i = 1
 for Name in saved_courses:
     i += 1
-    col1, col2, col3, col4 = st.columns((7, 1, 1, 1),gap="small")
+    col1, col2, col3, col4, col5, col6, col7 = st.columns((4, 1, 1,1,1,1,1),gap="small")
     with col1:
-        st.write(f"##### {Name}")
-        st.session_state.selected_pptx = Name
-    # if Name.endswith(".pptx"):
+        st.write(Name)
+   
     with col2:
         st.write("Draft")
+
     with col3:
-        edit_file = st.button("Edit", key=f"edit{Name}")
+        edit_file = st.button("Edit Project", key=f"edit{Name}")
         if edit_file:
-            switch_page("edit_course")  
+            switch_page("edit_project")  
     
     with col4:
-        delete_status = True
-        delete_file = st.button("Delete", key=f"delete{Name}")
-        if delete_file:
-            os.delete(f"output/{st.session_state.selected_pptx}")
-            #switch_page("delete_file")
+        edit_file = st.button("Create Video", key=f"create{Name}")
+        if edit_file:
+            switch_page("create_video") 
+    
+    with col5:
+        edit_file = st.button("Edit Video", key=f"create{Name}")
+        if edit_file:
+            switch_page("edit_video") 
+
+    with col6:
+        edit_file = st.button("Preview Video", key=f"create{Name}")
+        if edit_file:
+            switch_page("preview_video") 
+
+    with col7:
+        edit_file = st.button("Download Video", key=f"create{Name}")
+        if edit_file:
+            switch_page("download_video") 
+            
     st.markdown("""
     <div style="background-color:#560AE8;height:1px;margin-top:5px;margin-bottom:5px;"></div>
 """, unsafe_allow_html=True)
