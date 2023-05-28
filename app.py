@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Load your logo image and convert it to base64
+# Load your logo image and convert it to base64s
 hide_menu_style = """
         <style>
         #MainMenu {display:none;}
