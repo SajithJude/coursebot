@@ -130,7 +130,7 @@ st.markdown("""
 i = 1
 for Name in saved_courses:
     i += 1
-    col1, col2, col3, col4, col5, col6, col7 = st.columns((3, 1, 1,1,1,1,1),gap="small")
+    col1, col2, col3, col4, col5, col6, col7 = st.columns((3, 1, 1,1,1,1,1))
     with col1:
         st.write(Name)
    
