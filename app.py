@@ -152,7 +152,7 @@ for Name in saved_courses:
             switch_page("edit_video") 
 
     with col6:
-        edit_file = st.button("Preview Video", key=f"prview{Name}")
+        edit_file = st.button("Preview", key=f"prview{Name}")
         if edit_file:
             switch_page("preview_video") 
 
