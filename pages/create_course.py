@@ -30,7 +30,7 @@ st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sideb
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-st.title("CourseBOT for PDF's")
+st.title("CourseBOT for PDF")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
 
@@ -186,7 +186,7 @@ def process_pdf(uploaded_file):
 
 
 
-video_type = st.radio("Type of Video", ["casestudy", "elearning"], horizontal= True)
+video_type = st.radio("Type of Video", ["Case Study", "eLearning"], horizontal= True)
 
 
 if video_type == "elearning":
@@ -194,7 +194,7 @@ if video_type == "elearning":
     ######################       defining tabs      ##########################################
 
     # upload_col, refine_toc,  extract_col, miss_col, edit_col,voice_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Refine_TOC__", "⚪ __Extract_Contents__","⚪ __missing_Contents__", "⚪ __Edit Contents__", "⚪ Voice Over__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
-    upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Edit__", "⚪ __Images__"])
+    upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Content__", "⚪ __Edit__", "⚪ __Images__"])
 
 
 
@@ -225,6 +225,7 @@ if video_type == "elearning":
                 st.session_state.index = process_pdf(uploaded_file)
 
             upload_col.success("Index created successfully")
+            upload_col.success("Click on Tab 'Video Structure'")
             # clear_images_folder()
             # clear_pages_folder()
         # read PDF file
