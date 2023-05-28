@@ -95,7 +95,16 @@ with col1:
     st.write("")
 
 with col2:
+    st.markdown("""
+    <style>
+    button {
+        width: 300px !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     create_new = st.button("### Create new Chapter")
+    # create_new = st.button("### Create new Chapter")
     if create_new:
         switch_page("create_course")
 
