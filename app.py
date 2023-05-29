@@ -187,11 +187,10 @@ for Name in saved_courses:
                     mui.icon.SlideshowOutlined,
                     onClick  = create_video,
                     key=f"button_create{Name}",
-                    data = vidname
                 )
                 z+=1
                 if but:
-                    st.session_state.event_data = {Name}
+                    st.session_state.event_data = vidname
 
         with colc:
             with elements(f"edit_element{Name}{j+1}"):
