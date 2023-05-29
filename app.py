@@ -175,37 +175,37 @@ for Name in saved_courses:
         cola,  colb, colc, cold, cole = x.columns((5, 1,1,1,1))
 
         with cola:
-            st.write(f"###### {Name} Video part {j}")
+            st.write(f"###### {Name} Video part {j+1}")
         
         with colb:
-            with elements(f"create_element{j}"):
+            with elements(f"create_element{j+1}"):
                 mui.Button(
                     mui.icon.SlideshowOutlined,
                     onClick  = create_video,
-                    key=f"button_create{j}"
+                    key=f"button_create{j+1}"
                 )
                 # j+=1
 
         with colc:
-            with elements(f"edit_element{j}"):
+            with elements(f"edit_element{j+1}"):
                 mui.Button(
                     mui.icon.EditOutlined,
                     onClick  = edit_video,
-                    key=f"button_edit{j}"
+                    key=f"button_edit{j+1}"
                 )
                 # j+=1
 
         with cold:
-            with elements(f"preview_element{j}"):
+            with elements(f"preview_element{j+1}"):
                 mui.Button(
                     mui.icon.VisibilityOutlined,
                     onClick  = preview_video,
-                    key=f"button_preview{j}"
+                    key=f"button_preview{j+1}"
                 )
                 # j+=1
         
         with cole:
-            with elements(f"download_element{j}"):
+            with elements(f"download_element{j+1}"):
                 mui.Button(
                     mui.icon.CloudDownloadTwoTone,
                     onClick  = download_video,
