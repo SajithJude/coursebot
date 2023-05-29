@@ -127,7 +127,7 @@ if "download_video" not in st.session_state:
 
 def create_video(args, event):
     st.session_state.create_video = "true"
-    st.session_state.passed = args
+    st.session_state.passed_ARG = args
 
 def edit_video():
     st.session_state.edit_video = "true"
@@ -190,7 +190,6 @@ for Name in saved_courses:
                 but = mui.Button(
                     mui.icon.SlideshowOutlined,
                     onClick  = partial(create_video,f"{Name}"),
-                    args=(vidname),
                     key=f"button_create{Name}",
                 )
                 z+=1
