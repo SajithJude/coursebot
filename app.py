@@ -187,7 +187,7 @@ for Name in saved_courses:
                 )
                 z+=1
 
-        colc.but(key=f"button_edit{z+1}",onClick  = edit_video,)
+        colc.mui.Button(key=f"button_edit{z+1}",onClick  = edit_video,)
         # with colc:
         #     with elements(f"edit_element{Name}{j+1}"):
         #         mui.Button(
