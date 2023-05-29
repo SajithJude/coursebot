@@ -486,19 +486,19 @@ else:
     steps = ["1","2","3","4"]
     bar = stx.stepper_bar(steps=steps)
     current_step = st.empty()
-    current_step=0
+    # current_step=0
 
     # current_step.write(bar)
-    if current_step == 0:
+    if bar == 0:
         Uploadtab = current_step
         
-    elif current_step == 1:
+    elif bar == 1:
         toctab = current_step
 
-    elif current_step == 1:
+    elif bar == 1:
         extractTab = current_step
 
-    elif current_step == 1:
+    elif bar == 1:
         synthesiaTab = current_step
 
 
