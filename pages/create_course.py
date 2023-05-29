@@ -482,7 +482,7 @@ if video_type == "elearning":
 else:
 
     # Uploadtab, toctab,  extractTab, synthesiaTab = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Create Video__"])
-    col_i, coll_ii = st.columns(6,3)
+    col_i, coll_ii = st.columns([6,3])
     steps = ["1","2","3","4"]
     coll_ii.bar = stx.stepper_bar(steps=steps)
     current_step = st.empty()
