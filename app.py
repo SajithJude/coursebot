@@ -174,7 +174,7 @@ for Name in saved_courses:
         # with st.spinner("Loading..."):
         x = col5.expander(f"Video part {j}")
 
-        cola,  colb, colc, cold, cole = x.columns((5, 1,1,1,1))
+        colb, colc, cold, cole = x.columns(4)
 
         # with cola:
         #     st.write(f"###### {Name} Video part {j+1}")
