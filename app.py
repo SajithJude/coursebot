@@ -167,10 +167,11 @@ for Name in saved_courses:
             switch_page("edit_course")  
 
     x = st.expander("Video Options")
-    with st.spinner("Loading..."):
+    
         # with st.expander("Video Options"):
         
-        for i in range(3):
+    for i in range(3):
+        with st.spinner("Loading..."):
             j += 1
             col1, col2, col3, col4, col5,col6, col7, col8 = x.columns((1,1, 1, 1,1,1,1,1))
 
