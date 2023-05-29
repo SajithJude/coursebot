@@ -154,7 +154,6 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 i = 1
-z = 1
 for Name in saved_courses:
     i += 1
     col1, col2, col4, col5,col6,  col7 = st.columns((4, 1,1,1,1,1))
@@ -170,6 +169,7 @@ for Name in saved_courses:
     
         # with st.expander("Video Options"):
     j = 2
+    z = 1
       
     for j in range(3):
         # with st.spinner("Loading..."):
