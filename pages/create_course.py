@@ -22,8 +22,6 @@ import zipfile
 from llama_index.retrievers import VectorIndexRetriever
 from llama_index.query_engine import RetrieverQueryEngine
 import streamlit.components.v1 as components
-import extra_streamlit_components as stx
-
 
 
 
@@ -32,7 +30,7 @@ st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sideb
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-st.title("CourseBOT for PDF")
+st.title("CourseBOT for PDF's")
 st.caption("AI-powered course creation made easy")
 DATA_DIR = "data"
 
@@ -188,7 +186,7 @@ def process_pdf(uploaded_file):
 
 
 
-video_type = st.radio("Type of Video", ["Case Study", "eLearning"], horizontal= True)
+video_type = st.radio("Type of Video", ["casestudy", "elearning"], horizontal= True)
 
 
 if video_type == "elearning":
@@ -196,7 +194,7 @@ if video_type == "elearning":
     ######################       defining tabs      ##########################################
 
     # upload_col, refine_toc,  extract_col, miss_col, edit_col,voice_col, xml_col, manage_col = st.tabs(["⚪ __Upload Chapter__","⚪ __Refine_TOC__", "⚪ __Extract_Contents__","⚪ __missing_Contents__", "⚪ __Edit Contents__", "⚪ Voice Over__", "⚪ __Export Generated XML__", "⚪ __Manage XMLs__"])
-    upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Content__", "⚪ __Edit__", "⚪ __Images__"])
+    upload_col, toc_col,  extract_col, voice_col, xml_col = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Edit__", "⚪ __Images__"])
 
 
 
@@ -227,7 +225,6 @@ if video_type == "elearning":
                 st.session_state.index = process_pdf(uploaded_file)
 
             upload_col.success("Index created successfully")
-            upload_col.success("Click on Tab 'Video Structure'")
             # clear_images_folder()
             # clear_pages_folder()
         # read PDF file
@@ -481,38 +478,15 @@ if video_type == "elearning":
 
 else:
 
-    # Uploadtab, toctab,  extractTab, synthesiaTab = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Create Video__"])
-    col_i, coll_ii = st.columns([6,3])
-    steps = ["1","2","3","4"]
-    with col_i:
-        bar = stx.stepper_bar(steps=steps)
-    current_step = st.empty()
-    Uploadtab = current_step
-    toctab = current_step
-    extractTab = current_step
-    synthesiaTab = current_step
-    # current_step=0
+    Uploadtab, toctab,  extractTab, synthesiaTab = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Synthesia__"])
 
-    # current_step.write(bar)
-    
-        # Uploadtab = current_step
-        
-    # elif bar == 1:
-    #     toctab = current_step
 
-    # elif bar == 2:
-    #     extractTab = current_step
+    uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
+    # toc_option = Uploadtab.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
 
-    # elif bar == 3:
-        
+    if uploaded_file is not None:
 
-    if bar == 0:
-        uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
-        # toc_option = Uploadtab.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
-
-        if uploaded_file is not None:
-
-                # index = 
+            # index = 
             if "index" not in st.session_state:
                 st.session_state.index = process_pdf(uploaded_file)
 
@@ -520,156 +494,147 @@ else:
 
             with open(uploaded_file.name, "wb") as f:
                 f.write(uploaded_file.getbuffer())
-    # except Exception as e:
-    #     st.write(e)
+
     
 ###################### video structure ##########################
-    # if "index" in st.session_state:
 
-    elif bar == 1:
 
-                    # if "vid_duration" not in st.session_state:
-            #     st.session_state.vid_duration = vid_duration
-
-            # video_type = st.radio("Type of Video", ["casestudy", "elearning", "custom"])
-            # if video_type == "custom":
-            #     video_type = st.text_input("What kind of video content would you like to make ?")
-            
+    if "index" in st.session_state:
         vid_duration = toctab.slider("How long is the video ?")
+        # if "vid_duration" not in st.session_state:
+        #     st.session_state.vid_duration = vid_duration
 
-        if toctab.button("Get Video structure"):
-            query = f"Generate an optimal video content structure with 10 scenes and titles for a case study video from this document"
-            course_structure = st.session_state.index.query(query).response
-            if "course_structure" not in st.session_state:
-                st.session_state.course_structure = course_structure
-
-            # toctab.write(st.session_state.course_structure)
+        # video_type = st.radio("Type of Video", ["casestudy", "elearning", "custom"])
+        # if video_type == "custom":
+        #     video_type = st.text_input("What kind of video content would you like to make ?")
         
-        try:
-            if st.session_state.course_structure is not None:    
-                cs_format = """
-                {
-                "CourseStructure": {
-                    "Scenes": [
-                    {
-                        "Scene1": {
-                        "Title": "description or URL of image",
-                        "TextOverlay": "description or text to be shown",
-                        "Voiceover": "description or script of voiceover"
-                        },
-                        "Scene2": {
-                        "Title": "description or URL of image",
-                        "TextOverlay": "description or text to be shown",
-                        "Voiceover": "description or script of voiceover"
-                        },
-                        "Scene3": {
-                        "Title": "description or URL of image",
-                        "TextOverlay": "description or text to be shown",
-                        "Voiceover": "description or script of voiceover"
-                        }
-                        // Add more scenes as needed
-                    }
-                    ]
-                }
-                }
-                """
-                modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
-                if toctab.button("Confirm Structure"):
-                    convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
-                    json_cs = call_openai(convert_prompt)
-                    toctab.write(json_cs)
-                    cs_dictionary = json.loads(json_cs.strip())
-                    if "cs_dictionary" not in st.session_state:
-                        st.session_state.cs_dictionary = cs_dictionary
-                    toctab.write(st.session_state.cs_dictionary)
 
-        except:
-            print("Upload a document to get started")
+    if toctab.button("Get Video structure"):
+        query = f"Generate an optimal video content structure with 10 scenes and titles for a case study video from this document"
+        course_structure = st.session_state.index.query(query).response
+        if "course_structure" not in st.session_state:
+            st.session_state.course_structure = course_structure
 
-    # except:
-    #     print("Error TOC")
-
-####################   extract tab #####################################
+        # toctab.write(st.session_state.course_structure)
+    
     try:
-        if extractTab.button("Get data"):
-            for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
-                for scene_name, scene_data in scene.items():
-                    opening_shot = scene_data["Title"]
-                    overlay = st.session_state.index.query(f"Generate some short text content to display in a slide titled as {opening_shot}").response.strip()
-                    voiceover = st.session_state.index.query(f"Generate a voice over script as a single string to narrate in a slide Titled  {opening_shot}").response.strip()
-                    extractTab.write(scene_name)
-                    extractTab.info(overlay)
-                    extractTab.info(voiceover)
-
-                    scene_data["TextOverlay"] = overlay
-                    scene_data["Voiceover"] = voiceover
-            extractTab.write(st.session_state.cs_dictionary)
+        if st.session_state.course_structure is not None:    
+            cs_format = """
+            {
+            "CourseStructure": {
+                "Scenes": [
+                {
+                    "Scene1": {
+                    "Title": "description or URL of image",
+                    "TextOverlay": "description or text to be shown",
+                    "Voiceover": "description or script of voiceover"
+                    },
+                    "Scene2": {
+                    "Title": "description or URL of image",
+                    "TextOverlay": "description or text to be shown",
+                    "Voiceover": "description or script of voiceover"
+                    },
+                    "Scene3": {
+                    "Title": "description or URL of image",
+                    "TextOverlay": "description or text to be shown",
+                    "Voiceover": "description or script of voiceover"
+                    }
+                    // Add more scenes as needed
+                }
+                ]
+            }
+            }
+            """
+            modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
+            if toctab.button("Confirm Structure"):
+                convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
+                json_cs = call_openai(convert_prompt)
+                toctab.write(json_cs)
+                cs_dictionary = json.loads(json_cs.strip())
+                if "cs_dictionary" not in st.session_state:
+                    st.session_state.cs_dictionary = cs_dictionary
+                toctab.write(st.session_state.cs_dictionary)
 
     except:
-        print("Error extract")
+        print("Upload a document to get started")
+
+
+
+####################   extract tab #####################################
+
+if extractTab.button("Get data"):
+  for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
+    for scene_name, scene_data in scene.items():
+        opening_shot = scene_data["Title"]
+        overlay = st.session_state.index.query(f"Generate some short text content to display in a slide titled as {opening_shot}").response.strip()
+        voiceover = st.session_state.index.query(f"Generate a voice over script as a single string to narrate in a slide Titled  {opening_shot}").response.strip()
+        extractTab.write(scene_name)
+        extractTab.info(overlay)
+        extractTab.info(voiceover)
+
+        scene_data["TextOverlay"] = overlay
+        scene_data["Voiceover"] = voiceover
+  extractTab.write(st.session_state.cs_dictionary)
+
 
 
 
 #################### synthesia tab ###############################################
 
+name_vid =synthesiaTab.text_input("Name of video")
 
-try:
+if synthesiaTab.button("Create Video Part 1"):
 
-    name_vid =synthesiaTab.text_input("Name of video")
-
-    if synthesiaTab.button("Create Video Part 1"):
-
-        headers = {
-                        'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
-                        'Content-Type': 'application/json'
-                    }
+    headers = {
+                    'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
+                    'Content-Type': 'application/json'
+                }
 
 
 
 
-        api_data = {
-            "title": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
-            "description": "First part with lo cn cd and top 1",
-            "visibility": "public",
-            "templateId": "1419387f-2154-4fff-a7f1-b2d6c9c2fca8",
-            "templateData": {
-                "Course_Name": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
-                "Course_Description": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
-                "intovo": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+    api_data = {
+        "title": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+        "description": "First part with lo cn cd and top 1",
+        "visibility": "public",
+        "templateId": "1419387f-2154-4fff-a7f1-b2d6c9c2fca8",
+        "templateData": {
+            "Course_Name": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+            "Course_Description": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
+            "intovo": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
 
-                "Subtopic_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
-                "Copy_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
-                "script1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
-
-
-                # Add similar mappings for other fields as needed.
-            },
-            "test": True,
-            "callbackId": "john@example.com"
-        }
-        with synthesiaTab.expander("api_data"):
-            st.write(api_data)
-
-        # Make the API request
-        response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
-        if response.status_code == 201:
-            synthesiaTab.info('Sample scene video creation process started successfully.')
-            video_id = response.json()['id']
-            synthesiaTab.write(f'Video ID for Sample scene: {video_id}')
-            synthesiaTab.code(video_id)
-            if "video_id" not in st.session_state:
-                st.session_state.video_id = video_id
-            url = f"https://share.synthesia.io/embeds/videos/{video_id}"
-            synthesiaTab.write(url)
-            iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
-            components.html(iframe_html,height=600)
-            # frame = f"<div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src=" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"
+            "Subtopic_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+            "Copy_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
+            "script1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
 
 
+            # Add similar mappings for other fields as needed.
+        },
+        "test": True,
+        "callbackId": "john@example.com"
+    }
+    with synthesiaTab.expander("api_data"):
+        st.write(api_data)
 
-        else:
-            synthesiaTab.write('An error occurred during the video creation process for Sample scene.')
-            synthesiaTab.write(f'Response status code: {response.status_code}')
-            synthesiaTab.write(f'Response content: {response.content}')
-except:
-    print("SynthesiaTab error")
+    # Make the API request
+    response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+    if response.status_code == 201:
+        synthesiaTab.info('Sample scene video creation process started successfully.')
+        video_id = response.json()['id']
+        synthesiaTab.write(f'Video ID for Sample scene: {video_id}')
+        synthesiaTab.code(video_id)
+        if "video_id" not in st.session_state:
+            st.session_state.video_id = video_id
+        url = f"https://share.synthesia.io/embeds/videos/{video_id}"
+        synthesiaTab.write(url)
+        iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
+        components.html(iframe_html,height=600)
+        # frame = f"<div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src=" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"
+
+
+
+    else:
+        synthesiaTab.write('An error occurred during the video creation process for Sample scene.')
+        synthesiaTab.write(f'Response status code: {response.status_code}')
+        synthesiaTab.write(f'Response content: {response.content}')
+
