@@ -648,6 +648,6 @@ else:
 
     steps = ["1","2","3","4"]
     bar = stx.stepper_bar(steps=steps)
-    current_step = bar.empty()
+    current_step = st.empty()
 
-    st.write(current_step)
+    current_step.write(current_step)
