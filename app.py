@@ -160,7 +160,6 @@ for Name in saved_courses:
     # st.session_state.selected_json = f"Video_{Name}"
     def create_video_fn(json_name=f"Video_part_{Name}"):
         st.session_state.create_video = "true"
-        st.session_state.event_data = event
         st.session_state.selected_json = json_name
     i += 1
     col1, col2, col5 = st.columns((4, 1,4))
