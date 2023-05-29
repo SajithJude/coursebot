@@ -6,7 +6,7 @@ from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.buy_me_a_coffee import button
 from streamlit_elements import elements, mui, html
 
-
+import json 
 st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
