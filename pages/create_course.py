@@ -650,4 +650,4 @@ else:
     bar = stx.stepper_bar(steps=steps)
     current_step = st.empty()
 
-    current_step.write(current_step)
+    current_step.write(bar)
