@@ -154,22 +154,22 @@ for Name in saved_courses:
                 st.write(f"{Name} Video part {j-1}")
             
             with col4:
-                create_video = st.button("Create Video", key=f"create_video{j-1}")
+                create_video = st.button("Create Video", key=f"{Name} create_video{j-1}")
                 if create_video:
                     switch_page("create_video") 
 
             with col5:
-                edit_video = st.button("Edit Video", key=f"edit_video{j-1}")
+                edit_video = st.button("Edit Video", key=f"{Name} edit_video{j-1}")
                 if edit_video:
                     switch_page("edit_video")
 
             with col6:
-                preview_video = st.button("Preview", key=f"preview_video{j-1}")
+                preview_video = st.button("Preview", key=f"{Name} preview_video{j-1}")
                 if preview_video:
                     switch_page("preview_video")
             
             with col7:
-                download_video = st.button("Download", key=f"download_video{j-1}")
+                download_video = st.button("Download", key=f"{Name} download_video{j-1}")
                 if download_video:
                     switch_page("download_video")
             
