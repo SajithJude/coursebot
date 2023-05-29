@@ -173,7 +173,7 @@ for Name in saved_courses:
     for i in range(3):
         with st.spinner("Loading..."):
             j += 1
-            col1, col4, col5,col6, col7, col8 = x.columns((3, 1,1,1,1,1))
+            col1, col4, col5,col6, col7, col8 = x.columns((4, 1,1,1,1,1))
 
             with col1:
                 st.write(f"{Name} Video part {j-1}")
