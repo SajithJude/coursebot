@@ -104,7 +104,7 @@ with col2:
     if create_new:
         switch_page("create_course")
 
-
+st.write("")
 #######  PPTX Table   ##########
 
 saved_courses = [file for file in  os.listdir('./output') if file.endswith('.json')]
