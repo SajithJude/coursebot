@@ -74,6 +74,17 @@ st.markdown(custom_header(logo_base64), unsafe_allow_html=True)
 upload_directory = "data"
 os.makedirs(upload_directory, exist_ok=True)
 
+icon = """
+   
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="100" viewBox="0 0 24 24" fill="none" stroke="#2953B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+          
+"""
+
+st.button(icon)
+
 m = st.markdown("""
 <style>
 div.stButton > button:first-child {
@@ -85,8 +96,11 @@ div.stButton > button:first-child {
     margin-top:1px;
     min-width: 140px;
     border: solid #5007D9 1px;
+    background-image: {icon};
 }
 </style>""", unsafe_allow_html=True)
+
+
 
 
 
@@ -153,22 +167,22 @@ for Name in saved_courses:
             with col1:
                 st.write(f"{Name} Video part {j-1}")
             
-            with col4:
+            with col5:
                 create_video = st.button("Create Video", key=f"{Name} create_video{j-1}")
                 if create_video:
                     switch_page("create_video") 
 
-            with col5:
+            with col6:
                 edit_video = st.button("Edit Video", key=f"{Name} edit_video{j-1}")
                 if edit_video:
                     switch_page("edit_video")
 
-            with col6:
+            with col7:
                 preview_video = st.button("Preview", key=f"{Name} preview_video{j-1}")
                 if preview_video:
                     switch_page("preview_video")
             
-            with col7:
+            with col8:
                 download_video = st.button("Download", key=f"{Name} download_video{j-1}")
                 if download_video:
                     switch_page("download_video")
