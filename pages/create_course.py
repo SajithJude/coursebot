@@ -491,16 +491,16 @@ else:
 
     # current_step.write(bar)
     if bar == 0:
-        Uploadtab = current_step
+        Uploadtab = st.empty()
         
     elif bar == 1:
-        toctab = current_step
+        toctab = st.empty()
 
     elif bar == 2:
-        extractTab = current_step
+        extractTab = st.empty()
 
     elif bar == 3:
-        synthesiaTab = current_step
+        synthesiaTab = st.empty()
 
     try:
         uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
