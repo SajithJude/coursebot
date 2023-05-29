@@ -187,6 +187,7 @@ for Name in saved_courses:
                     mui.icon.SlideshowOutlined,
                     onClick  = create_video,
                     key=f"button_create{Name}"
+                    data = f"{Name}"
                 )
                 z+=1
 
