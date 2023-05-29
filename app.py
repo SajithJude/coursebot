@@ -156,12 +156,12 @@ st.markdown("""
 i = 1
 for Name in saved_courses:
     i += 1
-    col1, col2, col5,col6 = st.columns((4, 1,1,4))
+    col1, col2, col5 = st.columns((4, 1,4))
 
     col1.write(f"##### {Name}") 
     col2.write("Draft")
     with col5:
-        edit_file = st.button("Edit Project", key=f"edit{Name}")
+        edit_file = st.button("Edit Project", key=f"edit{Name}",use_container_width=True)
         if edit_file:
             switch_page("edit_course")  
 
