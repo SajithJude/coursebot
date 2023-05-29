@@ -151,7 +151,7 @@ for Name in saved_courses:
             col1, col2, col3, col4, col5,col6, col7, col8 = st.columns((1,1, 1, 1,1,1,1,1))
 
             with col1:
-                st.write(f"Video{j-1}")
+                st.write(f"{Name} Video part {j-1}")
             
             with col4:
                 create_video = st.button("Create Video", key=f"create_video{j-1}")
