@@ -79,4 +79,8 @@ os.makedirs(upload_directory, exist_ok=True)
 
 
 
-st.write(st.session_state.passed_ARG)
+if st.session_state.passed_ARG:
+    json_file_path = f"./output/{st.session_state.passed_ARG}.json"
+    with open(json_file_path, "r") as json_file:
+        json_data = json.load(json_file)
+    st.write(json_data)
