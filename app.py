@@ -143,7 +143,7 @@ def download_video():
 if "selected_json" not in st.session_state:
     st.session_state.selected_json = ''
 
-colms = st.columns((4, 1, 1,1,1,1,1))
+colms = st.columns((3, 1, 1,1,1,1,1))
 
 fields = ["Project Name", '','Status',  '', 'Actions', '','' ]
 for col, field_name in zip(colms, fields):
