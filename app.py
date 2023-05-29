@@ -219,6 +219,7 @@ for Name in saved_courses:
     <div style="background-color:#560AE8;height:1px;margin-top:5px;margin-bottom:5px;"></div>
 """, unsafe_allow_html=True)
     
+    
 if st.session_state.create_video == "true":
      switch_page("create_video")
 
