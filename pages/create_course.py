@@ -520,8 +520,8 @@ else:
         st.info("Finish uploading and text tab")
     
 ###################### video structure ##########################
-if "index" in st.session_state:
-    vid_duration = toctab.slider("How long is the video ?")
+    if "index" in st.session_state:
+        vid_duration = toctab.slider("How long is the video ?")
 
     try:
                     # if "vid_duration" not in st.session_state:
