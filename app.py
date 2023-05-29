@@ -185,7 +185,7 @@ for Name in saved_courses:
             with elements(f"create_element{Name}{j+1}"):
                 but = mui.Button(
                     mui.icon.SlideshowOutlined,
-                    onClick  = create_video,
+                    onClick  = create_video(f"{name}"),
                     key=f"button_create{Name}",
                     data = f"{Name}"
                 )
