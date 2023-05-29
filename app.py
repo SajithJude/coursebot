@@ -99,7 +99,7 @@ with col1:
     st.write("")
 
 with col2:
-    create_new = st.button("### Create new Project")
+    create_new = st.button("### Create new Project",use_container_width=True)
     # create_new = st.button("### Create new Chapter")
     if create_new:
         switch_page("create_course")
