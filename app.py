@@ -172,7 +172,7 @@ for Name in saved_courses:
       
     for j in range(3):
         # with st.spinner("Loading..."):
-        x = col5.expander(" Video")
+        x = col5.expander(f"Video part {j}")
 
         cola,  colb, colc, cold, cole = x.columns((5, 1,1,1,1))
 
