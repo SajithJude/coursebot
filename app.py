@@ -185,11 +185,13 @@ for Name in saved_courses:
             with elements(f"create_element{Name}{j+1}"):
                 but = mui.Button(
                     mui.icon.SlideshowOutlined,
-                    onClick  = create_video(f"{Name}"),
+                    onClick  = create_video,
                     key=f"button_create{Name}",
                     data = f"{Name}"
                 )
                 z+=1
+                if but:
+                    st.session_state.event_data = {Name}
 
         with colc:
             with elements(f"edit_element{Name}{j+1}"):
