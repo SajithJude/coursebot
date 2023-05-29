@@ -156,7 +156,7 @@ st.markdown("""
 i = 1
 for Name in saved_courses:
     i += 1
-    col1, col2, col5,col6,  col7 = st.columns((4, 1,1,3))
+    col1, col2, col5,col6 = st.columns((4, 1,1,4))
 
     col1.write(f"##### {Name}") 
     col2.write("Draft")
