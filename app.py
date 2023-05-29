@@ -125,17 +125,16 @@ if "download_video" not in st.session_state:
 
 
 
-def create_video(event,vidname):
+def create_video():
     st.session_state.create_video = "true"
-    # st.session_state.event_data = vidname
 
-def edit_video(event):
+def edit_video():
     st.session_state.edit_video = "true"
 
-def preview_video(event):
+def preview_video():
     st.session_state.preview_video = "true"
 
-def download_video(event):
+def download_video():
     st.session_state.download_video = "true"
 
 

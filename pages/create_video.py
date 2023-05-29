@@ -78,6 +78,5 @@ os.makedirs(upload_directory, exist_ok=True)
 
 
 
-# st.write(st.session_state.event_data)
 
 st.write(st.session_state.selected_json)
