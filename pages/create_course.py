@@ -647,5 +647,5 @@ else:
                 synthesiaTab.write(f'Response content: {response.content}')
 
     steps = ["1","2","3","4"]
-    current_step = st.empty()stx.stepper_bar(steps=steps)
+    current_step = st.empty().stx.stepper_bar(steps=steps)
     st.write(current_step)
