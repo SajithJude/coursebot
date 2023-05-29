@@ -516,7 +516,7 @@ else:
 
             with open(uploaded_file.name, "wb") as f:
                 f.write(uploaded_file.getbuffer())
-    except (error) as e:
+    except Exception as e:
         st.write(e)
     
 ###################### video structure ##########################
