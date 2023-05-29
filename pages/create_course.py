@@ -507,7 +507,7 @@ else:
         # toc_option = Uploadtab.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
 
         if uploaded_file is not None:
-            
+
                 # index = 
             if "index" not in st.session_state:
                 st.session_state.index = process_pdf(uploaded_file)
@@ -516,8 +516,8 @@ else:
 
             with open(uploaded_file.name, "wb") as f:
                 f.write(uploaded_file.getbuffer())
-    except:
-        st.info("Finish uploading and text tab")
+    except (error) as e:
+        st.write(e)
     
 ###################### video structure ##########################
     # if "index" in st.session_state:
