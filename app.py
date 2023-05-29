@@ -157,7 +157,7 @@ st.markdown("""
 i = 1
 for Name in saved_courses:
     # st.session_state.selected_json = f"Video_{Name}"
-    def create_video_fn(json_name=f"Video_part_{Name}"):
+    def create_video_fn(event,json_name=f"Video_part_{Name}"):
         st.session_state.create_video = "true"
         st.session_state.selected_json = json_name
     i += 1
