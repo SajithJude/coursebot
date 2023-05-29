@@ -520,11 +520,11 @@ else:
         st.info("Finish uploading and text tab")
     
 ###################### video structure ##########################
+if "index" in st.session_state:
+    vid_duration = toctab.slider("How long is the video ?")
 
     try:
-        if "index" in st.session_state:
-            vid_duration = toctab.slider("How long is the video ?")
-            # if "vid_duration" not in st.session_state:
+                    # if "vid_duration" not in st.session_state:
             #     st.session_state.vid_duration = vid_duration
 
             # video_type = st.radio("Type of Video", ["casestudy", "elearning", "custom"])
