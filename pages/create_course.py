@@ -650,4 +650,14 @@ else:
     bar = stx.stepper_bar(steps=steps)
     current_step = st.empty()
 
-    current_step.write(bar)
+    # current_step.write(bar)
+    if current_step == 0:
+        uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
+        if uploaded_file is not None:
+            # Process the uploaded file
+            st.success("PDF uploaded successfully")
+
+    elif current_step == 1:
+        vid_duration = st.slider("How long is the video?")
+    # Additional code for video structure step
+
