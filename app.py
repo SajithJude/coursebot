@@ -175,7 +175,7 @@ for Name in saved_courses:
         cola,  colb, colc, cold, cole = x.columns((5, 1,1,1,1))
 
         with cola:
-            st.write(f"###### {Name} Video part {j-1}")
+            st.write(f"###### {Name} Video part {j}")
         
         with colb:
             with elements(f"create_element{j}"):
