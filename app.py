@@ -125,17 +125,19 @@ if "download_video" not in st.session_state:
 
 
 
-def create_video():
+def create_video(event):
     st.session_state.create_video = "true"
+    st.session_state.event_data = event
 
-def edit_video():
+def edit_video(event):
     st.session_state.edit_video = "true"
 
-def preview_video():
+def preview_video(event):
     st.session_state.preview_video = "true"
 
-def download_video():
+def download_video(event):
     st.session_state.download_video = "true"
+
 
 
 
@@ -184,7 +186,7 @@ for Name in saved_courses:
                 but = mui.Button(
                     mui.icon.SlideshowOutlined,
                     onClick  = create_video,
-                    key=f"button_create{z+1}"
+                    key=f"button_create{Name}"
                 )
                 z+=1
 
@@ -193,7 +195,7 @@ for Name in saved_courses:
                 mui.Button(
                     mui.icon.EditOutlined,
                     onClick  = edit_video,
-                    key=f"button_edit{z+1}"
+                    key=f"button_edit{NamName}"
                 )
                 z+=1
 
@@ -202,7 +204,7 @@ for Name in saved_courses:
                 mui.Button(
                     mui.icon.VisibilityOutlined,
                     onClick  = preview_video,
-                    key=f"button_preview{z+1}"
+                    key=f"button_previeName{Name}"
                 )
                 z+=1
         
@@ -211,7 +213,7 @@ for Name in saved_courses:
                 mui.Button(
                     mui.icon.CloudDownloadTwoTone,
                     onClick  = download_video,
-                    key=f"button_download{z}"
+                    key=f"button_download{Name}"
                 )
                 z+=1
         j += 1
@@ -225,16 +227,17 @@ for Name in saved_courses:
     
     
 if st.session_state.create_video == "true":
-     switch_page("create_video")
+    
+    switch_page("create_video")
 
 if st.session_state.edit_video == "true":
-     switch_page("edit_video")
+    switch_page("edit_video")
 
 if st.session_state.preview_video == "true":
-     switch_page("preview_video")
+    switch_page("preview_video")
 
 if st.session_state.download_video == "true":
-     switch_page("download_video")
+    switch_page("download_video")
         
 
 
