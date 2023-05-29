@@ -497,11 +497,11 @@ else:
     
         # Uploadtab = current_step
         
-    elif bar == 1:
-        toctab = current_step
+    # elif bar == 1:
+    #     toctab = current_step
 
-    elif bar == 2:
-        extractTab = current_step
+    # elif bar == 2:
+    #     extractTab = current_step
 
     # elif bar == 3:
         
@@ -527,6 +527,7 @@ else:
     # if "index" in st.session_state:
 
     elif bar == 1:
+
                     # if "vid_duration" not in st.session_state:
             #     st.session_state.vid_duration = vid_duration
 
