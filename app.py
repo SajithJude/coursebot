@@ -4,6 +4,7 @@ import shutil
 import base64
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.buy_me_a_coffee import button
+from streamlit_elements import elements, mui, html
 
 
 st.set_page_config(
@@ -74,15 +75,6 @@ st.markdown(custom_header(logo_base64), unsafe_allow_html=True)
 upload_directory = "data"
 os.makedirs(upload_directory, exist_ok=True)
 
-icon = """
-   
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="100" viewBox="0 0 24 24" fill="none" stroke="#2953B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-          
-"""
-
 
 
 m = st.markdown("""
@@ -96,11 +88,8 @@ div.stButton > button:first-child {
     margin-top:1px;
     min-width: 140px;
     border: solid #5007D9 1px;
-    background-image: {icon};
 }
 </style>""", unsafe_allow_html=True)
-
-
 
 
 
@@ -110,12 +99,10 @@ with col1:
     st.write("")
 
 with col2:
-    create_new = st.button("### Create new Chapter")
+    create_new = st.button("### Create new Project")
     # create_new = st.button("### Create new Chapter")
     if create_new:
         switch_page("create_course")
-
-st.write("")
 
 
 #######  PPTX Table   ##########
@@ -124,11 +111,35 @@ saved_courses = [file for file in  os.listdir('./output') if file.endswith('.jso
 if "saved_courses" not in st.session_state:
     st.session_state.saved_courses = saved_courses
 
-def display_ppt():
-    st.write("Show PPT")
 
-def delete_file():
-    st.write("Delete file")
+
+def edit_course():
+    st.write("hello word")
+    st.session_state.button_click = "true"
+    # switch_page("edit_course")
+
+def create_course():
+    switch_page("create_course")
+
+def create_video():
+    switch_page("create_video")
+
+def preview_video():
+    switch_page("preview_video")
+
+with elements(f"new_element"):
+    but = mui.Button(
+        mui.icon.CloudDownloadTwoTone,
+        onClick  = edit_course
+    )
+
+
+if "button_click" not in st.session_state:
+    st.session_state.button_click = "false"
+
+if st.session_state.button_click == "true":
+     switch_page("download_video")
+
 
 
 ########## Table ###########
@@ -182,11 +193,17 @@ for Name in saved_courses:
                 if preview_video:
                     switch_page("preview_video")
             
-            with col8:
-                download_video = st.button("Download", key=f"{Name} download_video{j-1}")
-                if download_video:
-                    switch_page("download_video")
-            
+            # with col8:
+            #     with elements(f"new_element{j}"):
+            #         mui.Button(
+            #             mui.icon.CloudDownloadTwoTone,
+            #             onClick  = edit_course
+            #         )
+
+                # download_video = st.button("Download", key=f"{Name} download_video{j-1}")
+                # if download_video is not None:
+                #     switch_page("download_video")
+        
 
             
     st.markdown("""
