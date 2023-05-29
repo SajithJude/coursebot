@@ -129,18 +129,14 @@ def create_video(args, event):
     st.session_state.create_video = "true"
     st.session_state.passed_ARG = args
 
-def edit_video(args):
+def edit_video():
     st.session_state.edit_video = "true"
-    st.session_state.passed_ARG = args
 
-def preview_video(args):
+def preview_video():
     st.session_state.preview_video = "true"
-    st.session_state.passed_ARG = args
 
-def download_video(args):
+def download_video():
     st.session_state.download_video = "true"
-    st.session_state.passed_ARG = args
-
 
 
 
@@ -188,41 +184,48 @@ for Name in saved_courses:
 
         # with cola:
         #     st.write(f"###### {Name} Video part {j+1}")
+        
         with colb:
             with elements(f"create_element{Name}{j+1}"):
                 but = mui.Button(
                     mui.icon.SlideshowOutlined,
-                    onClick=partial(create_video, f"{Name}"),
+                    onClick  = partial(create_video,f"{Name}"),
+                    args=(vidname),
                     key=f"button_create{Name}",
                 )
-                z += 1
+                z+=1
+                # if but:
+                    
 
         with colc:
             with elements(f"edit_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.EditOutlined,
-                    onClick=partial(edit_video, f"{Name}"),
+                    onClick  = edit_video,
                     key=f"button_edit{Name}"
                 )
-                z += 1
+                z+=1
 
         with cold:
             with elements(f"preview_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.VisibilityOutlined,
-                    onClick=partial(preview_video, f"{Name}"),
-                    key=f"button_preview{Name}"
+                    onClick  = preview_video,
+                    key=f"button_previeName{Name}"
                 )
-                z += 1
-
+                z+=1
+        
         with cole:
             with elements(f"download_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.CloudDownloadTwoTone,
-                    onClick=partial(download_video, f"{Name}"),
+                    onClick  = download_video,
                     key=f"button_download{Name}"
                 )
-                z += 1
+                z+=1
+        j += 1
+        
+        
 
             
     st.markdown("""
