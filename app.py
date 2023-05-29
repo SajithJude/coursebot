@@ -175,7 +175,7 @@ for Name in saved_courses:
     for j in range(3):
         # with st.spinner("Loading..."):
         x = col5.expander(f"Video part {j+1}")
-
+        vidname = f"Video_part_{j+1}_{Name}"
         colb, colc, cold, cole = x.columns(4)
 
         # with cola:
@@ -187,7 +187,7 @@ for Name in saved_courses:
                     mui.icon.SlideshowOutlined,
                     onClick  = create_video,
                     key=f"button_create{Name}",
-                    data = f"{Name}"
+                    data = vidname
                 )
                 z+=1
                 if but:
