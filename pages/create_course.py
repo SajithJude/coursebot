@@ -480,8 +480,10 @@ if video_type == "elearning":
 else:
 
     Uploadtab, toctab,  extractTab, synthesiaTab = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Create Video__"])
+    steps = ["⚪ __Upload PDF__", "⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Create Video__"]
+    current_step = st.empty().stepper_bar(steps=steps)
 
-
+    
     uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
     # toc_option = Uploadtab.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
 
