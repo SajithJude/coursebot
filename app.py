@@ -129,14 +129,18 @@ def create_video(args, event):
     st.session_state.create_video = "true"
     st.session_state.passed_ARG = args
 
-def edit_video():
+def edit_video(args, event):
     st.session_state.edit_video = "true"
+    st.session_state.passed_ARG = args
 
-def preview_video():
+
+def preview_video(args, event):
     st.session_state.preview_video = "true"
+    st.session_state.passed_ARG = args
 
-def download_video():
+def download_video(args, event):
     st.session_state.download_video = "true"
+    st.session_state.passed_ARG = args
 
 
 
@@ -201,7 +205,7 @@ for Name in saved_courses:
             with elements(f"edit_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.EditOutlined,
-                    onClick  = edit_video,
+                    onClick=partial(edit_video, f"{Name}"),
                     key=f"button_edit{Name}"
                 )
                 z+=1
@@ -210,7 +214,7 @@ for Name in saved_courses:
             with elements(f"preview_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.VisibilityOutlined,
-                    onClick  = preview_video,
+                    onClick=partial(preview_video, f"{Name}"),
                     key=f"button_previeName{Name}"
                 )
                 z+=1
@@ -219,7 +223,7 @@ for Name in saved_courses:
             with elements(f"download_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.CloudDownloadTwoTone,
-                    onClick  = download_video,
+                    onClick=partial(download_video, f"{Name}"),
                     key=f"button_download{Name}"
                 )
                 z+=1
