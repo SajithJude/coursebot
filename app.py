@@ -83,7 +83,7 @@ div.stButton > button:first-child {
     color: #ffffff;
     box-shadow: 1px 1px 5px grey;
     margin-top:1px;
-    width: 140px
+    min-width: 140px
 }
 </style>""", unsafe_allow_html=True)
 
