@@ -172,7 +172,6 @@ for Name in saved_courses:
       
     for i in range(3):
         # with st.spinner("Loading..."):
-        j += 1
         cola,  colb, colc, cold, cole = x.columns((5, 1,1,1,1))
 
         with cola:
@@ -185,7 +184,7 @@ for Name in saved_courses:
                     onClick  = create_video,
                     key=f"button_create{j}"
                 )
-                j+=1
+                # j+=1
 
         with colc:
             with elements(f"edit_element{j}"):
@@ -194,7 +193,7 @@ for Name in saved_courses:
                     onClick  = edit_video,
                     key=f"button_edit{j}"
                 )
-                j+=1
+                # j+=1
 
         with cold:
             with elements(f"preview_element{j}"):
@@ -203,7 +202,7 @@ for Name in saved_courses:
                     onClick  = preview_video,
                     key=f"button_preview{j}"
                 )
-                j+=1
+                # j+=1
         
         with cole:
             with elements(f"download_element{j}"):
@@ -212,7 +211,9 @@ for Name in saved_courses:
                     onClick  = download_video,
                     key=f"button_download{j}"
                 )
-                j+=1
+                # j+=1
+        j += 1
+        
         
 
             
