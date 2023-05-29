@@ -96,14 +96,6 @@ with col1:
     st.write("")
 
 with col2:
-    # st.markdown("""
-    # <style>
-    # button {
-    #     width: 300px !important;
-    # }
-    # </style>
-    # """, unsafe_allow_html=True)
-
     create_new = st.button("### Create new Chapter")
     # create_new = st.button("### Create new Chapter")
     if create_new:
@@ -129,7 +121,7 @@ def delete_file():
 if "selected_json" not in st.session_state:
     st.session_state.selected_json = ''
 
-colms = st.columns((3, 1, 1,1,1,1,1))
+colms = st.columns((2, 1, 1,1,1,1,1))
 
 fields = ["Project Name", 'Status', '', '', 'Actions', '','' ]
 for col, field_name in zip(colms, fields):
@@ -142,44 +134,46 @@ st.markdown("""
 i = 1
 for Name in saved_courses:
     i += 1
-    col1, col2, col3, col4, col5, col6, col7 = st.columns((3, 1, 1,1,1,1,1))
-    with col1:
-        st.write(Name)
-   
-    with col2:
-        st.write("Draft")
+    col1, col2, col3, col4, col5,col6,  col7 = st.columns((2, 1, 1,1,1,1,1))
 
-    with col3:
+    col1.write(f"##### {Name}") 
+    col2.write("Draft")
+    with col5:
         edit_file = st.button("Edit Project", key=f"edit{Name}")
         if edit_file:
             switch_page("edit_course")  
-    
-    with col4:
-        edit_file = st.button("Create Video", key=f"create{Name}")
-        if edit_file:
-            switch_page("create_video") 
-    
-    with col5:
-        edit_file = st.button("Edit Video", key=f"edit_vid{Name}")
-        if edit_file:
-            switch_page("edit_video") 
 
-    with col6:
-        edit_file = st.button("Preview", key=f"prview{Name}")
-        if edit_file:
-            switch_page("preview_video") 
+    
+    with st.expander("Video Status"):
+        j = 1
+        for i in range(3):
+            j += 1
+            col1, col2, col3, col4, col5,col6, col7, col8 = st.columns((1,1, 1, 1,1,1,1,1))
 
-    with col7:
-        # edit_file = st.button("Download", key=f"download{Name}")
-        # if edit_file:
-        #     switch_page("download_video") 
-        with st.expander(""):
-            st.write("""
-                The chart above shows some numbers I picked for you.
-                I rolled actual dice for these, so they're *guaranteed* to
-                be random.
-            """)
-            st.image("https://static.streamlit.io/examples/dice.jpg")
+            with col1:
+                st.write(f"Video{j-1}")
+            
+            with col4:
+                create_video = st.button("Create Video", key=f"create_video{j}")
+                if create_video:
+                    switch_page("create_video") 
+
+            with col5:
+                edit_video = st.button("Edit Video", key=f"edit_video{j}")
+                if edit_video:
+                    switch_page("edit_video")
+
+            with col6:
+                preview_video = st.button("Preview", key=f"preview_video{j}")
+                if preview_video:
+                    switch_page("preview_video")
+            
+            with col7:
+                download_video = st.button("Download", key=f"download_video{j}")
+                if download_video:
+                    switch_page("download_video")
+            
+
             
     st.markdown("""
     <div style="background-color:#560AE8;height:1px;margin-top:5px;margin-bottom:5px;"></div>
