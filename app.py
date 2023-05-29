@@ -165,7 +165,6 @@ for Name in saved_courses:
         if edit_file:
             switch_page("edit_course")  
 
-    x = st.expander("##### Video")
     
         # with st.expander("Video Options"):
     j = 2
@@ -173,6 +172,8 @@ for Name in saved_courses:
       
     for j in range(3):
         # with st.spinner("Loading..."):
+        x = st.expander("##### Video")
+
         cola,  colb, colc, cold, cole = x.columns((5, 1,1,1,1))
 
         with cola:
