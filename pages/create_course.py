@@ -520,8 +520,7 @@ else:
         st.info("Finish uploading and text tab")
     
 ###################### video structure ##########################
-    if "index" in st.session_state:
-        vid_duration = toctab.slider("How long is the video ?")
+    # if "index" in st.session_state:
 
     try:
                     # if "vid_duration" not in st.session_state:
@@ -531,6 +530,7 @@ else:
             # if video_type == "custom":
             #     video_type = st.text_input("What kind of video content would you like to make ?")
             
+        vid_duration = toctab.slider("How long is the video ?")
 
         if toctab.button("Get Video structure"):
             query = f"Generate an optimal video content structure with 10 scenes and titles for a case study video from this document"
