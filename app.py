@@ -144,7 +144,7 @@ for Name in saved_courses:
             switch_page("edit_course")  
 
     
-    with st.expander(str(Name)+ " Video Status"):
+    with st.expander("Video Options"):
         j = 1
         for i in range(3):
             j += 1
