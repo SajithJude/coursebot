@@ -186,7 +186,7 @@ for Name in saved_courses:
                 but = mui.Button(
                     mui.icon.SlideshowOutlined,
                     onClick  = create_video,
-                    key=f"button_create{Name}"
+                    key=f"button_create{Name}",
                     data = f"{Name}"
                 )
                 z+=1
