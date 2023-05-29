@@ -157,6 +157,7 @@ st.markdown("""
 
 i = 1
 for Name in saved_courses:
+    st.session_state.selected_json = f"Video_{Name}"
     i += 1
     col1, col2, col5 = st.columns((4, 1,4))
 
@@ -190,8 +191,8 @@ for Name in saved_courses:
                     key=f"button_create{Name}",
                 )
                 z+=1
-                if but:
-                    st.session_state.selected_json = f"Video_part_{j+1}_{Name}"
+                # if but:
+                    
 
         with colc:
             with elements(f"edit_element{Name}{j+1}"):
