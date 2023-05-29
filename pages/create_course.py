@@ -498,11 +498,13 @@ else:
         toctab = st.empty()
     pass
 
-    elif bar == 2:
+    if bar == 2:
         extractTab = st.empty()
+    pass
 
-    elif bar == 3:
+    if bar == 3:
         synthesiaTab = st.empty()
+    pass
 
     try:
         uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
