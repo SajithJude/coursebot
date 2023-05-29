@@ -179,7 +179,7 @@ for Name in saved_courses:
             st.write(f"###### {Name} Video part {j+1}")
         
         with colb:
-            with elements(f"create_element{j+1}"):
+            with elements(f"create_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.SlideshowOutlined,
                     onClick  = create_video,
@@ -188,7 +188,7 @@ for Name in saved_courses:
                 z+=1
 
         with colc:
-            with elements(f"edit_element{j+1}"):
+            with elements(f"edit_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.EditOutlined,
                     onClick  = edit_video,
@@ -197,7 +197,7 @@ for Name in saved_courses:
                 z+=1
 
         with cold:
-            with elements(f"preview_element{j+1}"):
+            with elements(f"preview_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.VisibilityOutlined,
                     onClick  = preview_video,
@@ -206,7 +206,7 @@ for Name in saved_courses:
                 z+=1
         
         with cole:
-            with elements(f"download_element{j+1}"):
+            with elements(f"download_element{Name}{j+1}"):
                 mui.Button(
                     mui.icon.CloudDownloadTwoTone,
                     onClick  = download_video,
