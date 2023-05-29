@@ -195,7 +195,7 @@ for Name in saved_courses:
                 mui.Button(
                     mui.icon.EditOutlined,
                     onClick  = edit_video,
-                    key=f"button_edit{NamName}"
+                    key=f"button_edit{Name}"
                 )
                 z+=1
 
