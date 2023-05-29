@@ -80,7 +80,14 @@ os.makedirs(upload_directory, exist_ok=True)
 
 
 if st.session_state.passed_ARG:
-    json_file_path = f"./output/{st.session_state.passed_ARG}.json"
+    json_file_path = f"output/{st.session_state.passed_ARG}"
     with open(json_file_path, "r") as json_file:
         json_data = json.load(json_file)
     st.write(json_data)
+
+
+
+# with open(f"output/{st.session_state.selected_pptx}", "r") as f:
+#     json_data = json.load(f)
+#     if "dictionary" not in st.session_state:
+#         st.session_state.dictionary = json_data
