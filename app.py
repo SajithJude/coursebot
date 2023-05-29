@@ -83,7 +83,7 @@ icon = """
           
 """
 
-st.button(icon)
+
 
 m = st.markdown("""
 <style>
