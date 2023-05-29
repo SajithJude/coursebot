@@ -492,9 +492,11 @@ else:
     # current_step.write(bar)
     if bar == 0:
         Uploadtab = st.empty()
+    pass 
         
     elif bar == 1:
         toctab = st.empty()
+    pass
 
     elif bar == 2:
         extractTab = st.empty()
