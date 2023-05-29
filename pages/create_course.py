@@ -490,80 +490,16 @@ else:
 
     # current_step.write(bar)
     if bar == 0:
-        uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
-    # toc_option = Uploadtab.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
-
-        if uploaded_file is not None:
-
-                # index = 
-                if "index" not in st.session_state:
-                    st.session_state.index = process_pdf(uploaded_file)
-
-                Uploadtab.success("Index created successfully")
-
-                with open(uploaded_file.name, "wb") as f:
-                    f.write(uploaded_file.getbuffer())
-        pass 
-        # Uploadtab = current_step
+        Uploadtab = current_step
         
     elif bar == 1:
-            if toctab.button("Get Video structure"):
-                query = f"Generate an optimal video content structure with 10 scenes and titles for a case study video from this document"
-                course_structure = st.session_state.index.query(query).response
-                if "course_structure" not in st.session_state:
-                    st.session_state.course_structure = course_structure
+        toctab = current_step
 
-                # toctab.write(st.session_state.course_structure)
-            
-            try:
-                if st.session_state.course_structure is not None:    
-                    cs_format = """
-                    {
-                    "CourseStructure": {
-                        "Scenes": [
-                        {
-                            "Scene1": {
-                            "Title": "description or URL of image",
-                            "TextOverlay": "description or text to be shown",
-                            "Voiceover": "description or script of voiceover"
-                            },
-                            "Scene2": {
-                            "Title": "description or URL of image",
-                            "TextOverlay": "description or text to be shown",
-                            "Voiceover": "description or script of voiceover"
-                            },
-                            "Scene3": {
-                            "Title": "description or URL of image",
-                            "TextOverlay": "description or text to be shown",
-                            "Voiceover": "description or script of voiceover"
-                            }
-                            // Add more scenes as needed
-                        }
-                        ]
-                    }
-                    }
-                    """
-                    modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
-                    if toctab.button("Confirm Structure"):
-                        convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
-                        json_cs = call_openai(convert_prompt)
-                        toctab.write(json_cs)
-                        cs_dictionary = json.loads(json_cs.strip())
-                        if "cs_dictionary" not in st.session_state:
-                            st.session_state.cs_dictionary = cs_dictionary
-                        toctab.write(st.session_state.cs_dictionary)
+    elif bar == 2:
+        extractTab = current_step
 
-            except:
-                print("Upload a document to get started")
-            pass
-
-        # toctab = current_step
-
-    # elif bar == 1:
-    #     extractTab = current_step
-
-    # elif bar == 1:
-    #     synthesiaTab = current_step
+    elif bar == 3:
+        synthesiaTab = current_step
 
 
     uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
@@ -593,6 +529,55 @@ else:
         # if video_type == "custom":
         #     video_type = st.text_input("What kind of video content would you like to make ?")
         
+
+    if toctab.button("Get Video structure"):
+        query = f"Generate an optimal video content structure with 10 scenes and titles for a case study video from this document"
+        course_structure = st.session_state.index.query(query).response
+        if "course_structure" not in st.session_state:
+            st.session_state.course_structure = course_structure
+
+        # toctab.write(st.session_state.course_structure)
+    
+    try:
+        if st.session_state.course_structure is not None:    
+            cs_format = """
+            {
+            "CourseStructure": {
+                "Scenes": [
+                {
+                    "Scene1": {
+                    "Title": "description or URL of image",
+                    "TextOverlay": "description or text to be shown",
+                    "Voiceover": "description or script of voiceover"
+                    },
+                    "Scene2": {
+                    "Title": "description or URL of image",
+                    "TextOverlay": "description or text to be shown",
+                    "Voiceover": "description or script of voiceover"
+                    },
+                    "Scene3": {
+                    "Title": "description or URL of image",
+                    "TextOverlay": "description or text to be shown",
+                    "Voiceover": "description or script of voiceover"
+                    }
+                    // Add more scenes as needed
+                }
+                ]
+            }
+            }
+            """
+            modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
+            if toctab.button("Confirm Structure"):
+                convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
+                json_cs = call_openai(convert_prompt)
+                toctab.write(json_cs)
+                cs_dictionary = json.loads(json_cs.strip())
+                if "cs_dictionary" not in st.session_state:
+                    st.session_state.cs_dictionary = cs_dictionary
+                toctab.write(st.session_state.cs_dictionary)
+
+    except:
+        print("Upload a document to get started")
 
 
 
