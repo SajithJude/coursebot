@@ -166,7 +166,7 @@ for Name in saved_courses:
         if edit_file:
             switch_page("edit_course")  
 
-    x = st.expander("###### Video")
+    x = st.expander("##### Video")
     
         # with st.expander("Video Options"):
         
