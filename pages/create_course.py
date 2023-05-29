@@ -486,6 +486,7 @@ else:
     steps = ["1","2","3","4"]
     bar = stx.stepper_bar(steps=steps)
     current_step = st.empty()
+    current_step=0
 
     # current_step.write(bar)
     if current_step == 0:
