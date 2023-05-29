@@ -154,7 +154,6 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 i = 1
-j = 1
 for Name in saved_courses:
     i += 1
     col1, col2, col4, col5,col6,  col7 = st.columns((4, 1,1,1,1,1))
@@ -169,50 +168,51 @@ for Name in saved_courses:
     x = st.expander("##### Video")
     
         # with st.expander("Video Options"):
-        
+    j = 1
+      
     for i in range(3):
-        with st.spinner("Loading..."):
-            j += 1
-            col1,  col5,col6, col7, col8 = x.columns((5, 1,1,1,1))
+        # with st.spinner("Loading..."):
+        j += 1
+        cola,  colb, colc, cold, cole = x.columns((5, 1,1,1,1))
 
-            with col1:
-                st.write(f"###### {Name} Video part {j-1}")
-            
-            with col5:
-                with elements(f"create_element{j}"):
-                    mui.Button(
-                        mui.icon.SlideshowOutlined,
-                        onClick  = create_video,
-                        key=f"button_create{j}"
-                    )
-                    j+=1
+        with cola:
+            st.write(f"###### {Name} Video part {j-1}")
+        
+        with colb:
+            with elements(f"create_element{j}"):
+                mui.Button(
+                    mui.icon.SlideshowOutlined,
+                    onClick  = create_video,
+                    key=f"button_create{j}"
+                )
+                j+=1
 
-            with col6:
-                with elements(f"edit_element{j}"):
-                    mui.Button(
-                        mui.icon.EditOutlined,
-                        onClick  = edit_video,
-                        key=f"button_edit{j}"
-                    )
-                    j+=1
+        with colc:
+            with elements(f"edit_element{j}"):
+                mui.Button(
+                    mui.icon.EditOutlined,
+                    onClick  = edit_video,
+                    key=f"button_edit{j}"
+                )
+                j+=1
 
-            with col7:
-                with elements(f"preview_element{j}"):
-                    mui.Button(
-                        mui.icon.VisibilityOutlined,
-                        onClick  = preview_video,
-                        key=f"button_preview{j}"
-                    )
-                    j+=1
-            
-            with col8:
-                with elements(f"download_element{j}"):
-                    mui.Button(
-                        mui.icon.CloudDownloadTwoTone,
-                        onClick  = download_video,
-                        key=f"button_download{j}"
-                    )
-                    j+=1
+        with cold:
+            with elements(f"preview_element{j}"):
+                mui.Button(
+                    mui.icon.VisibilityOutlined,
+                    onClick  = preview_video,
+                    key=f"button_preview{j}"
+                )
+                j+=1
+        
+        with cole:
+            with elements(f"download_element{j}"):
+                mui.Button(
+                    mui.icon.CloudDownloadTwoTone,
+                    onClick  = download_video,
+                    key=f"button_download{j}"
+                )
+                j+=1
         
 
             
