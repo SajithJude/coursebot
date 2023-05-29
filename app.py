@@ -191,7 +191,7 @@ for Name in saved_courses:
                 )
                 z+=1
                 if but:
-                    st.session_state.selected_json = f"{Name}"
+                    st.session_state.selected_json = f"Video_part_{j+1}_{Name}"
 
         with colc:
             with elements(f"edit_element{Name}{j+1}"):
