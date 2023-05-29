@@ -111,34 +111,31 @@ saved_courses = [file for file in  os.listdir('./output') if file.endswith('.jso
 if "saved_courses" not in st.session_state:
     st.session_state.saved_courses = saved_courses
 
+if "edit_video" not in st.session_state:
+    st.session_state.edit_video = "false"
+
+if "create_video" not in st.session_state:
+    st.session_state.create_video = "false"
+
+if "preview_video" not in st.session_state:
+    st.session_state.preview_video = "false"
+
+if "download_video" not in st.session_state:
+    st.session_state.download_video = "false"
 
 
-def edit_course():
-    st.write("hello word")
-    st.session_state.button_click = "true"
-    # switch_page("edit_course")
-
-def create_course():
-    switch_page("create_course")
 
 def create_video():
-    switch_page("create_video")
+    st.session_state.create_video = "true"
+
+def edit_video():
+    st.session_state.edit_video = "true"
 
 def preview_video():
-    switch_page("preview_video")
+    st.session_state.preview_video = "true"
 
-with elements(f"new_element"):
-    but = mui.Button(
-        mui.icon.CloudDownloadTwoTone,
-        onClick  = edit_course
-    )
-
-
-if "button_click" not in st.session_state:
-    st.session_state.button_click = "false"
-
-if st.session_state.button_click == "true":
-     switch_page("download_video")
+def download_video():
+    st.session_state.download_video = "true"
 
 
 
@@ -179,36 +176,50 @@ for Name in saved_courses:
                 st.write(f"{Name} Video part {j-1}")
             
             with col5:
-                create_video = st.button("Create Video", key=f"{Name} create_video{j-1}")
-                if create_video:
-                    switch_page("create_video") 
+                with elements(f"create_element{j}"):
+                    mui.Button(
+                        mui.icon.SlideshowOutlined,
+                        onClick  = create_video
+                    )
 
             with col6:
-                edit_video = st.button("Edit Video", key=f"{Name} edit_video{j-1}")
-                if edit_video:
-                    switch_page("edit_video")
+                with elements(f"edit_element{j}"):
+                    mui.Button(
+                        mui.icon.EditOutlined,
+                        onClick  = edit_video
+                    )
 
             with col7:
-                preview_video = st.button("Preview", key=f"{Name} preview_video{j-1}")
-                if preview_video:
-                    switch_page("preview_video")
+                with elements(f"preview_element{j}"):
+                    mui.Button(
+                        mui.icon.VisibilityOutlined,
+                        onClick  = preview_video
+                    )
             
-            # with col8:
-            #     with elements(f"new_element{j}"):
-            #         mui.Button(
-            #             mui.icon.CloudDownloadTwoTone,
-            #             onClick  = edit_course
-            #         )
-
-                # download_video = st.button("Download", key=f"{Name} download_video{j-1}")
-                # if download_video is not None:
-                #     switch_page("download_video")
+            with col8:
+                with elements(f"download_element{j}"):
+                    mui.Button(
+                        mui.icon.CloudDownloadTwoTone,
+                        onClick  = download_video
+                    )
         
 
             
     st.markdown("""
     <div style="background-color:#560AE8;height:1px;margin-top:5px;margin-bottom:5px;"></div>
 """, unsafe_allow_html=True)
+    
+if st.session_state.create_video == "true":
+     switch_page("create_video")
+
+if st.session_state.edit_video == "true":
+     switch_page("edit_video")
+
+if st.session_state.preview_video == "true":
+     switch_page("preview_video")
+
+if st.session_state.download_video == "true":
+     switch_page("download_video")
         
 
 
