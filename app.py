@@ -179,28 +179,32 @@ for Name in saved_courses:
                 with elements(f"create_element{j}"):
                     mui.Button(
                         mui.icon.SlideshowOutlined,
-                        onClick  = create_video
+                        onClick  = create_video,
+                        key=f"button_create{j}"
                     )
 
             with col6:
                 with elements(f"edit_element{j}"):
                     mui.Button(
                         mui.icon.EditOutlined,
-                        onClick  = edit_video
+                        onClick  = edit_video,
+                        key=f"button_edit{j}"
                     )
 
             with col7:
                 with elements(f"preview_element{j}"):
                     mui.Button(
                         mui.icon.VisibilityOutlined,
-                        onClick  = preview_video
+                        onClick  = preview_video,
+                        key=f"button_preview{j}"
                     )
             
             with col8:
                 with elements(f"download_element{j}"):
                     mui.Button(
                         mui.icon.CloudDownloadTwoTone,
-                        onClick  = download_video
+                        onClick  = download_video,
+                        key=f"button_download{j}"
                     )
         
 
