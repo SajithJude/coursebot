@@ -154,6 +154,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 i = 1
+j = 1
 for Name in saved_courses:
     i += 1
     col1, col2, col3, col4, col5,col6,  col7 = st.columns((2, 1, 1,1,1,1,1))
@@ -167,7 +168,7 @@ for Name in saved_courses:
 
     
     with st.expander("Video Options"):
-        j = 1
+        
         for i in range(3):
             j += 1
             col1, col2, col3, col4, col5,col6, col7, col8 = st.columns((1,1, 1, 1,1,1,1,1))
@@ -182,6 +183,7 @@ for Name in saved_courses:
                         onClick  = create_video,
                         key=f"button_create{j}"
                     )
+                    j+=1
 
             with col6:
                 with elements(f"edit_element{j}"):
@@ -190,6 +192,7 @@ for Name in saved_courses:
                         onClick  = edit_video,
                         key=f"button_edit{j}"
                     )
+                    j+=1
 
             with col7:
                 with elements(f"preview_element{j}"):
@@ -198,6 +201,7 @@ for Name in saved_courses:
                         onClick  = preview_video,
                         key=f"button_preview{j}"
                     )
+                    j+=1
             
             with col8:
                 with elements(f"download_element{j}"):
@@ -206,6 +210,7 @@ for Name in saved_courses:
                         onClick  = download_video,
                         key=f"button_download{j}"
                     )
+                    j+=1
         
 
             
