@@ -166,7 +166,7 @@ for Name in saved_courses:
         if edit_file:
             switch_page("edit_course")  
 
-    x = st.expander("Video Options")
+    x = st.expander("#### Video")
     
         # with st.expander("Video Options"):
         
@@ -176,7 +176,7 @@ for Name in saved_courses:
             col1, col4, col5,col6, col7, col8 = x.columns((5, 1,1,1,1,1))
 
             with col1:
-                st.write(f"{Name} Video part {j-1}")
+                st.write(f"#### {Name} Video part {j-1}")
             
             with col5:
                 with elements(f"create_element{j}"):
