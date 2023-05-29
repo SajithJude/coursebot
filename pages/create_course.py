@@ -487,24 +487,24 @@ else:
     with col_i:
         bar = stx.stepper_bar(steps=steps)
     current_step = st.empty()
+    Uploadtab = current_step
+    toctab = current_step
+    extractTab = current_step
+    synthesiaTab = current_step
     # current_step=0
 
     # current_step.write(bar)
     if bar == 0:
-        Uploadtab = st.empty()
-    pass 
+        Uploadtab = current_step
         
-    if bar == 1:
-        toctab = st.empty()
-    pass
+    elif bar == 1:
+        toctab = current_step
 
-    if bar == 2:
-        extractTab = st.empty()
-    pass
+    elif bar == 2:
+        extractTab = current_step
 
-    if bar == 3:
-        synthesiaTab = st.empty()
-    pass
+    elif bar == 3:
+        
 
     try:
         uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
