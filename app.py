@@ -4,6 +4,7 @@ import shutil
 import base64
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.buy_me_a_coffee import button
+from streamlit_elements import elements, mui, html
 
 
 st.set_page_config(
@@ -74,15 +75,6 @@ st.markdown(custom_header(logo_base64), unsafe_allow_html=True)
 upload_directory = "data"
 os.makedirs(upload_directory, exist_ok=True)
 
-icon = """
-   
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="100" viewBox="0 0 24 24" fill="none" stroke="#2953B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-          
-"""
-
 
 
 m = st.markdown("""
@@ -96,11 +88,8 @@ div.stButton > button:first-child {
     margin-top:1px;
     min-width: 140px;
     border: solid #5007D9 1px;
-    background-image: {icon};
 }
 </style>""", unsafe_allow_html=True)
-
-
 
 
 
@@ -110,12 +99,10 @@ with col1:
     st.write("")
 
 with col2:
-    create_new = st.button("### Create new Chapter")
+    create_new = st.button("### Create new Project")
     # create_new = st.button("### Create new Chapter")
     if create_new:
         switch_page("create_course")
-
-st.write("")
 
 
 #######  PPTX Table   ##########
@@ -124,11 +111,32 @@ saved_courses = [file for file in  os.listdir('./output') if file.endswith('.jso
 if "saved_courses" not in st.session_state:
     st.session_state.saved_courses = saved_courses
 
-def display_ppt():
-    st.write("Show PPT")
+if "edit_video" not in st.session_state:
+    st.session_state.edit_video = "false"
 
-def delete_file():
-    st.write("Delete file")
+if "create_video" not in st.session_state:
+    st.session_state.create_video = "false"
+
+if "preview_video" not in st.session_state:
+    st.session_state.preview_video = "false"
+
+if "download_video" not in st.session_state:
+    st.session_state.download_video = "false"
+
+
+
+def create_video():
+    st.session_state.create_video = "true"
+
+def edit_video():
+    st.session_state.edit_video = "true"
+
+def preview_video():
+    st.session_state.preview_video = "true"
+
+def download_video():
+    st.session_state.download_video = "true"
+
 
 
 ########## Table ###########
@@ -146,6 +154,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 i = 1
+j = 1
 for Name in saved_courses:
     i += 1
     col1, col2, col4, col5,col6,  col7 = st.columns((3, 1,1,1,1,1))
@@ -157,41 +166,72 @@ for Name in saved_courses:
         if edit_file:
             switch_page("edit_course")  
 
+    x = st.expander("Video Options")
     
-    with st.expander("Video Options"):
-        j = 1
-        for i in range(3):
+        # with st.expander("Video Options"):
+        
+    for i in range(3):
+        with st.spinner("Loading..."):
             j += 1
-            col1, col2, col3, col4, col5,col6, col7, col8 = st.columns((1,1, 1, 1,1,1,1,1))
+            col1, col2, col3, col4, col5,col6, col7, col8 = x.columns((1,1, 1, 1,1,1,1,1))
 
             with col1:
                 st.write(f"{Name} Video part {j-1}")
             
             with col5:
-                create_video = st.button("Create Video", key=f"{Name} create_video{j-1}")
-                if create_video:
-                    switch_page("create_video") 
+                with elements(f"create_element{j}"):
+                    mui.Button(
+                        mui.icon.SlideshowOutlined,
+                        onClick  = create_video,
+                        key=f"button_create{j}"
+                    )
+                    j+=1
 
             with col6:
-                edit_video = st.button("Edit Video", key=f"{Name} edit_video{j-1}")
-                if edit_video:
-                    switch_page("edit_video")
+                with elements(f"edit_element{j}"):
+                    mui.Button(
+                        mui.icon.EditOutlined,
+                        onClick  = edit_video,
+                        key=f"button_edit{j}"
+                    )
+                    j+=1
 
             with col7:
-                preview_video = st.button("Preview", key=f"{Name} preview_video{j-1}")
-                if preview_video:
-                    switch_page("preview_video")
+                with elements(f"preview_element{j}"):
+                    mui.Button(
+                        mui.icon.VisibilityOutlined,
+                        onClick  = preview_video,
+                        key=f"button_preview{j}"
+                    )
+                    j+=1
             
             with col8:
-                download_video = st.button("Download", key=f"{Name} download_video{j-1}")
-                if download_video:
-                    switch_page("download_video")
-            
+                with elements(f"download_element{j}"):
+                    mui.Button(
+                        mui.icon.CloudDownloadTwoTone,
+                        onClick  = download_video,
+                        key=f"button_download{j}"
+                    )
+                    j+=1
+        
 
             
     st.markdown("""
     <div style="background-color:#560AE8;height:1px;margin-top:5px;margin-bottom:5px;"></div>
 """, unsafe_allow_html=True)
+    
+    
+if st.session_state.create_video == "true":
+     switch_page("create_video")
+
+if st.session_state.edit_video == "true":
+     switch_page("edit_video")
+
+if st.session_state.preview_video == "true":
+     switch_page("preview_video")
+
+if st.session_state.download_video == "true":
+     switch_page("download_video")
         
 
 
