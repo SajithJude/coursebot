@@ -494,7 +494,7 @@ else:
     # current_step=0
 
     # current_step.write(bar)
-    if bar == 0:
+    
         Uploadtab = current_step
         
     elif bar == 1:
@@ -506,7 +506,7 @@ else:
     elif bar == 3:
         
 
-    try:
+    if bar == 0:
         uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
         # toc_option = Uploadtab.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
 
@@ -520,8 +520,8 @@ else:
 
             with open(uploaded_file.name, "wb") as f:
                 f.write(uploaded_file.getbuffer())
-    except Exception as e:
-        st.write(e)
+    # except Exception as e:
+    #     st.write(e)
     
 ###################### video structure ##########################
     # if "index" in st.session_state:
