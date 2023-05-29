@@ -152,7 +152,7 @@ for Name in saved_courses:
     with col3:
         edit_file = st.button("Edit Project", key=f"edit{Name}")
         if edit_file:
-            switch_page("edit_project")  
+            switch_page("edit_course")  
     
     with col4:
         edit_file = st.button("Create Video", key=f"create{Name}")
@@ -170,9 +170,16 @@ for Name in saved_courses:
             switch_page("preview_video") 
 
     with col7:
-        edit_file = st.button("Download", key=f"download{Name}")
-        if edit_file:
-            switch_page("download_video") 
+        # edit_file = st.button("Download", key=f"download{Name}")
+        # if edit_file:
+        #     switch_page("download_video") 
+        with st.expander(""):
+            st.write("""
+                The chart above shows some numbers I picked for you.
+                I rolled actual dice for these, so they're *guaranteed* to
+                be random.
+            """)
+            st.image("https://static.streamlit.io/examples/dice.jpg")
             
     st.markdown("""
     <div style="background-color:#560AE8;height:1px;margin-top:5px;margin-bottom:5px;"></div>

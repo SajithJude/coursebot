@@ -479,7 +479,7 @@ if video_type == "elearning":
 
 else:
 
-    Uploadtab, toctab,  extractTab, synthesiaTab = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Synthesia__"])
+    Uploadtab, toctab,  extractTab, synthesiaTab = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Create Video__"])
 
 
     uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
