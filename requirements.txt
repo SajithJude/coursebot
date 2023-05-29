@@ -10,3 +10,4 @@ fitz
 pymupdf
 streamlit-extras
 streamlit-elements
+extra_streamlit_components 
