@@ -494,7 +494,7 @@ else:
         Uploadtab = st.empty()
     pass 
         
-    elif bar == 1:
+    if bar == 1:
         toctab = st.empty()
     pass
 
