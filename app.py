@@ -145,7 +145,7 @@ if "selected_json" not in st.session_state:
 
 colms = st.columns((4, 1, 1,1,1,1,1))
 
-fields = ["Project Name", 'Status', '', '', 'Actions', '','' ]
+fields = ["Project Name", '','Status',  '', 'Actions', '','' ]
 for col, field_name in zip(colms, fields):
     # header
     col.write(f"##### {field_name}")
