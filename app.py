@@ -187,16 +187,14 @@ for Name in saved_courses:
                 )
                 z+=1
 
-        # colc.mui.Button(key=f"button_edit{z+1}",onClick  = edit_video,)
         with colc:
-            mui.Button(key=f"button_edit{z+1}",onClick  = edit_video,)
-            # with elements(f"edit_element{Name}{j+1}"):
-            #     mui.Button(
-            #         mui.icon.EditOutlined,
-            #         onClick  = edit_video,
-            #         key=f"button_edit{z+1}"
-            #     )
-        #         z+=1
+            with elements(f"edit_element{Name}{j+1}"):
+                mui.Button(
+                    mui.icon.EditOutlined,
+                    onClick  = edit_video,
+                    key=f"button_edit{z+1}"
+                )
+                z+=1
 
         with cold:
             with elements(f"preview_element{Name}{j+1}"):
