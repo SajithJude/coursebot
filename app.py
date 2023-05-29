@@ -166,9 +166,9 @@ for Name in saved_courses:
         if edit_file:
             switch_page("edit_course")  
 
-    
-    with st.expander("Video Options"):
-        with st.spinner("Loading..."):
+    with st.spinner("Loading..."):
+        with st.expander("Video Options"):
+        
             for i in range(3):
                 j += 1
                 col1, col2, col3, col4, col5,col6, col7, col8 = st.columns((1,1, 1, 1,1,1,1,1))
