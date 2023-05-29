@@ -172,12 +172,12 @@ for Name in saved_courses:
       
     for j in range(3):
         # with st.spinner("Loading..."):
-        x = st.expander("##### Video")
+        x = st.expander(" Video")
 
         cola,  colb, colc, cold, cole = x.columns((5, 1,1,1,1))
 
-        with cola:
-            st.write(f"###### {Name} Video part {j+1}")
+        # with cola:
+        #     st.write(f"###### {Name} Video part {j+1}")
         
         with colb:
             with elements(f"create_element{Name}{j+1}"):
