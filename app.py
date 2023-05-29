@@ -179,23 +179,23 @@ for Name in saved_courses:
             st.write(f"###### {Name} Video part {j+1}")
         
         with colb:
-            elements(f"create_element{Name}{j+1}").Button(
-                mui.icon.SlideshowOutlined,
-                onClick  = create_video,
-                key=f"button_create{z+1}"
-            )
-            # with elements(f"create_element{Name}{j+1}"):
-            
-        z+=1
-
-        with colc:
-            with elements(f"edit_element{Name}{j+1}"):
-                mui.Button(
-                    mui.icon.EditOutlined,
-                    onClick  = edit_video,
-                    key=f"button_edit{z+1}"
+            with elements(f"create_element{Name}{j+1}"):
+                but = mui.Button(
+                    mui.icon.SlideshowOutlined,
+                    onClick  = create_video,
+                    key=f"button_create{z+1}"
                 )
                 z+=1
+
+        colc.but(key=f"button_edit{z+1}",onClick  = edit_video,)
+        # with colc:
+        #     with elements(f"edit_element{Name}{j+1}"):
+        #         mui.Button(
+        #             mui.icon.EditOutlined,
+        #             onClick  = edit_video,
+        #             key=f"button_edit{z+1}"
+        #         )
+        #         z+=1
 
         with cold:
             with elements(f"preview_element{Name}{j+1}"):
