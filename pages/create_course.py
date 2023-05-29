@@ -22,6 +22,8 @@ import zipfile
 from llama_index.retrievers import VectorIndexRetriever
 from llama_index.query_engine import RetrieverQueryEngine
 import streamlit.components.v1 as components
+import extra_streamlit_components as stx
+
 
 
 
@@ -481,7 +483,7 @@ else:
 
     Uploadtab, toctab,  extractTab, synthesiaTab = st.tabs(["⚪ __Upload PDF__","⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Create Video__"])
     steps = ["⚪ __Upload PDF__", "⚪ __Video Structure__", "⚪ __Extract Contents__", "⚪ __Create Video__"]
-    current_step = st.empty().stepper_bar(steps=steps)
+    current_step = stx.stepper_bar(steps=steps)
 
     
     uploaded_file = Uploadtab.file_uploader("Upload a PDF file", type="pdf")
