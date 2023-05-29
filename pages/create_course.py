@@ -495,7 +495,7 @@ else:
 
     # current_step.write(bar)
     
-        Uploadtab = current_step
+        # Uploadtab = current_step
         
     elif bar == 1:
         toctab = current_step
@@ -503,7 +503,7 @@ else:
     elif bar == 2:
         extractTab = current_step
 
-    elif bar == 3:
+    # elif bar == 3:
         
 
     if bar == 0:
@@ -526,7 +526,7 @@ else:
 ###################### video structure ##########################
     # if "index" in st.session_state:
 
-    try:
+    elif bar == 1:
                     # if "vid_duration" not in st.session_state:
             #     st.session_state.vid_duration = vid_duration
 
@@ -585,8 +585,8 @@ else:
         except:
             print("Upload a document to get started")
 
-    except:
-        print("Error TOC")
+    # except:
+    #     print("Error TOC")
 
 ####################   extract tab #####################################
     try:
