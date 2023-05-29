@@ -178,7 +178,8 @@ for Name in saved_courses:
         with cola:
             st.write(f"###### {Name} Video part {j+1}")
         
-        colb.elements(f"create_element{Name}{j+1}").mui.Button(
+        with colb:
+            elements(f"create_element{Name}{j+1}").mui.Button(
                 mui.icon.SlideshowOutlined,
                 onClick  = create_video,
                 key=f"button_create{z+1}"
