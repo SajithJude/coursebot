@@ -168,9 +168,9 @@ for Name in saved_courses:
     x = st.expander("##### Video")
     
         # with st.expander("Video Options"):
-    j = 1
+    j = 2
       
-    for j in range(2):
+    for j in range(3):
         # with st.spinner("Loading..."):
         cola,  colb, colc, cold, cole = x.columns((5, 1,1,1,1))
 
