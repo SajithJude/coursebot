@@ -154,6 +154,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 i = 1
+z = 1
 for Name in saved_courses:
     i += 1
     col1, col2, col4, col5,col6,  col7 = st.columns((4, 1,1,1,1,1))
@@ -182,36 +183,36 @@ for Name in saved_courses:
                 mui.Button(
                     mui.icon.SlideshowOutlined,
                     onClick  = create_video,
-                    key=f"button_create{j+1}"
+                    key=f"button_create{z+1}"
                 )
-                # j+=1
+                z+=1
 
         with colc:
             with elements(f"edit_element{j+1}"):
                 mui.Button(
                     mui.icon.EditOutlined,
                     onClick  = edit_video,
-                    key=f"button_edit{j+1}"
+                    key=f"button_edit{z+1}"
                 )
-                # j+=1
+                z+=1
 
         with cold:
             with elements(f"preview_element{j+1}"):
                 mui.Button(
                     mui.icon.VisibilityOutlined,
                     onClick  = preview_video,
-                    key=f"button_preview{j+1}"
+                    key=f"button_preview{z+1}"
                 )
-                # j+=1
+                z+=1
         
         with cole:
             with elements(f"download_element{j+1}"):
                 mui.Button(
                     mui.icon.CloudDownloadTwoTone,
                     onClick  = download_video,
-                    key=f"button_download{j}"
+                    key=f"button_download{z}"
                 )
-                # j+=1
+                z+=1
         j += 1
         
         
