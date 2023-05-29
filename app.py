@@ -5,7 +5,7 @@ import base64
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.buy_me_a_coffee import button
 from streamlit_elements import elements, mui, html
-
+from functools import partial
 
 st.set_page_config(
     layout="wide",
@@ -125,8 +125,9 @@ if "download_video" not in st.session_state:
 
 
 
-def create_video():
+def create_video(args, event):
     st.session_state.create_video = "true"
+    st.session_state.passed = args
 
 def edit_video():
     st.session_state.edit_video = "true"
@@ -157,9 +158,9 @@ st.markdown("""
 i = 1
 for Name in saved_courses:
     # st.session_state.selected_json = f"Video_{Name}"
-    def create_video_fn(event,json_name=f"Video_part_{Name}"):
-        st.session_state.create_video = "true"
-        st.session_state.selected_json = json_name
+    # def create_video_fn(event,json_name=f"Video_part_{Name}"):
+    #     st.session_state.create_video = "true"
+    #     st.session_state.selected_json = json_name
     i += 1
     col1, col2, col5 = st.columns((4, 1,4))
 
@@ -188,7 +189,7 @@ for Name in saved_courses:
             with elements(f"create_element{Name}{j+1}"):
                 but = mui.Button(
                     mui.icon.SlideshowOutlined,
-                    onClick  = create_video_fn,
+                    onClick  = partial(create_video,f"{Name}"),
                     args=(vidname),
                     key=f"button_create{Name}",
                 )
