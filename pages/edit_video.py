@@ -129,9 +129,9 @@ def previous_button_callback():
 
 # Next button callback
 def next_button_callback():
-    # col1.container().empty()
-    # col2.container().empty()
-    # col3.container().empty()
+    col1.container().empty()
+    col2.container().empty()
+    col3.container().empty()
 
     global current_scene_index
     scene_count = len(scene_data["CourseStructure"]["Scenes"][0])
@@ -147,11 +147,9 @@ def update_app():
     # col3.empty()
     # col2.empty()
     # Clear the app
-    col1.container().empty()
-    col2.container().empty()
-    col3.container().empty()
+    st.container().empty()
 
-
+    col1, col2, col3 = st.columns(3)
     
 
     # First column - Previous button and preview image
