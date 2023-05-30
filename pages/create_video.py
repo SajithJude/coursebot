@@ -102,7 +102,7 @@ if st.button("Create Video"):
     "visibility": "public",
     "templateId": "1419387f-2154-4fff-a7f1-b2d6c9c2fca8",
    "templateData": {
-        "course_name": st.session_state.CourseStructure.CourseStructure["Scenes"][0]["Scene1"]["Title"],
+        "course_name": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
         "course_description": st.session_state.CourseStructure["Scenes"][0]["Scene1"]["TextOverlay"],
         "intovo": st.session_state.CourseStructure["Scenes"][0]["Scene1"]["Voiceover"],
 
