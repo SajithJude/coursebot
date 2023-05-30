@@ -523,145 +523,145 @@ else:
                 
 
     
-###################### video structure ##########################
+# ###################### video structure ##########################
 
-    titleWOrdcount = toctab.number_input("Max word count per title", value=10)
-    if toctab.button("Get Video structure"):
-        query = f"Generate 10 titles for a case study video from this document, number of words per title should NOT exceed {titleWOrdcount}  words"
-        course_structure = st.session_state.index.query(query).response
-        if "course_structure" not in st.session_state:
-            st.session_state.course_structure = course_structure
+#     titleWOrdcount = toctab.number_input("Max word count per title", value=10)
+#     if toctab.button("Get Video structure"):
+#         query = f"Generate 10 titles for a case study video from this document, number of words per title should NOT exceed {titleWOrdcount}  words"
+#         course_structure = st.session_state.index.query(query).response
+#         if "course_structure" not in st.session_state:
+#             st.session_state.course_structure = course_structure
 
-        # toctab.write(st.session_state.course_structure)
+#         # toctab.write(st.session_state.course_structure)
     
-    try:
-        if st.session_state.course_structure is not None:    
-            cs_format = """
-            {
-            "CourseStructure": {
-                "Scenes": [
-                {
-                    "Scene1": {
-                    "Title": "Add Title Here",
-                    "TextOverlay": "Leave This Empty",
-                    "Voiceover": "Leave This Empty"
-                    },
-                    "Scene2": {
-                    "Title": "Add Title Here",
-                    "TextOverlay": "Leave This Empty",
-                    "Voiceover": "Leave This Empty"
-                    },
-                    "Scene3": {
-                    "Title": "Add Title Here",
-                    "TextOverlay": "Leave This Empty",
-                    "Voiceover": "Leave This Empty"
-                    }
-                    // Add more scenes as needed
-                }
-                ]
-            }
-            }
-            """
-            modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
-            if toctab.button("Confirm Structure"):
-                convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
-                json_cs = call_openai(convert_prompt)
-                toctab.write(json_cs)
-                cs_dictionary = json.loads(json_cs.strip())
-                if "cs_dictionary" not in st.session_state:
-                    st.session_state.cs_dictionary = cs_dictionary
-                toctab.write(st.session_state.cs_dictionary)
+#     try:
+#         if st.session_state.course_structure is not None:    
+#             cs_format = """
+#             {
+#             "CourseStructure": {
+#                 "Scenes": [
+#                 {
+#                     "Scene1": {
+#                     "Title": "Add Title Here",
+#                     "TextOverlay": "Leave This Empty",
+#                     "Voiceover": "Leave This Empty"
+#                     },
+#                     "Scene2": {
+#                     "Title": "Add Title Here",
+#                     "TextOverlay": "Leave This Empty",
+#                     "Voiceover": "Leave This Empty"
+#                     },
+#                     "Scene3": {
+#                     "Title": "Add Title Here",
+#                     "TextOverlay": "Leave This Empty",
+#                     "Voiceover": "Leave This Empty"
+#                     }
+#                     // Add more scenes as needed
+#                 }
+#                 ]
+#             }
+#             }
+#             """
+#             modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
+#             if toctab.button("Confirm Structure"):
+#                 convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
+#                 json_cs = call_openai(convert_prompt)
+#                 toctab.write(json_cs)
+#                 cs_dictionary = json.loads(json_cs.strip())
+#                 if "cs_dictionary" not in st.session_state:
+#                     st.session_state.cs_dictionary = cs_dictionary
+#                 toctab.write(st.session_state.cs_dictionary)
 
-    except Exception as e:
-        print(e)
-        # st.write(e)
-
-
-
-####################   extract tab #####################################
-    wordsvoiceover = extractTab.number_input("Max word limit per voice over")
-    wordsOverlay = extractTab.number_input("Max word limit per Scene overlay")
-
-    if extractTab.button("Get data"):
-
-        for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
-
-            for scene_name, scene_data in scene.items():
-
-                opening_shot = scene_data["Title"]
-                overlay = st.session_state.index.query(f"Generate a one line description to display in a slide titled as {opening_shot} word count should not exceed {wordsOverlay}",).response.strip()
-                voiceover = st.session_state.index.query(f"Generate a voiceover script as a single string to narrate in a slide Titled  {opening_shot}, word count should not exceed {wordsvoiceover} words").response.strip()
-                extractTab.write(scene_name)
-                extractTab.info(overlay)
-                extractTab.info(voiceover)
-
-                scene_data["TextOverlay"] = overlay
-                scene_data["Voiceover"] = voiceover
-
-    try: 
-        saveCS_dictionary_as_json()
-    except:
-        print("Error saving")
-
-
-#################### synthesia tab ###############################################
-
-    name_vid =EditTab.text_input("Name of video")
-
-    if EditTab.button("Create Video Part 1"):
-
-        headers = {
-                        'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
-                        'Content-Type': 'application/json'
-                    }
+#     except Exception as e:
+#         print(e)
+#         # st.write(e)
 
 
 
+# ####################   extract tab #####################################
+#     wordsvoiceover = extractTab.number_input("Max word limit per voice over")
+#     wordsOverlay = extractTab.number_input("Max word limit per Scene overlay")
 
-        api_data = {
-            "title": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
-            "description": "First part with lo cn cd and top 1",
-            "visibility": "public",
-            "templateId": "1419387f-2154-4fff-a7f1-b2d6c9c2fca8",
-            "templateData": {
-                "Course_Name": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
-                "Course_Description": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
-                "intovo": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+#     if extractTab.button("Get data"):
 
-                "Subtopic_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
-                "Copy_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
-                "script1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+#         for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
+
+#             for scene_name, scene_data in scene.items():
+
+#                 opening_shot = scene_data["Title"]
+#                 overlay = st.session_state.index.query(f"Generate a one line description to display in a slide titled as {opening_shot} word count should not exceed {wordsOverlay}",).response.strip()
+#                 voiceover = st.session_state.index.query(f"Generate a voiceover script as a single string to narrate in a slide Titled  {opening_shot}, word count should not exceed {wordsvoiceover} words").response.strip()
+#                 extractTab.write(scene_name)
+#                 extractTab.info(overlay)
+#                 extractTab.info(voiceover)
+
+#                 scene_data["TextOverlay"] = overlay
+#                 scene_data["Voiceover"] = voiceover
+
+#     try: 
+#         saveCS_dictionary_as_json()
+#     except:
+#         print("Error saving")
 
 
-                # Add similar mappings for other fields as needed.
-            },
-            "test": True,
-            "callbackId": "john@example.com"
-        }
-        with EditTab.expander("api_data"):
-            st.write(api_data)
+# #################### synthesia tab ###############################################
 
-        # Make the API request
-        response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
-        if response.status_code == 201:
-            EditTab.info('Sample scene video creation process started successfully.')
-            video_id = response.json()['id']
-            EditTab.write(f'Video ID for Sample scene: {video_id}')
-            EditTab.code(video_id)
-            if "video_id" not in st.session_state:
-                st.session_state.video_id = video_id
-            url = f"https://share.synthesia.io/embeds/videos/{video_id}"
-            EditTab.write(url)
-            iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
-            components.html(iframe_html,height=600)
-            # frame = f"<div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src=" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"
+#     name_vid =EditTab.text_input("Name of video")
+
+#     if EditTab.button("Create Video Part 1"):
+
+#         headers = {
+#                         'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
+#                         'Content-Type': 'application/json'
+#                     }
 
 
 
-        else:
-            EditTab.write('An error occurred during the video creation process for Sample scene.')
-            EditTab.write(f'Response status code: {response.status_code}')
-            EditTab.write(f'Response content: {response.content}')
+
+#         api_data = {
+#             "title": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+#             "description": "First part with lo cn cd and top 1",
+#             "visibility": "public",
+#             "templateId": "1419387f-2154-4fff-a7f1-b2d6c9c2fca8",
+#             "templateData": {
+#                 "Course_Name": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+#                 "Course_Description": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
+#                 "intovo": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+
+#                 "Subtopic_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+#                 "Copy_1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
+#                 "script1": st.session_state.cs_dictionary["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+
+
+#                 # Add similar mappings for other fields as needed.
+#             },
+#             "test": True,
+#             "callbackId": "john@example.com"
+#         }
+#         with EditTab.expander("api_data"):
+#             st.write(api_data)
+
+#         # Make the API request
+#         response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+#         if response.status_code == 201:
+#             EditTab.info('Sample scene video creation process started successfully.')
+#             video_id = response.json()['id']
+#             EditTab.write(f'Video ID for Sample scene: {video_id}')
+#             EditTab.code(video_id)
+#             if "video_id" not in st.session_state:
+#                 st.session_state.video_id = video_id
+#             url = f"https://share.synthesia.io/embeds/videos/{video_id}"
+#             EditTab.write(url)
+#             iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
+#             components.html(iframe_html,height=600)
+#             # frame = f"<div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src=" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"
+
+
+
+#         else:
+#             EditTab.write('An error occurred during the video creation process for Sample scene.')
+#             EditTab.write(f'Response status code: {response.status_code}')
+#             EditTab.write(f'Response content: {response.content}')
 
 
 
