@@ -84,7 +84,7 @@ if st.session_state.passed_ARG:
         json_data = json.load(json_file)
     # st.write(json_data)
     if "scene_data" not in st.session_state:
-        json_data = st.session_state.scene_data
+        st.session_state.scene_data = json_data
 
 
 # st.session_state.passed_ARG = st.session_state.scene_data
