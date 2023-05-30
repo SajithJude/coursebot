@@ -80,5 +80,7 @@ if st.session_state.passed_ARG:
     json_file_path = f"output/{st.session_state.passed_ARG}"
     with open(json_file_path, "r") as json_file:
         json_data = json.load(json_file)
-    st.write(json_data)
+    # st.write(json_data)
+    st.session_state.
+
 
