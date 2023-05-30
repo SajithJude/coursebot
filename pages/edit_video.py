@@ -87,83 +87,87 @@ if st.session_state.passed_ARG:
         st.session_state.scene_data = json_data
 
 
-
-
-
-
-if 'current_scene_index' not in st.session_state:
-    st.session_state.current_scene_index = 0
-
-# Function to update the scene based on index
-def update_scene(index):
-    scene = st.session_state.scene_data["CourseStructure"]["Scenes"][0]
-    scene_name = f"Scene{index+1}"
-    if scene_name in scene:
-        return scene[scene_name]
-    return None
-
-# Previous button callback
-def previous_button_callback():
-    if st.session_state.current_scene_index > 0:
-        st.session_state.current_scene_index -= 1
-        update_app()
-
-# Next button callback
-def next_button_callback():
-    scene_count = len(st.session_state.scene_data["CourseStructure"]["Scenes"][0])
-
-    if st.session_state.current_scene_index < scene_count - 1:
-        st.session_state.current_scene_index += 1
-        update_app()
-
-# Update the app based on the current scene index
-def update_app():
-    st.session_state.scene = update_scene(st.session_state.current_scene_index)
-    st.container().empty()
-
-
-
-
-
-
-
-
-
-update_app()
-
-
-
-
-col1, col2, col3 = st.columns(3)
-
-# First column - Previous button and preview image
-with col1:
-    prev_button = st.button("Previous", on_click=previous_button_callback, key=f"prev{st.session_state.current_scene_index+4}")
-    preview_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
-
-# Middle column - Tabs
-with col2:
-    tabs = st.tabs(["Scene Information"])
-    if tabs[0]:
-        # if scene:
-        st.subheader(f"Scene {st.session_state.current_scene_index + 1}")
-        st.session_state.scene["Title"] = st.text_area("Title", st.session_state.scene["Title"])
-        st.session_state.scene["TextOverlay"] = st.text_area("Text Overlay", st.session_state.scene["TextOverlay"])
-        st.session_state.scene["Voiceover"] = st.text_area("Voiceover", st.session_state.scene["Voiceover"])
-
-# Third column - Next button and variable image display
-with col3:
-    next_button = st.button("Next", on_click=next_button_callback, key=f"nex{st.session_state.current_scene_index+4}")
-    # variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
-    if st.session_state.current_scene_index == 0:
-        st.image("input_0 (1).jpg")
-    else:
-        st.image("Capture.PNG")
-    # variable_image = st.image(st.session_state.scene["Image"])
-
-# Initial app setup
-
-
 templates = ["coursebot_template_1", "coursebot_template_2", "coursebot_template_3", "Case_study_Template"]
 
 template_selection = st.selectbox("Select a template:", templates)
+
+
+if template_selection == "Case_study_Template":
+
+
+    if 'current_scene_index' not in st.session_state:
+        st.session_state.current_scene_index = 0
+
+    # Function to update the scene based on index
+    def update_scene(index):
+        scene = st.session_state.scene_data["CourseStructure"]["Scenes"][0]
+        scene_name = f"Scene{index+1}"
+        if scene_name in scene:
+            return scene[scene_name]
+        return None
+
+    # Previous button callback
+    def previous_button_callback():
+        if st.session_state.current_scene_index > 0:
+            st.session_state.current_scene_index -= 1
+            update_app()
+
+    # Next button callback
+    def next_button_callback():
+        scene_count = len(st.session_state.scene_data["CourseStructure"]["Scenes"][0])
+
+        if st.session_state.current_scene_index < scene_count - 1:
+            st.session_state.current_scene_index += 1
+            update_app()
+
+    # Update the app based on the current scene index
+    def update_app():
+        st.session_state.scene = update_scene(st.session_state.current_scene_index)
+        st.container().empty()
+
+
+
+
+
+
+
+
+
+    update_app()
+
+
+
+
+    col1, col2, col3 = st.columns(3)
+
+    # First column - Previous button and preview image
+    with col1:
+        prev_button = st.button("Previous", on_click=previous_button_callback, key=f"prev{st.session_state.current_scene_index+4}")
+        preview_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
+
+    # Middle column - Tabs
+    with col2:
+        tabs = st.tabs(["Scene Information"])
+        if tabs[0]:
+            # if scene:
+            st.subheader(f"Scene {st.session_state.current_scene_index + 1}")
+            st.session_state.scene["Title"] = st.text_area("Title", st.session_state.scene["Title"])
+            st.session_state.scene["TextOverlay"] = st.text_area("Text Overlay", st.session_state.scene["TextOverlay"])
+            st.session_state.scene["Voiceover"] = st.text_area("Voiceover", st.session_state.scene["Voiceover"])
+
+    # Third column - Next button and variable image display
+    with col3:
+        next_button = st.button("Next", on_click=next_button_callback, key=f"nex{st.session_state.current_scene_index+4}")
+        # variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
+        if st.session_state.current_scene_index == 0:
+            st.image("input_0 (1).jpg")
+        else:
+            st.image("Capture.PNG")
+        # variable_image = st.image(st.session_state.scene["Image"])
+
+    # Initial app setup
+
+
+    templates = ["coursebot_template_1", "coursebot_template_2", "coursebot_template_3", "Case_study_Template"]
+
+    template_selection = st.selectbox("Select a template:", templates)
