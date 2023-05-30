@@ -117,19 +117,22 @@ def update_scene(index):
 
 # Previous button callback
 def previous_button_callback():
+    st.container().empty()
+
     global current_scene_index
     if current_scene_index > 0:
         current_scene_index -= 1
-    st.container().empty()
     update_app()
 
 # Next button callback
 def next_button_callback():
+    st.container().empty()
+
     global current_scene_index
     scene_count = len(scene_data["CourseStructure"]["Scenes"][0])
     if current_scene_index < scene_count - 1:
         current_scene_index += 1
-    st.container().empty()
+    # st.container().empty()
     update_app()
 
 # Update the app based on the current scene index
