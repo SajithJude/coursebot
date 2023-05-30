@@ -137,14 +137,16 @@ def update_app():
     # Clear the app
     st.container().empty()
 
+    col1,col2,col3 = st.columns(3)
+
     # First column - Previous button and preview image
-    prev_column = st.container()
+    prev_column = col1.container()
     with prev_column:
         prev_button = st.button("Previous")
         preview_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
     # Middle column - Tabs
-    middle_column = st.container()
+    middle_column = col2.container()
     with middle_column:
         tabs = st.tabs(["Scene Information"])
         if tabs[0]:
@@ -155,7 +157,7 @@ def update_app():
                 voiceover = st.text_input("Voiceover", scene["Voiceover"])
 
     # Third column - Next button and variable image display
-    next_column = st.container()
+    next_column = col3.container()
     with next_column:
         next_button = st.button("Next")
         variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
