@@ -106,6 +106,7 @@ scene_data = {
 
 # Current scene index
 current_scene_index = 0
+col1,col2,col3 = st.columns(3)
 
 # Function to update the scene based on index
 def update_scene(index):
@@ -149,7 +150,7 @@ def update_app():
     st.container().empty()
 
 
-    col1,col2,col3 = st.columns(3)
+    
 
     # First column - Previous button and preview image
     prev_column = col1.container()
