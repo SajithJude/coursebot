@@ -106,7 +106,7 @@ scene_data = {
 
 # Current scene index
 current_scene_index = 0
-col1,col2,col3 = st.columns(3)
+# col1,col2,col3 = st.columns(3)
 
 # Function to update the scene based on index
 def update_scene(index):
