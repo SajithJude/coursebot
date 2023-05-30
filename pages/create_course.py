@@ -558,6 +558,8 @@ else:
 
 
 ####################   extract tab #####################################
+    wordsvoiceover = extractTab.number_input("Max word limit per voice over")
+    wordsOverlay = extractTab.number_input("Max word limit per Scene overlay")
 
     if extractTab.button("Get data"):
 
@@ -566,8 +568,8 @@ else:
             for scene_name, scene_data in scene.items():
 
                 opening_shot = scene_data["Title"]
-                overlay = st.session_state.index.query(f"Generate some short text content to display in a slide titled as {opening_shot}").response.strip()
-                voiceover = st.session_state.index.query(f"Generate a voice over script as a single string to narrate in a slide Titled  {opening_shot}").response.strip()
+                overlay = st.session_state.index.query(f"Generate a one line description to display in a slide titled as {opening_shot} word count should not exceed {wordsOverlay}",).response.strip()
+                voiceover = st.session_state.index.query(f"Generate a voiceover script as a single string to narrate in a slide Titled  {opening_shot}, word count should not exceed {wordsvoiceover} words").response.strip()
                 extractTab.write(scene_name)
                 extractTab.info(overlay)
                 extractTab.info(voiceover)
