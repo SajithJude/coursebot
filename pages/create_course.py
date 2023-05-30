@@ -562,22 +562,22 @@ else:
 
 ####################   extract tab #####################################
 
-if extractTab.button("Get data"):
+    if extractTab.button("Get data"):
 
-    for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
+        for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
 
-        for scene_name, scene_data in scene.items():
+            for scene_name, scene_data in scene.items():
 
-            opening_shot = scene_data["Title"]
-            overlay = st.session_state.index.query(f"Generate some short text content to display in a slide titled as {opening_shot}").response.strip()
-            voiceover = st.session_state.index.query(f"Generate a voice over script as a single string to narrate in a slide Titled  {opening_shot}").response.strip()
-            extractTab.write(scene_name)
-            extractTab.info(overlay)
-            extractTab.info(voiceover)
+                opening_shot = scene_data["Title"]
+                overlay = st.session_state.index.query(f"Generate some short text content to display in a slide titled as {opening_shot}").response.strip()
+                voiceover = st.session_state.index.query(f"Generate a voice over script as a single string to narrate in a slide Titled  {opening_shot}").response.strip()
+                extractTab.write(scene_name)
+                extractTab.info(overlay)
+                extractTab.info(voiceover)
 
-            scene_data["TextOverlay"] = overlay
-            scene_data["Voiceover"] = voiceover
-    extractTab.write(st.session_state.cs_dictionary)
+                scene_data["TextOverlay"] = overlay
+                scene_data["Voiceover"] = voiceover
+        extractTab.write(st.session_state.cs_dictionary)
 
 
 
