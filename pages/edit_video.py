@@ -163,4 +163,4 @@ def update_app():
         variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
 # Initial app setup
-update_app()
+# update_app()
