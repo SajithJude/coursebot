@@ -576,8 +576,9 @@ else:
 
                 scene_data["TextOverlay"] = overlay
                 scene_data["Voiceover"] = voiceover
-        save_dictionary_as_json()
-        extractTab.success("Extracted Data Saved successfully")
+        
+    save_dictionary_as_json()
+    extractTab.success("Extracted Data Saved successfully")
 
 
 
