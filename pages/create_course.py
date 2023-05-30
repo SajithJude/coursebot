@@ -561,8 +561,8 @@ else:
                     st.session_state.cs_dictionary = cs_dictionary
                 toctab.write(st.session_state.cs_dictionary)
 
-    except:
-        print("Upload a document to get started")
+    except Exception as e:
+        st.write(e)
 
 
 
