@@ -576,7 +576,8 @@ else:
 
                 scene_data["TextOverlay"] = overlay
                 scene_data["Voiceover"] = voiceover
-        extractTab.write(st.session_state.cs_dictionary)
+        save_dictionary_as_json()
+        extractTab.success("Extracted Data Saved successfully")
 
 
 
