@@ -78,29 +78,31 @@ upload_directory = "data"
 os.makedirs(upload_directory, exist_ok=True)
 import streamlit as st
 
-st.session_state.scene_data = {
-    "CourseStructure": {
-        "Scenes": [
-            {
-                "Scene1": {
-                    "Title": "Add Title Here",
-                    "TextOverlay": "Leave This Empty",
-                    "Voiceover": "Leave This Empty"
-                },
-                "Scene2": {
-                    "Title": "Add Title Here",
-                    "TextOverlay": "Leave This Empty",
-                    "Voiceover": "Leave This Empty"
-                },
-                "Scene3": {
-                    "Title": "Add Title Here",
-                    "TextOverlay": "Leave This Empty",
-                    "Voiceover": "Leave This Empty"
-                }
-            }
-        ]
-    }
-}
+st.session_state.passed_ARG = st.session_state.scene_data
+
+# st.session_state.scene_data = {
+#     "CourseStructure": {
+#         "Scenes": [
+#             {
+#                 "Scene1": {
+#                     "Title": "Add Title Here",
+#                     "TextOverlay": "Leave This Empty",
+#                     "Voiceover": "Leave This Empty"
+#                 },
+#                 "Scene2": {
+#                     "Title": "Add Title Here",
+#                     "TextOverlay": "Leave This Empty",
+#                     "Voiceover": "Leave This Empty"
+#                 },
+#                 "Scene3": {
+#                     "Title": "Add Title Here",
+#                     "TextOverlay": "Leave This Empty",
+#                     "Voiceover": "Leave This Empty"
+#                 }
+#             }
+#         ]
+#     }
+# }
 
 # Current scene index
 if 'current_scene_index' not in st.session_state:
