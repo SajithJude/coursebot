@@ -79,7 +79,7 @@ os.makedirs(upload_directory, exist_ok=True)
 import streamlit as st
 
 # Dictionary containing scene information
-st.session_state.scene_data = {
+st.session_state.st.session_state.scene_data = {
     "CourseStructure": {
         "Scenes": [
             {
@@ -109,7 +109,7 @@ if 'current_scene_index' not in st.session_state:
 
 # Function to update the scene based on index
 def update_scene(index):
-    scene = scene_data["CourseStructure"]["Scenes"][0]
+    scene = st.session_state.scene_data["CourseStructure"]["Scenes"][0]
     scene_name = f"Scene{index+1}"
     if scene_name in scene:
         return scene[scene_name]
@@ -123,7 +123,7 @@ def previous_button_callback():
 
 # Next button callback
 def next_button_callback():
-    scene_count = len(scene_data["CourseStructure"]["Scenes"][0])
+    scene_count = len(st.session_state.scene_data["CourseStructure"]["Scenes"][0])
     if st.session_state.current_scene_index < scene_count - 1:
         st.session_state.current_scene_index += 1
         update_app()
