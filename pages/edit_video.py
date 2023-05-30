@@ -79,7 +79,7 @@ os.makedirs(upload_directory, exist_ok=True)
 import streamlit as st
 
 # Dictionary containing scene information
-scene_data = {
+st.session_state.scene_data = {
     "CourseStructure": {
         "Scenes": [
             {
