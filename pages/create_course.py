@@ -24,7 +24,11 @@ from llama_index.query_engine import RetrieverQueryEngine
 import streamlit.components.v1 as components
 
 
+if "crsnm" not in st.session_state:
+    st.session_state.crsnm = ""
 
+# if "crsnm" not in st.session_state:
+    # st.session_state.crsnm = ""
 
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -525,8 +529,8 @@ else:
     if toctab.button("Get Video structure"):
         query = f"Generate 10 titles for a case study video from this document, number of words per title should NOT exceed {titleWOrdcount}  words"
         course_structure = st.session_state.index.query(query).response
-        # if "course_structure" not in st.session_state:
-        st.session_state.course_structure = course_structure
+        if "course_structure" not in st.session_state:
+            st.session_state.course_structure = course_structure
 
         # toctab.write(st.session_state.course_structure)
     
