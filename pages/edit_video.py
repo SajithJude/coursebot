@@ -155,7 +155,7 @@ with col2:
 with col3:
     next_button = st.button("Next", on_click=next_button_callback, key=f"nex{st.session_state.current_scene_index+4}")
     # variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
-    if session_state.current_scene_index == 0:
+    if st.session_state.current_scene_index == 0:
         st.image("input_0 (1).jpg")
     else:
         st.image("Capture.PNG")
