@@ -499,6 +499,7 @@ else:
     if savnext:
         if "crsnm" not in st.session_state:
             st.session_state.crsnm = crsnm
+            Uploadtab.success("Name Saved, go to the next tab")
                 
 
     
