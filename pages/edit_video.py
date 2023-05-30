@@ -136,7 +136,10 @@ def update_app():
 
     # Clear the app
     st.container().empty()
-    st.columns().empty()
+    col1.empty()
+    col3.empty()
+    col2.empty()
+
     col1,col2,col3 = st.columns(3)
 
     # First column - Previous button and preview image
