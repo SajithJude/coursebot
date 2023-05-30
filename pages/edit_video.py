@@ -74,3 +74,91 @@ st.markdown(custom_header(logo_base64), unsafe_allow_html=True)
 # Create a directory to store uploaded PPTX files
 upload_directory = "data"
 os.makedirs(upload_directory, exist_ok=True)
+
+
+
+import streamlit as st
+
+# Dictionary containing scene information
+scene_data = {
+    "CourseStructure": {
+        "Scenes": [
+            {
+                "Scene1": {
+                    "Title": "Add Title Here",
+                    "TextOverlay": "Leave This Empty",
+                    "Voiceover": "Leave This Empty"
+                },
+                "Scene2": {
+                    "Title": "Add Title Here",
+                    "TextOverlay": "Leave This Empty",
+                    "Voiceover": "Leave This Empty"
+                },
+                "Scene3": {
+                    "Title": "Add Title Here",
+                    "TextOverlay": "Leave This Empty",
+                    "Voiceover": "Leave This Empty"
+                }
+            }
+        ]
+    }
+}
+
+# Current scene index
+current_scene_index = 0
+
+# Function to update the scene based on index
+def update_scene(index):
+    scene = scene_data["CourseStructure"]["Scenes"][0]
+    scene_name = f"Scene{index+1}"
+    if scene_name in scene:
+        return scene[scene_name]
+    return None
+
+# Previous button callback
+def previous_button_callback():
+    global current_scene_index
+    if current_scene_index > 0:
+        current_scene_index -= 1
+    update_app()
+
+# Next button callback
+def next_button_callback():
+    global current_scene_index
+    scene_count = len(scene_data["CourseStructure"]["Scenes"][0])
+    if current_scene_index < scene_count - 1:
+        current_scene_index += 1
+    update_app()
+
+# Update the app based on the current scene index
+def update_app():
+    scene = update_scene(current_scene_index)
+
+    # Clear the app
+    st.container().empty()
+
+    # First column - Previous button and preview image
+    prev_column = st.container()
+    with prev_column:
+        prev_button = st.button("Previous")
+        preview_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
+
+    # Middle column - Tabs
+    middle_column = st.container()
+    with middle_column:
+        tabs = st.tabs(["Scene Information"])
+        if tabs[0]:
+            if scene:
+                st.subheader(f"Scene {current_scene_index + 1}")
+                scene_title = st.text_input("Title", scene["Title"])
+                text_overlay = st.text_input("Text Overlay", scene["TextOverlay"])
+                voiceover = st.text_input("Voiceover", scene["Voiceover"])
+
+    # Third column - Next button and variable image display
+    next_column = st.container()
+    with next_column:
+        next_button = st.button("Next")
+        variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
+
+# Initial app setup
+update_app()
