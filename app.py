@@ -144,7 +144,6 @@ def download_video(args, event):
 
 
 
-
 ########## Table ###########
 if "selected_json" not in st.session_state:
     st.session_state.selected_json = ''
@@ -238,7 +237,6 @@ for Name in saved_courses:
     
     
 if st.session_state.create_video == "true":
-    
     switch_page("create_video")
 
 if st.session_state.edit_video == "true":
