@@ -122,27 +122,26 @@ def update_scene(index):
 
 # Previous button callback
 def previous_button_callback():
-    # col1.container().empty()
-    # col2.container().empty()
-    # col3.container().empty()
-
-    global current_scene_index
+    global current_scene_index, scene_title, text_overlay, voiceover
     if current_scene_index > 0:
         current_scene_index -= 1
-    update_app()
+        scene = update_scene(current_scene_index)
+        if scene:
+            scene_title = scene["Title"]
+            text_overlay = scene["TextOverlay"]
+            voiceover = scene["Voiceover"]
 
 # Next button callback
 def next_button_callback():
-    # col1.container().empty()
-    # col2.container().empty()
-    # col3.container().empty()
-
-    global current_scene_index
+    global current_scene_index, scene_title, text_overlay, voiceover
     scene_count = len(scene_data["CourseStructure"]["Scenes"][0])
     if current_scene_index < scene_count - 1:
         current_scene_index += 1
-    # st.container().empty()
-    update_app()
+        scene = update_scene(current_scene_index)
+        if scene:
+            scene_title = scene["Title"]
+            text_overlay = scene["TextOverlay"]
+            voiceover = scene["Voiceover"]
 
 # Update the app based on the current scene index
 def update_app():
