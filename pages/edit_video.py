@@ -159,7 +159,7 @@ with col3:
         st.image("input_0 (1).jpg")
     else:
         st.image("Capture.PNG")
-    variable_image = st.image(st.session_state.scene["Image"])
+    # variable_image = st.image(st.session_state.scene["Image"])
 
 # Initial app setup
 
