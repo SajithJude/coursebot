@@ -573,7 +573,8 @@ else:
                 toctab.write(st.session_state.cs_dictionary)
 
     except Exception as e:
-        st.write(e)
+        print(e)
+        # st.write(e)
 
 
 
