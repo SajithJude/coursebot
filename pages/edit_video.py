@@ -7,7 +7,7 @@ from streamlit_extras.buy_me_a_coffee import button
 from streamlit_elements import elements, mui, html
 # import streamlit.ReportThread as ReportThread
 
-from streamlit.report_thread import get_report_ctx
+# from streamlit.report_thread import get_report_ctx
 
 st.set_page_config(
     layout="wide",
