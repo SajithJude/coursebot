@@ -89,7 +89,7 @@ if st.session_state.passed_ARG:
 
 templates = ["coursebot_template_1", "coursebot_template_2", "coursebot_template_3", "Case_study_Template"]
 
-template_selection = st.selectbox("Select a template:", templates)
+template_selection = st.selectbox("Select a template:", templates,key=f"{template[0]}")
 
 
 if template_selection == "Case_study_Template":
