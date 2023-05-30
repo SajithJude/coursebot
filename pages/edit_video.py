@@ -5,6 +5,7 @@ import base64
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.buy_me_a_coffee import button
 from streamlit_elements import elements, mui, html
+import streamlit.ReportThread as ReportThread
 
 
 st.set_page_config(
@@ -145,7 +146,7 @@ def next_button_callback():
 
 # Update the app based on the current scene index
 def update_app():
-    global current_scene_index, input_scene_title, text_overlay, voiceover
+    global input_scene_title, text_overlay, voiceover
 
     scene = update_scene(current_scene_index)
     st.container().empty()
