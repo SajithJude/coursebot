@@ -505,7 +505,7 @@ else:
     
 ###################### video structure ##########################
 
-    titleWOrdcount = toctab.number_input("Max word count per title")
+    titleWOrdcount = toctab.number_input("Max word count per title", value=10)
     if toctab.button("Get Video structure"):
         query = f"Generate 10 titles for a case study video from this document, number of words per title should NOT exceed {titleWOrdcount}  words"
         course_structure = st.session_state.index.query(query).response
