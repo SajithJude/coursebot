@@ -597,9 +597,11 @@ else:
 
                 scene_data["TextOverlay"] = overlay
                 scene_data["Voiceover"] = voiceover
-        
-    saveCS_dictionary_as_json()
-    
+
+    try: 
+        saveCS_dictionary_as_json()
+    except:
+        print("Error saving")
 
 
 #################### synthesia tab ###############################################
