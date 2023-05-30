@@ -143,9 +143,9 @@ def next_button_callback():
 # Update the app based on the current scene index
 def update_app():
     scene = update_scene(current_scene_index)
-    # col1.empty()
-    # col3.empty()
-    # col2.empty()
+    col1.empty()
+    col3.empty()
+    col2.empty()
     # Clear the app
     st.container().empty()
 
