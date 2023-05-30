@@ -166,7 +166,7 @@ def get_template(template_id):
     response = requests.get(f"https://api.synthesia.io/v2/templates/{template_id}")
     
     if response.status_code == 200:
-        return response.json()
+        return response
     else:
         print("Failed to retrieve template")
         print("Status Code:", response.status_code)
