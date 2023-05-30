@@ -111,6 +111,7 @@ def previous_button_callback():
 # Next button callback
 def next_button_callback():
     scene_count = len(st.session_state.scene_data["CourseStructure"]["Scenes"][0])
+
     if st.session_state.current_scene_index < scene_count - 1:
         st.session_state.current_scene_index += 1
         update_app()
@@ -153,37 +154,16 @@ with col2:
 # Third column - Next button and variable image display
 with col3:
     next_button = st.button("Next", on_click=next_button_callback, key=f"nex{st.session_state.current_scene_index+4}")
-    variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
+    # variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
+    if session_state.current_scene_index == 0:
+        st.image("input_0 (1).jpg")
+    else:
+        st.image("Capture.PNG")
+    variable_image = st.image(st.session_state.scene["Image"])
 
 # Initial app setup
 
 
+templates = ["coursebot_template_1", "coursebot_template_2", "coursebot_template_3", "Case_study_Template"]
 
-import streamlit as st
-import requests
-
-def get_template(template_id):
-    headers = {
-        'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
-        'Content-Type': 'application/json'
-    }
-
-    response = requests.get(
-        f"https://api.synthesia.io/v2/templates/{template_id}",
-        headers=headers
-    )
-
-    if response.status_code == 200:
-        return response.json()
-    else:
-        st.write("Failed to retrieve template")
-        st.write("Status Code:", response.status_code)
-        st.write("Response:", response.text)
-        return None
-
-
-template_id = st.text_input('Enter the Template ID:')
-if st.button('Get Template'):
-    result = get_template(template_id)
-    if result is not None:
-        st.write(result)
+template_selection = st.selectbox("Select a template:", templates)
