@@ -497,10 +497,9 @@ else:
     crsnm = Uploadtab.text_input("Enter Project Name")
     savnext = Uploadtab.button("Save & Proceed")
     if savnext:
-        if "index" in st.session_state:
-            if crsnm != "":
-                if "crsnm" not in st.session_state:
-                    st.session_state.crsnm = crsnm
+        if "crsnm" not in st.session_state:
+            st.session_state.crsnm = crsnm
+                
 
     
 ###################### video structure ##########################
