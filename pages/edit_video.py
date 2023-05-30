@@ -136,7 +136,7 @@ def update_app():
 
     # First column - Previous button and preview image
     with col1:
-        prev_button = st.button("Previous", on_click=previous_button_callback, key=f"prev{st.session_state.current_scene_index}")
+        prev_button = st.button("Previous", on_click=previous_button_callback, key=f"prev{st.session_state.current_scene_index+4}")
         preview_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
     # Middle column - Tabs
@@ -151,7 +151,7 @@ def update_app():
 
     # Third column - Next button and variable image display
     with col3:
-        next_button = st.button("Next", on_click=next_button_callback, key=f"nex{st.session_state.current_scene_index}")
+        next_button = st.button("Next", on_click=next_button_callback, key=f"nex{st.session_state.current_scene_index+4}")
         variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
 # Initial app setup
