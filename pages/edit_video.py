@@ -7,6 +7,7 @@ from streamlit_extras.buy_me_a_coffee import button
 from streamlit_elements import elements, mui, html
 # import streamlit.ReportThread as ReportThread
 
+from streamlit.report_thread import get_report_ctx
 
 st.set_page_config(
     layout="wide",
@@ -172,5 +173,7 @@ def update_app():
         next_button = st.button("Next", on_click=next_button_callback, key=f"next{current_scene_index}")
         variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
+    ctx = get_report_ctx()
+    ctx.widget_manager.clear()
 # Initial app setup
 update_app()
