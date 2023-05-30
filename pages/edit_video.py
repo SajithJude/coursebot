@@ -130,7 +130,7 @@ def next_button_callback():
 # Update the app based on the current scene index
 def update_app():
     scene = update_scene(st.session_state.current_scene_index)
-    st.container.empty()
+    st.container().empty()
 
 
 
