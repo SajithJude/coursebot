@@ -490,12 +490,12 @@ else:
             if "index" not in st.session_state:
                 st.session_state.index = process_pdf(uploaded_file)
 
-            Uploadtab.success("Index created successfully")
+            # Uploadtab.success("Index created successfully")
 
             with open(uploaded_file.name, "wb") as f:
                 f.write(uploaded_file.getbuffer())
-    crsnm = upload_col.text_input("Enter Course Name")
-    savnext = upload_col.button("Save Project")
+    crsnm = Uploadtab.text_input("Enter Project Name")
+    savnext = Uploadtab.button("Save & Proceed")
     if savnext:
         if "index" in st.session_state:
             if crsnm != "":
