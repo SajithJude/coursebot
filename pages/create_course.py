@@ -522,19 +522,19 @@ else:
                 "Scenes": [
                 {
                     "Scene1": {
-                    "SceneName": "Add Scene Name Here",
-                    "Title": "Add title Here",
-                    "Voiceover": "(LEAVE THIS EMPTY)"
+                    "Title": "Add Title Here",
+                    "TextOverlay": "Leave This Empty",
+                    "Voiceover": "Leave This Empty"
                     },
                     "Scene2": {
-                    "SceneName": "Add Scene Name Here",
-                    "Title": "Add title Here",
-                    "Voiceover": "(LEAVE THIS EMPTY)"
+                    "Title": "Add Title Here",
+                    "TextOverlay": "Leave This Empty",
+                    "Voiceover": "Leave This Empty"
                     },
                     "Scene3": {
-                    "SceneName": "Add Scene Name Here",
-                    "Title": "Add title Here",
-                    "Voiceover": "(LEAVE THIS EMPTY)"
+                    "Title": "Add Title Here",
+                    "TextOverlay": "Leave This Empty",
+                    "Voiceover": "Leave This Empty"
                     }
                     // Add more scenes as needed
                 }
