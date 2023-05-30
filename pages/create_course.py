@@ -523,85 +523,85 @@ else:
                 
 
     
-# ###################### video structure ##########################
+###################### video structure ##########################
 
-#     titleWOrdcount = toctab.number_input("Max word count per title", value=10)
-#     if toctab.button("Get Video structure"):
-#         query = f"Generate 10 titles for a case study video from this document, number of words per title should NOT exceed {titleWOrdcount}  words"
-#         course_structure = st.session_state.index.query(query).response
-#         if "course_structure" not in st.session_state:
-#             st.session_state.course_structure = course_structure
+    titleWOrdcount = toctab.number_input("Max word count per title", value=10)
+    if toctab.button("Get Video structure"):
+        query = f"Generate 10 titles for a case study video from this document, number of words per title should NOT exceed {titleWOrdcount}  words"
+        course_structure = st.session_state.index.query(query).response
+        if "course_structure" not in st.session_state:
+            st.session_state.course_structure = course_structure
 
-#         # toctab.write(st.session_state.course_structure)
+        # toctab.write(st.session_state.course_structure)
     
-#     try:
-#         if st.session_state.course_structure is not None:    
-#             cs_format = """
-#             {
-#             "CourseStructure": {
-#                 "Scenes": [
-#                 {
-#                     "Scene1": {
-#                     "Title": "Add Title Here",
-#                     "TextOverlay": "Leave This Empty",
-#                     "Voiceover": "Leave This Empty"
-#                     },
-#                     "Scene2": {
-#                     "Title": "Add Title Here",
-#                     "TextOverlay": "Leave This Empty",
-#                     "Voiceover": "Leave This Empty"
-#                     },
-#                     "Scene3": {
-#                     "Title": "Add Title Here",
-#                     "TextOverlay": "Leave This Empty",
-#                     "Voiceover": "Leave This Empty"
-#                     }
-#                     // Add more scenes as needed
-#                 }
-#                 ]
-#             }
-#             }
-#             """
-#             modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
-#             if toctab.button("Confirm Structure"):
-#                 convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
-#                 json_cs = call_openai(convert_prompt)
-#                 toctab.write(json_cs)
-#                 cs_dictionary = json.loads(json_cs.strip())
-#                 if "cs_dictionary" not in st.session_state:
-#                     st.session_state.cs_dictionary = cs_dictionary
-#                 toctab.write(st.session_state.cs_dictionary)
+    try:
+        if st.session_state.course_structure is not None:    
+            cs_format = """
+            {
+            "CourseStructure": {
+                "Scenes": [
+                {
+                    "Scene1": {
+                    "Title": "Add Title Here",
+                    "TextOverlay": "Leave This Empty",
+                    "Voiceover": "Leave This Empty"
+                    },
+                    "Scene2": {
+                    "Title": "Add Title Here",
+                    "TextOverlay": "Leave This Empty",
+                    "Voiceover": "Leave This Empty"
+                    },
+                    "Scene3": {
+                    "Title": "Add Title Here",
+                    "TextOverlay": "Leave This Empty",
+                    "Voiceover": "Leave This Empty"
+                    }
+                    // Add more scenes as needed
+                }
+                ]
+            }
+            }
+            """
+            modify_cs = toctab.text_area("Modify the structure if needed", value=st.session_state.course_structure,  height=400)
+            if toctab.button("Confirm Structure"):
+                convert_prompt = "Convert the following content structure into a json string, use the JSON format given bellow:\n"+ "Content Structure:\n"+ modify_cs.strip() + "\n JSON format:\n"+ str(cs_format) + ". Output should be a valid JSON string."
+                json_cs = call_openai(convert_prompt)
+                toctab.write(json_cs)
+                cs_dictionary = json.loads(json_cs.strip())
+                if "cs_dictionary" not in st.session_state:
+                    st.session_state.cs_dictionary = cs_dictionary
+                toctab.write(st.session_state.cs_dictionary)
 
-#     except Exception as e:
-#         print(e)
-#         # st.write(e)
+    except Exception as e:
+        print(e)
+        # st.write(e)
 
 
 
-# ####################   extract tab #####################################
-#     wordsvoiceover = extractTab.number_input("Max word limit per voice over")
-#     wordsOverlay = extractTab.number_input("Max word limit per Scene overlay")
+####################   extract tab #####################################
+    wordsvoiceover = extractTab.number_input("Max word limit per voice over")
+    wordsOverlay = extractTab.number_input("Max word limit per Scene overlay")
 
-#     if extractTab.button("Get data"):
+    if extractTab.button("Get data"):
 
-#         for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
+        for scene in st.session_state.cs_dictionary["CourseStructure"]["Scenes"]:
 
-#             for scene_name, scene_data in scene.items():
+            for scene_name, scene_data in scene.items():
 
-#                 opening_shot = scene_data["Title"]
-#                 overlay = st.session_state.index.query(f"Generate a one line description to display in a slide titled as {opening_shot} word count should not exceed {wordsOverlay}",).response.strip()
-#                 voiceover = st.session_state.index.query(f"Generate a voiceover script as a single string to narrate in a slide Titled  {opening_shot}, word count should not exceed {wordsvoiceover} words").response.strip()
-#                 extractTab.write(scene_name)
-#                 extractTab.info(overlay)
-#                 extractTab.info(voiceover)
+                opening_shot = scene_data["Title"]
+                overlay = st.session_state.index.query(f"Generate a one line description to display in a slide titled as {opening_shot} word count should not exceed {wordsOverlay}",).response.strip()
+                voiceover = st.session_state.index.query(f"Generate a voiceover script as a single string to narrate in a slide Titled  {opening_shot}, word count should not exceed {wordsvoiceover} words").response.strip()
+                extractTab.write(scene_name)
+                extractTab.info(overlay)
+                extractTab.info(voiceover)
 
-#                 scene_data["TextOverlay"] = overlay
-#                 scene_data["Voiceover"] = voiceover
+                scene_data["TextOverlay"] = overlay
+                scene_data["Voiceover"] = voiceover
 
-#     try: 
-#         saveCS_dictionary_as_json()
-#     except:
-#         print("Error saving")
+    try: 
+        saveCS_dictionary_as_json()
+    except:
+        print("Error saving")
 
 
 # #################### synthesia tab ###############################################
