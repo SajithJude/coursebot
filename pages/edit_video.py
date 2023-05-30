@@ -148,7 +148,7 @@ def update_app():
     global current_scene_index, input_scene_title, text_overlay, voiceover
 
     scene = update_scene(current_scene_index)
-
+    st.container().empty()
     col1, col2, col3 = st.columns(3)
 
     # First column - Previous button and preview image
