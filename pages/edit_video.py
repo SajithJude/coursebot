@@ -132,27 +132,40 @@ def next_button_callback():
 def update_app():
     scene = update_scene(st.session_state.current_scene_index)
 
-    col1, col2, col3 = st.columns(3)
 
-    # First column - Previous button and preview image
-    with col1:
-        prev_button = st.button("Previous", on_click=previous_button_callback, key=f"prev{st.session_state.current_scene_index+4}")
-        preview_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
-    # Middle column - Tabs
-    with col2:
-        tabs = st.tabs(["Scene Information"])
-        if tabs[0]:
-            if scene:
-                st.subheader(f"Scene {st.session_state.current_scene_index + 1}")
-                scene["Title"] = st.text_input("Title", scene["Title"])
-                scene["TextOverlay"] = st.text_input("Text Overlay", scene["TextOverlay"])
-                scene["Voiceover"] = st.text_input("Voiceover", scene["Voiceover"])
 
-    # Third column - Next button and variable image display
-    with col3:
-        next_button = st.button("Next", on_click=next_button_callback, key=f"nex{st.session_state.current_scene_index+4}")
-        variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
+
+
+
+
+
+
+
+
+
+
+col1, col2, col3 = st.columns(3)
+
+# First column - Previous button and preview image
+with col1:
+    prev_button = st.button("Previous", on_click=previous_button_callback, key=f"prev{st.session_state.current_scene_index+4}")
+    preview_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
+
+# Middle column - Tabs
+with col2:
+    tabs = st.tabs(["Scene Information"])
+    if tabs[0]:
+        if scene:
+            st.subheader(f"Scene {st.session_state.current_scene_index + 1}")
+            scene["Title"] = st.text_input("Title", scene["Title"])
+            scene["TextOverlay"] = st.text_input("Text Overlay", scene["TextOverlay"])
+            scene["Voiceover"] = st.text_input("Voiceover", scene["Voiceover"])
+
+# Third column - Next button and variable image display
+with col3:
+    next_button = st.button("Next", on_click=next_button_callback, key=f"nex{st.session_state.current_scene_index+4}")
+    variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
 # Initial app setup
 update_app()
