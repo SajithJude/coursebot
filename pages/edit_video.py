@@ -129,7 +129,7 @@ def next_button_callback():
 
 # Update the app based on the current scene index
 def update_app():
-    scene = update_scene(st.session_state.current_scene_index)
+    st.session_state.scene = update_scene(st.session_state.current_scene_index)
     st.container().empty()
 
 
@@ -157,9 +157,9 @@ with col2:
     if tabs[0]:
         # if scene:
         st.subheader(f"Scene {st.session_state.current_scene_index + 1}")
-        scene["Title"] = st.text_input("Title", scene["Title"])
-        scene["TextOverlay"] = st.text_input("Text Overlay", scene["TextOverlay"])
-        scene["Voiceover"] = st.text_input("Voiceover", scene["Voiceover"])
+        st.session_state.scene["Title"] = st.text_input("Title", st.session_state.scene["Title"])
+        st.session_state.scene["TextOverlay"] = st.text_input("Text Overlay", st.session_state.scene["TextOverlay"])
+        st.session_state.scene["Voiceover"] = st.text_input("Voiceover", scene["Voiceover"])
 
 # Third column - Next button and variable image display
 with col3:
