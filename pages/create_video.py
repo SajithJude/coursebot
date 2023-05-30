@@ -89,6 +89,7 @@ if st.session_state.passed_ARG:
 
 st.write(st.session_state.CourseStructure)
 name_vid =st.text_input("Name of video")
+email = st.text_input("Email id")
 
 if st.button("Create Video"):
 
@@ -104,31 +105,45 @@ if st.button("Create Video"):
     "visibility": "public",
     "templateId": "1419387f-2154-4fff-a7f1-b2d6c9c2fca8",
    "templateData": {
-        "course_name": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
-        "course_description": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
-        "intovo": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
+    "Course_Name": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene1"]["Title"],
+    "Course_Description": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene1"]["TextOverlay"],
+    "intovo": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene1"]["Voiceover"],
 
-        "subtopic_2": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene2"]["Title"],
-        "copy_2": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene2"]["TextOverlay"],
-        "script2": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene2"]["Voiceover"],
+    "Subtopic_2": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene2"]["Title"],
+    "Copy_2": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene2"]["TextOverlay"],
+    "script2": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene2"]["Voiceover"],
 
-        "subtopic_3": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene3"]["Title"],
-        "copy_3": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene3"]["TextOverlay"],
-        "script3": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene3"]["Voiceover"],
+    "Subtopic_3": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene3"]["Title"],
+    "Copy_3": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene3"]["TextOverlay"],
+    "script3": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene3"]["Voiceover"],
 
-        # Continue with this pattern for remaining scenes
-        "subtopic_4": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene4"]["Title"],
-        "copy_4": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene4"]["TextOverlay"],
-        "script4": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene4"]["Voiceover"],
+    "Subtopic_4": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene4"]["Title"],
+    "Copy_4": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene4"]["TextOverlay"],
+    "script4": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene4"]["Voiceover"],
 
-        "subtopic_5": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene5"]["Title"],
-        "copy_5": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene5"]["TextOverlay"],
-        "script5": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene5"]["Voiceover"],
+    "Subtopic_5": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene5"]["Title"],
+    "Copy_5": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene5"]["TextOverlay"],
+    "script5": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene5"]["Voiceover"],
 
+    "Subtopic_6": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene6"]["Title"],
+    "Copy_6": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene6"]["TextOverlay"],
+    "script6": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene6"]["Voiceover"],
+
+    "Subtopic_7": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene7"]["Title"],
+    "Copy_7": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene7"]["TextOverlay"],
+    "script7": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene7"]["Voiceover"],
+
+    "Subtopic_8": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene8"]["Title"],
+    "Copy_8": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene8"]["TextOverlay"],
+    "script8": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene8"]["Voiceover"],
+
+    "Subtopic_9": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene9"]["Title"],
+    "Copy_9": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene9"]["TextOverlay"],
+    "script9": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene9"]["Voiceover"],
         # ... and so on, for all scenes in your structure.
     },
     "test": True,
-    "callbackId": "john@example.com"
+    "callbackId": email
 }
 
     # with tab_synthesia.expander("api_data"):
