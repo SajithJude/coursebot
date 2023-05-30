@@ -75,8 +75,6 @@ st.markdown(custom_header(logo_base64), unsafe_allow_html=True)
 upload_directory = "data"
 os.makedirs(upload_directory, exist_ok=True)
 
-
-
 import streamlit as st
 
 # Dictionary containing scene information
@@ -107,6 +105,11 @@ scene_data = {
 # Current scene index
 current_scene_index = 0
 
+# Input values
+scene_title = ""
+text_overlay = ""
+voiceover = ""
+
 # Function to update the scene based on index
 def update_scene(index):
     scene = scene_data["CourseStructure"]["Scenes"][0]
@@ -117,47 +120,53 @@ def update_scene(index):
 
 # Previous button callback
 def previous_button_callback():
-    global current_scene_index
+    global current_scene_index, scene_title, text_overlay, voiceover
     if current_scene_index > 0:
         current_scene_index -= 1
-    update_app()
+        scene = update_scene(current_scene_index)
+        if scene:
+            scene_title = scene["Title"]
+            text_overlay = scene["TextOverlay"]
+            voiceover = scene["Voiceover"]
+            update_app()
 
 # Next button callback
 def next_button_callback():
-    global current_scene_index
+    global current_scene_index, scene_title, text_overlay, voiceover
     scene_count = len(scene_data["CourseStructure"]["Scenes"][0])
     if current_scene_index < scene_count - 1:
         current_scene_index += 1
-    update_app()
+        scene = update_scene(current_scene_index)
+        if scene:
+            scene_title = scene["Title"]
+            text_overlay = scene["TextOverlay"]
+            voiceover = scene["Voiceover"]
+            update_app()
 
 # Update the app based on the current scene index
 def update_app():
     scene = update_scene(current_scene_index)
 
-    # Clear the app
-    st.container().empty()
+    col1, col2, col3 = st.columns(3)
 
     # First column - Previous button and preview image
-    prev_column = st.container()
-    with prev_column:
+    with col1:
         prev_button = st.button("Previous", on_click=previous_button_callback)
         preview_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
     # Middle column - Tabs
-    middle_column = st.container()
-    with middle_column:
+    with col2:
         tabs = st.tabs(["Scene Information"])
         if tabs[0]:
             if scene:
                 st.subheader(f"Scene {current_scene_index + 1}")
-                scene_title = st.text_input("Title", scene["Title"])
-                text_overlay = st.text_input("Text Overlay", scene["TextOverlay"])
-                voiceover = st.text_input("Voiceover", scene["Voiceover"])
+                scene_title = st.text_input("Title", scene_title, key="title")
+                text_overlay = st.text_input("Text Overlay", text_overlay, key="overlay")
+                voiceover = st.text_input("Voiceover", voiceover, key="voiceover")
 
     # Third column - Next button and variable image display
-    next_column = st.container()
-    with next_column:
-        next_button = st.button("Next", on_click=previous_button_callback)
+    with col3:
+        next_button = st.button("Next", on_click=next_button_callback)
         variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
 # Initial app setup
