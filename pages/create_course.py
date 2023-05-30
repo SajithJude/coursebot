@@ -44,6 +44,20 @@ if not os.path.exists("images"):
     os.makedirs("images")
 
 
+def saveCS_dictionary_as_json():
+    course_name = st.session_state.crsnm
+    json_data = json.dumps(st.session_state.cs_dictionary, indent=4)
+
+    # Create a directory if it doesn't exist
+    if not os.path.exists("output"):
+        os.makedirs("output")
+
+    # Save the JSON file
+    filename = f"output/{course_name}.json"
+    with open(filename, "w") as file:
+        file.write(json_data)
+
+    st.sidebar.success(f"JSON file saved as: {filename}")
 
 
 
@@ -577,7 +591,7 @@ else:
                 scene_data["TextOverlay"] = overlay
                 scene_data["Voiceover"] = voiceover
         
-    save_dictionary_as_json()
+    saveCS_dictionary_as_json()
     extractTab.success("Extracted Data Saved successfully")
 
 
