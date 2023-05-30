@@ -506,16 +506,6 @@ else:
 ###################### video structure ##########################
 
 
-    if "index" in st.session_state:
-        vid_duration = toctab.slider("How long is the video ?")
-        # if "vid_duration" not in st.session_state:
-        #     st.session_state.vid_duration = vid_duration
-
-        # video_type = st.radio("Type of Video", ["casestudy", "elearning", "custom"])
-        # if video_type == "custom":
-        #     video_type = st.text_input("What kind of video content would you like to make ?")
-        
-
     if toctab.button("Get Video structure"):
         query = f"Generate an optimal video content structure with 10 scenes and titles for a case study video from this document"
         course_structure = st.session_state.index.query(query).response
