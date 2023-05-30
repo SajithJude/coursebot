@@ -143,13 +143,14 @@ def next_button_callback():
 # Update the app based on the current scene index
 def update_app():
     scene = update_scene(current_scene_index)
+    col1, col2, col3 = st.columns(3)
+
     col1.empty()
     col3.empty()
     col2.empty()
     # Clear the app
     st.container().empty()
 
-    col1, col2, col3 = st.columns(3)
     
 
     # First column - Previous button and preview image
