@@ -107,9 +107,7 @@ scene_data = {
 # Current scene index
 current_scene_index = 0
 # Input values
-scene_title = ""
-text_overlay = ""
-voiceover = ""
+
 # col1,col2,col3 = st.columns(3)
 
 # Function to update the scene based on index
@@ -181,3 +179,6 @@ def update_app():
 
 # Initial app setup
 update_app()
+scene_title = ""
+text_overlay = ""
+voiceover = ""
