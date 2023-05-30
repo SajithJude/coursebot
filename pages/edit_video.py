@@ -156,11 +156,11 @@ with col1:
 with col2:
     tabs = st.tabs(["Scene Information"])
     if tabs[0]:
-        if scene:
-            st.subheader(f"Scene {st.session_state.current_scene_index + 1}")
-            scene["Title"] = st.text_input("Title", scene["Title"])
-            scene["TextOverlay"] = st.text_input("Text Overlay", scene["TextOverlay"])
-            scene["Voiceover"] = st.text_input("Voiceover", scene["Voiceover"])
+        # if scene:
+        st.subheader(f"Scene {st.session_state.current_scene_index + 1}")
+        scene["Title"] = st.text_input("Title", scene["Title"])
+        scene["TextOverlay"] = st.text_input("Text Overlay", scene["TextOverlay"])
+        scene["Voiceover"] = st.text_input("Voiceover", scene["Voiceover"])
 
 # Third column - Next button and variable image display
 with col3:
