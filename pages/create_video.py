@@ -100,7 +100,7 @@ if st.button("Create Video"):
     "title":name_vid,
     "description": "First part with lo cn cd and top 1",
     "visibility": "public",
-    "templateId": "fa673de8-f4c5-413c-9e43-39ff7cdc1937",
+    "templateId": "1419387f-2154-4fff-a7f1-b2d6c9c2fca8",
    "templateData": {
         "course_name": st.session_state.CourseStructure["Scenes"][0]["Scene1"]["Title"],
         "course_description": st.session_state.CourseStructure["Scenes"][0]["Scene1"]["TextOverlay"],
