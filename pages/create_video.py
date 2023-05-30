@@ -125,19 +125,19 @@ if st.button("Create Video"):
     "Copy_5": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene5"]["TextOverlay"],
     "script5": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene5"]["Voiceover"],
 
-    "Subtopic_6": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene6"]["Title"],
+    "SubTopic_6": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene6"]["Title"],
     "Copy_6": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene6"]["TextOverlay"],
     "script6": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene6"]["Voiceover"],
 
-    "Subtopic_7": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene7"]["Title"],
+    "SubTopic_7": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene7"]["Title"],
     "Copy_7": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene7"]["TextOverlay"],
     "script7": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene7"]["Voiceover"],
 
-    "Subtopic_8": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene8"]["Title"],
+    "SubTopic_8": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene8"]["Title"],
     "Copy_8": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene8"]["TextOverlay"],
     "script8": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene8"]["Voiceover"],
 
-    "Subtopic_9": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene9"]["Title"],
+    "SubTopic_9": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene9"]["Title"],
     "Copy_9": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene9"]["TextOverlay"],
     "script9": st.session_state.CourseStructure["CourseStructure"]["Scenes"][0]["Scene9"]["Voiceover"],
         # ... and so on, for all scenes in your structure.
