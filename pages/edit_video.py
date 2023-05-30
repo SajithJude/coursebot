@@ -106,7 +106,7 @@ scene_data = {
 current_scene_index = 0
 
 # Input values
-scene_title = ""
+input_scene_title = ""
 text_overlay = ""
 voiceover = ""
 
@@ -120,25 +120,25 @@ def update_scene(index):
 
 # Previous button callback
 def previous_button_callback():
-    global current_scene_index, scene_title, text_overlay, voiceover
+    global current_scene_index, input_scene_title, text_overlay, voiceover
     if current_scene_index > 0:
         current_scene_index -= 1
         scene = update_scene(current_scene_index)
         if scene:
-            scene_title = scene["Title"]
+            input_scene_title = scene["Title"]
             text_overlay = scene["TextOverlay"]
             voiceover = scene["Voiceover"]
             update_app()
 
 # Next button callback
 def next_button_callback():
-    global current_scene_index, scene_title, text_overlay, voiceover
+    global current_scene_index, input_scene_title, text_overlay, voiceover
     scene_count = len(scene_data["CourseStructure"]["Scenes"][0])
     if current_scene_index < scene_count - 1:
         current_scene_index += 1
         scene = update_scene(current_scene_index)
         if scene:
-            scene_title = scene["Title"]
+            input_scene_title = scene["Title"]
             text_overlay = scene["TextOverlay"]
             voiceover = scene["Voiceover"]
             update_app()
@@ -160,7 +160,7 @@ def update_app():
         if tabs[0]:
             if scene:
                 st.subheader(f"Scene {current_scene_index + 1}")
-                scene_title = st.text_input("Title", scene_title, key="title")
+                input_scene_title = st.text_input("Title", input_scene_title, key="title")
                 text_overlay = st.text_input("Text Overlay", text_overlay, key="overlay")
                 voiceover = st.text_input("Voiceover", voiceover, key="voiceover")
 
