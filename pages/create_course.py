@@ -509,8 +509,8 @@ else:
     if toctab.button("Get Video structure"):
         query = f"Generate an optimal video content structure with 10 scenes and titles for a case study video from this document"
         course_structure = st.session_state.index.query(query).response
-        if "course_structure" not in st.session_state:
-            st.session_state.course_structure = course_structure
+        # if "course_structure" not in st.session_state:
+        st.session_state.course_structure = course_structure
 
         # toctab.write(st.session_state.course_structure)
     
