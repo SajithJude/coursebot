@@ -174,7 +174,7 @@ def get_template(template_id):
     )
 
     if response.status_code == 200:
-        return response.json()
+        return response
     else:
         st.write("Failed to retrieve template")
         st.write("Status Code:", response.status_code)
