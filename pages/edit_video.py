@@ -145,6 +145,7 @@ def next_button_callback():
 
 # Update the app based on the current scene index
 def update_app():
+    global input_scene_title
     scene = update_scene(current_scene_index)
 
     col1, col2, col3 = st.columns(3)
