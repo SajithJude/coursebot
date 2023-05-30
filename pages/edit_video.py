@@ -87,33 +87,10 @@ if st.session_state.passed_ARG:
         st.session_state.scene_data = json_data
 
 
-# st.session_state.passed_ARG = st.session_state.scene_data
 
-# st.session_state.scene_data = {
-#     "CourseStructure": {
-#         "Scenes": [
-#             {
-#                 "Scene1": {
-#                     "Title": "Add Title Here",
-#                     "TextOverlay": "Leave This Empty",
-#                     "Voiceover": "Leave This Empty"
-#                 },
-#                 "Scene2": {
-#                     "Title": "Add Title Here",
-#                     "TextOverlay": "Leave This Empty",
-#                     "Voiceover": "Leave This Empty"
-#                 },
-#                 "Scene3": {
-#                     "Title": "Add Title Here",
-#                     "TextOverlay": "Leave This Empty",
-#                     "Voiceover": "Leave This Empty"
-#                 }
-#             }
-#         ]
-#     }
-# }
 
-# Current scene index
+
+
 if 'current_scene_index' not in st.session_state:
     st.session_state.current_scene_index = 0
 
@@ -179,3 +156,26 @@ with col3:
     variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
 # Initial app setup
+
+
+
+import streamlit as st
+import requests
+
+def get_template(template_id):
+    response = requests.get(f"https://api.synthesia.io/v2/templates/{template_id}")
+    
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print("Failed to retrieve template")
+        print("Status Code:", response.status_code)
+        print("Response:", response.text)
+        return None
+
+# In your Streamlit app
+template_id = st.text_input('Enter the Template ID:')
+if st.button('Get Template'):
+    result = get_template(template_id)
+    if result is not None:
+        st.write(result)
