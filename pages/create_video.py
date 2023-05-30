@@ -80,7 +80,83 @@ if st.session_state.passed_ARG:
     json_file_path = f"output/{st.session_state.passed_ARG}"
     with open(json_file_path, "r") as json_file:
         json_data = json.load(json_file)
-    st.write(json_data)
+    # st.write(json_data)
     # st.session_state.
+    st.session_state.CourseStructure = json_data
 
+
+
+name_vid =st.text_input("Name of video")
+
+if st.button("Create Video"):
+
+    headers = {
+                    'Authorization': "5ad72dcaafb054f6c163e2feb9334539",
+                    'Content-Type': 'application/json'
+                }
+
+                # Define the data for the API request
+    api_data = {
+    "title":name_vid,
+    "description": "First part with lo cn cd and top 1",
+    "visibility": "public",
+    "templateId": "fa673de8-f4c5-413c-9e43-39ff7cdc1937",
+   "templateData": {
+        "course_name": st.session_state.CourseStructure["Scenes"][0]["Scene1"]["Title"],
+        "course_description": st.session_state.CourseStructure["Scenes"][0]["Scene1"]["TextOverlay"],
+        "intovo": st.session_state.CourseStructure["Scenes"][0]["Scene1"]["Voiceover"],
+
+        "subtopic_2": st.session_state.CourseStructure["Scenes"][0]["Scene2"]["Title"],
+        "copy_2": st.session_state.CourseStructure["Scenes"][0]["Scene2"]["TextOverlay"],
+        "script2": st.session_state.CourseStructure["Scenes"][0]["Scene2"]["Voiceover"],
+
+        "subtopic_3": st.session_state.CourseStructure["Scenes"][0]["Scene3"]["Title"],
+        "copy_3": st.session_state.CourseStructure["Scenes"][0]["Scene3"]["TextOverlay"],
+        "script3": st.session_state.CourseStructure["Scenes"][0]["Scene3"]["Voiceover"],
+
+        # Continue with this pattern for remaining scenes
+        "subtopic_4": st.session_state.CourseStructure["Scenes"][0]["Scene4"]["Title"],
+        "copy_4": st.session_state.CourseStructure["Scenes"][0]["Scene4"]["TextOverlay"],
+        "script4": st.session_state.CourseStructure["Scenes"][0]["Scene4"]["Voiceover"],
+
+        "subtopic_5": st.session_state.CourseStructure["Scenes"][0]["Scene5"]["Title"],
+        "copy_5": st.session_state.CourseStructure["Scenes"][0]["Scene5"]["TextOverlay"],
+        "script5": st.session_state.CourseStructure["Scenes"][0]["Scene5"]["Voiceover"],
+
+        # ... and so on, for all scenes in your structure.
+    },
+    "test": True,
+    "callbackId": "john@example.com"
+}
+
+    # with tab_synthesia.expander("api_data"):
+    #     st.write(api_data)
+
+    # Make the API request
+    response = requests.post('https://api.synthesia.io/v2/videos/fromTemplate', headers=headers, data=json.dumps(api_data))
+    if response.status_code == 201:
+        st.info('Sample scene video creation process started successfully.')
+        video_id = response.json()['id']
+        st.write(f'Video ID for Sample scene: {video_id}')
+        st.code(video_id)
+        if "video_id" not in st.session_state:
+            st.session_state.video_id = video_id
+
+        editURL = f"https://app.synthesia.io/#/video-edit/{video_id}"
+
+
+        url = f"https://share.synthesia.io/embeds/videos/{video_id}"
+        st.write("Edit Video Link")
+        
+        st.write(editURL)
+        iframe_html = f""" <div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src="{url}" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"""
+        components.html(iframe_html,height=600)
+        # frame = f"<div style="position: relative; overflow: hidden; padding-top: 56.25%;"><iframe src=" loading="lazy" title="Synthesia video player - CB Template-1" allow="encrypted-media; fullscreen;" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; overflow:hidden;"></iframe></div>"
+
+
+
+    else:
+        st.write('An error occurred during the video creation process for Sample scene.')
+        st.write(f'Response status code: {response.status_code}')
+        st.write(f'Response content: {response.content}')
 
