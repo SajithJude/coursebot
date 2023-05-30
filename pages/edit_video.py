@@ -106,6 +106,10 @@ scene_data = {
 
 # Current scene index
 current_scene_index = 0
+# Input values
+scene_title = ""
+text_overlay = ""
+voiceover = ""
 # col1,col2,col3 = st.columns(3)
 
 # Function to update the scene based on index
@@ -166,9 +170,9 @@ def update_app():
         if tabs[0]:
             if scene:
                 st.subheader(f"Scene {current_scene_index + 1}")
-                scene_title = st.text_input("Title", scene["Title"])
-                text_overlay = st.text_input("Text Overlay", scene["TextOverlay"])
-                voiceover = st.text_input("Voiceover", scene["Voiceover"])
+                scene_title = st.text_input("Title", scene_title)
+                text_overlay = st.text_input("Text Overlay", text_overlay)
+                voiceover = st.text_input("Voiceover", voiceover)
 
     # Third column - Next button and variable image display
     next_column = col3.container()
