@@ -143,6 +143,9 @@ def next_button_callback():
 
 # Update the app based on the current scene index
 def update_app():
+    scene_title = ""
+    text_overlay = ""
+    voiceover = ""
     scene = update_scene(current_scene_index)
     col1, col2, col3 = st.columns(3)
 
@@ -179,6 +182,3 @@ def update_app():
 
 # Initial app setup
 update_app()
-scene_title = ""
-text_overlay = ""
-voiceover = ""
