@@ -522,19 +522,19 @@ else:
                 "Scenes": [
                 {
                     "Scene1": {
-                    "Title": "description or URL of image",
-                    "TextOverlay": "description or text to be shown",
-                    "Voiceover": "description or script of voiceover"
+                    "SceneName": "Add Scene Name Here",
+                    "Title": "Add title Here",
+                    "Voiceover": "(LEAVE THIS EMPTY)"
                     },
                     "Scene2": {
-                    "Title": "description or URL of image",
-                    "TextOverlay": "description or text to be shown",
-                    "Voiceover": "description or script of voiceover"
+                    "SceneName": "Add Scene Name Here",
+                    "Title": "Add title Here",
+                    "Voiceover": "(LEAVE THIS EMPTY)"
                     },
                     "Scene3": {
-                    "Title": "description or URL of image",
-                    "TextOverlay": "description or text to be shown",
-                    "Voiceover": "description or script of voiceover"
+                    "SceneName": "Add Scene Name Here",
+                    "Title": "Add title Here",
+                    "Voiceover": "(LEAVE THIS EMPTY)"
                     }
                     // Add more scenes as needed
                 }
