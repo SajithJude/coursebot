@@ -87,7 +87,7 @@ if st.session_state.passed_ARG:
     st.session_state.CourseStructure = json_data
 
 
-st.write(st.session_state.CourseStructure)
+# st.write(st.session_state.CourseStructure)
 name_vid =st.text_input("Name of video")
 email = st.text_input("Email id")
 
