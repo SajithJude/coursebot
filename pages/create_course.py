@@ -505,15 +505,15 @@ else:
     # toc_option = Uploadtab.radio("Choose a method to provide TOC", ("Generate TOC", "Copy Paste TOC"))
 
     if uploaded_file is not None:
+        # index = 
 
-            # index = 
-            if "index" not in st.session_state:
-                st.session_state.index = process_pdf(uploaded_file)
+        if "index" not in st.session_state:
+            st.session_state.index = process_pdf(uploaded_file)
 
-            # Uploadtab.success("Index created successfully")
+        # Uploadtab.success("Index created successfully")
 
-            with open(uploaded_file.name, "wb") as f:
-                f.write(uploaded_file.getbuffer())
+        with open(uploaded_file.name, "wb") as f:
+            f.write(uploaded_file.getbuffer())
     crsnm = Uploadtab.text_input("Enter Project Name")
     savnext = Uploadtab.button("Save & Proceed")
     if savnext:
