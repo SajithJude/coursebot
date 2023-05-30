@@ -7,6 +7,8 @@ from streamlit_extras.buy_me_a_coffee import button
 from streamlit_elements import elements, mui, html
 import requests
 import json 
+import streamlit.components.v1 as components
+
 st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
