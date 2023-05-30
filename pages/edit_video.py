@@ -168,9 +168,9 @@ def get_template(template_id):
     if response.status_code == 200:
         return response
     else:
-        print("Failed to retrieve template")
-        print("Status Code:", response.status_code)
-        print("Response:", response.text)
+        st.write("Failed to retrieve template")
+        st.write("Status Code:", response.status_code)
+        st.write("Response:", response.text)
         return None
 
 # In your Streamlit app
