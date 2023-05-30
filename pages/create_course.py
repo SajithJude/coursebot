@@ -56,6 +56,8 @@ def saveCS_dictionary_as_json():
     filename = f"output/{course_name}.json"
     with open(filename, "w") as file:
         file.write(json_data)
+        extractTab.success("Extracted Data Saved successfully")
+
 
     st.sidebar.success(f"JSON file saved as: {filename}")
 
@@ -592,8 +594,7 @@ else:
                 scene_data["Voiceover"] = voiceover
         
     saveCS_dictionary_as_json()
-    extractTab.success("Extracted Data Saved successfully")
-
+    
 
 
 #################### synthesia tab ###############################################
