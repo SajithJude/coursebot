@@ -494,6 +494,13 @@ else:
 
             with open(uploaded_file.name, "wb") as f:
                 f.write(uploaded_file.getbuffer())
+    crsnm = upload_col.text_input("Enter Course Name")
+    savnext = upload_col.button("Save Project")
+    if savnext:
+        if "index" in st.session_state:
+            if crsnm != "":
+                if "crsnm" not in st.session_state:
+                    st.session_state.crsnm = crsnm
 
     
 ###################### video structure ##########################
