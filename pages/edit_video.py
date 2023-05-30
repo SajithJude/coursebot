@@ -6,7 +6,7 @@ from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.buy_me_a_coffee import button
 from streamlit_elements import elements, mui, html
 # import streamlit.ReportThread as ReportThread
-
+import json
 # from streamlit.report_thread import get_report_ctx
 
 st.set_page_config(
