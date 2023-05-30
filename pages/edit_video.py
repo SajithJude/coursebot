@@ -106,9 +106,6 @@ scene_data = {
 
 # Current scene index
 current_scene_index = 0
-# Input values
-
-# col1,col2,col3 = st.columns(3)
 
 # Function to update the scene based on index
 def update_scene(index):
@@ -120,64 +117,47 @@ def update_scene(index):
 
 # Previous button callback
 def previous_button_callback():
-    global current_scene_index, scene_title, text_overlay, voiceover
+    global current_scene_index
     if current_scene_index > 0:
         current_scene_index -= 1
-        scene = update_scene(current_scene_index)
-        if scene:
-            scene_title = scene["Title"]
-            text_overlay = scene["TextOverlay"]
-            voiceover = scene["Voiceover"]
+    update_app()
 
 # Next button callback
 def next_button_callback():
-    global current_scene_index, scene_title, text_overlay, voiceover
+    global current_scene_index
     scene_count = len(scene_data["CourseStructure"]["Scenes"][0])
     if current_scene_index < scene_count - 1:
         current_scene_index += 1
-        scene = update_scene(current_scene_index)
-        if scene:
-            scene_title = scene["Title"]
-            text_overlay = scene["TextOverlay"]
-            voiceover = scene["Voiceover"]
+    update_app()
 
 # Update the app based on the current scene index
 def update_app():
-    scene_title = ""
-    text_overlay = ""
-    voiceover = ""
     scene = update_scene(current_scene_index)
-    col1, col2, col3 = st.columns(3)
 
-    col1.empty()
-    col3.empty()
-    col2.empty()
     # Clear the app
     st.container().empty()
 
-    
-
     # First column - Previous button and preview image
-    prev_column = col1.container()
+    prev_column = st.container()
     with prev_column:
-        prev_button = st.button("Previous", on_click=previous_button_callback, key=f"prev{current_scene_index}")
+        prev_button = st.button("Previous", on_click=previous_button_callback)
         preview_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
     # Middle column - Tabs
-    middle_column = col2.container()
+    middle_column = st.container()
     with middle_column:
         tabs = st.tabs(["Scene Information"])
         if tabs[0]:
             if scene:
                 st.subheader(f"Scene {current_scene_index + 1}")
-                scene_title = st.text_input("Title", scene_title)
-                text_overlay = st.text_input("Text Overlay", text_overlay)
-                voiceover = st.text_input("Voiceover", voiceover)
+                scene_title = st.text_input("Title", scene["Title"])
+                text_overlay = st.text_input("Text Overlay", scene["TextOverlay"])
+                voiceover = st.text_input("Voiceover", scene["Voiceover"])
 
     # Third column - Next button and variable image display
-    next_column = col3.container()
+    next_column = st.container()
     with next_column:
-        next_button = st.button("Next", on_click=next_button_callback, key=f"next{current_scene_index}")
+        next_button = st.button("Next", on_click=previous_button_callback)
         variable_image = st.image("https://images.wondershare.com/recoverit/2022recoverit-dr/tab-img01.png")
 
 # Initial app setup
