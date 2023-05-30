@@ -117,7 +117,9 @@ def update_scene(index):
 
 # Previous button callback
 def previous_button_callback():
-    st.container().empty()
+    col1.container().empty()
+    col2.container().empty()
+    col3.container().empty()
 
     global current_scene_index
     if current_scene_index > 0:
@@ -126,7 +128,9 @@ def previous_button_callback():
 
 # Next button callback
 def next_button_callback():
-    st.container().empty()
+    col1.container().empty()
+    col2.container().empty()
+    col3.container().empty()
 
     global current_scene_index
     scene_count = len(scene_data["CourseStructure"]["Scenes"][0])
